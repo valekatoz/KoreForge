@@ -20,8 +20,7 @@ rootProject.buildFileName = "root.gradle.kts"
 
 // Adds all of our build target versions to the classpath if we need to add version-specific code.
 listOf(
-    "1.8.9-forge", // Update this if you want to remove/add a version, along with `build.gradle.kts` and `root.gradle.kts`.
-    "1.12.2-forge"
+    "1.8.9-forge" // Update this if you want to remove/add a version, along with `build.gradle.kts` and `root.gradle.kts`.
 ).forEach { version ->
     include(":$version")
     project(":$version").apply {
