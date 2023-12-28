@@ -20,11 +20,14 @@ public class KoreConfig extends Config {
     // CATEGORIES
     private transient static final String RENDER = "Render";
     private transient static final String PLAYER = "Player";
+    private transient static final String OTHER = "Other";
 
     // SUB-CATEGORIES
     private transient static final String WATERMARK = "Watermark";
     private transient static final String AUTO_HARP = "Auto Harp";
     private transient static final String AUTO_EXPERIMENTS = "Auto Experiments";
+    private transient static final String PROTECTIONS = "Protections";
+    private transient static final String DEVELOPMENT = "Developer Mode";
 
     @HUD(
             name = "Enabled",
@@ -101,6 +104,22 @@ public class KoreConfig extends Config {
             subcategory = AUTO_EXPERIMENTS
     )
     public static boolean ultrasequencerSolver = false;
+
+    @Switch(
+            name = "Enable",
+            description = "Enable or disable developer mode (useful for debugging)",
+            category = OTHER,
+            subcategory = DEVELOPMENT
+    )
+    public static boolean devMode = false;
+
+    @Switch(
+            name = "Mod Hider",
+            description = "Hides the mod id from the mods list",
+            category = OTHER,
+            subcategory = PROTECTIONS
+    )
+    public static boolean modHider = true;
 
     public KoreConfig() {
         super(new Mod(Kore.NAME, ModType.SKYBLOCK, "/assets/logo.png",84,84), Kore.MODID + ".json");

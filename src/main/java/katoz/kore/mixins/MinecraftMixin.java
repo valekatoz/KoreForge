@@ -1,4 +1,4 @@
-package katoz.kore.mixin;
+package katoz.kore.mixins;
 
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * An example mixin using SpongePowered's Mixin library and ObjectWeb ASM.
+ * An example mixins using SpongePowered's Mixin library and ObjectWeb ASM.
  *
  * @see Inject
  * @see Mixin

@@ -68,7 +68,7 @@ loom {
             mixinConfig("mixins.${mod_id}.json")
         }
     }
-    // Configures the name of the mixin "refmap" using an experimental loom api.
+    // Configures the name of the mixins "refmap" using an experimental loom api.
     mixin.defaultRefmapName.set("mixins.${mod_id}.refmap.json")
 }
 
@@ -183,7 +183,7 @@ tasks {
                 "ModSide" to "CLIENT", // We aren't developing a server-side mod, so this is fine.
                 "ForceLoadAsMod" to true, // We want to load this jar as a mod, so we force Forge to do so.
                 "TweakOrder" to "0", // Makes sure that the OneConfig launch wrapper is loaded as soon as possible.
-                "MixinConfigs" to "mixins.${mod_id}.json", // We want to use our mixin configuration, so we specify it here.
+                "MixinConfigs" to "mixins.${mod_id}.json", // We want to use our mixins configuration, so we specify it here.
                 "TweakClass" to "cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker" // Loads the OneConfig launch wrapper.
             )
         }
