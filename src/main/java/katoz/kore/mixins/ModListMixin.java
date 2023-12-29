@@ -19,7 +19,6 @@ import java.util.Map;
 
 @Mixin(value = FMLHandshakeMessage.ModList.class)
 public class ModListMixin {
-
     private static final Logger logger = LogManager.getLogger();
 
     @Shadow(remap = false)

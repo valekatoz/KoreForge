@@ -20,6 +20,7 @@ import katoz.kore.utils.ModUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class AutoHarp {
@@ -30,6 +31,8 @@ public class AutoHarp {
     private int updates;
     private final ArrayList<ItemStack> currentInventory = new ArrayList<>();
     private long lastContainerUpdate;
+    private Random rand = new Random(System.currentTimeMillis());
+    private int randDelay = 0;
 
     @SubscribeEvent
     public final void onGuiOpen(@NotNull GuiOpenEvent event) {
@@ -84,6 +87,7 @@ public class AutoHarp {
                             slot = Kore.mc.thePlayer.openContainer.inventorySlots.get(finalSlotNumber);
                             timestamp = System.currentTimeMillis();
                             //ModUtils.sendMessage("clicked slot " + (slot.slotNumber + 9) + " at " + (timestamp - startedSongTimestamp));
+                            randDelay = rand.nextInt(3);
                             Kore.mc.playerController.windowClick(
                                     Kore.mc.thePlayer.openContainer.windowId,
                                     finalSlotNumber + 9,
@@ -91,7 +95,7 @@ public class AutoHarp {
                                     3,
                                     Kore.mc.thePlayer
                             );
-                        }, KoreConfig.autoHarpDelay, TimeUnit.MILLISECONDS);
+                        }, KoreConfig.autoHarpDelay+randDelay, TimeUnit.MILLISECONDS);
                         break;
                     }
                 }
@@ -101,7 +105,7 @@ public class AutoHarp {
 
     @SubscribeEvent
     public void onGuiRender(GuiScreenEvent.DrawScreenEvent.Post event) {
-        if (!isEnabled() || !inHarp) return;
+        if (!isEnabled() || !inHarp || !KoreConfig.devMode) return;
         GlStateManager.disableLighting();
         GlStateManager.disableDepth();
         GlStateManager.disableBlend();
@@ -125,7 +129,7 @@ public class AutoHarp {
                     Color.GREEN.getRGB()
             );
         }
-        if (slot != null && System.currentTimeMillis() - timestamp < KoreConfig.autoHarpDelay/* * 0.75*/) {
+        if (slot != null && System.currentTimeMillis() - timestamp < (KoreConfig.autoHarpDelay+randDelay)/* * 0.75*/) {
             Kore.mc.fontRendererObj.drawStringWithShadow(
                     "Click",
                     (event.gui.width - 176) / 2f + slot.xDisplayPosition + 8 - Kore.mc.fontRendererObj.getStringWidth("Click") / 2f,

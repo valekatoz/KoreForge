@@ -1,6 +1,6 @@
-# Kore (1.0.4)
+# Kore (1.0.5)
 
-Kore is a forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and repetitive tasks.
+Kore is a forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and repetitive tasks. You can access the mod through OneConfig or /koremod
 
 ![Powered by OneConfig](https://polyfrost.org/img/cozy_vector.svg)
 ## Features
@@ -17,7 +17,7 @@ Kore is a forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and
 
 ## Screenshots
 
-![App Screenshot](screenshots/watermark.png)
+![App Screenshot](screenshots/render.png)
 
 ![App Screenshot](screenshots/player.png)
 
@@ -38,7 +38,7 @@ Yes.
 
 #### Is it undetected?
 
-Should be, use delays and you should be fine.
+Should be, use delays and you will be fine.
 
 #### Is this a rat?
 

@@ -30,11 +30,12 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The entrypoint of the Example Mod that initializes it.
+ * The entrypoint of Kore that initializes it.
  *
  * @see Mod
  * @see InitializationEvent
  */
+
 @Mod(modid = Kore.MODID, name = Kore.NAME, version = Kore.VERSION)
 public class Kore {
     public static final String MODID = "@ID@";
@@ -47,7 +48,6 @@ public class Kore {
     public static Minecraft mc = Minecraft.getMinecraft();
     private final ArrayList<Object> modules = new ArrayList<>();
     private boolean login = false;
-    public static boolean debug = false;
     private boolean failedCreatingConfig = false;
 
     public Kore() {

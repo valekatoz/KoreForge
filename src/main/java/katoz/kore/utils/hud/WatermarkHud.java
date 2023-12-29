@@ -23,6 +23,7 @@ public abstract class WatermarkHud extends TextHud {
      * @param borderSize   Thickness of the border
      * @param borderColor  The color of the border
      */
+
     public WatermarkHud(String title, boolean enabled, float x, float y, float scale, boolean background, boolean rounded, float cornerRadius, float paddingX, float paddingY, OneColor bgColor, boolean border, float borderSize, OneColor borderColor) {
         super(enabled, x, y, scale, background, rounded, cornerRadius, paddingX, paddingY, bgColor, border, borderSize, borderColor);
         this.title = title;
@@ -110,6 +111,7 @@ public abstract class WatermarkHud extends TextHud {
         if (!brackets) return getLineWidth(lines.get(0), scale);
         return getLineWidth("[" + lines.get(0) + "]", scale);
     }
+    
     protected boolean brackets = false;
     protected OneColor bracketsColor = new OneColor(0xFFFFFFFF);
     protected String title;

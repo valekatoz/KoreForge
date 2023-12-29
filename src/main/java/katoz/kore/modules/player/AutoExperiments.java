@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Random;
 
 public class AutoExperiments {
-
     private Minecraft mc = Minecraft.getMinecraft();
     private int tickAmount = 0;
     // Chronomatron
@@ -39,6 +38,7 @@ public class AutoExperiments {
     private int until = 0;
     private Random rand = new Random(System.currentTimeMillis());
     private int randDelay = 0;
+    
     @SubscribeEvent
     public void onTick(GuiScreenEvent.BackgroundDrawnEvent event) {
         if(!isEnabled()) return;

@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * @see Inject
  * @see Mixin
  */
+
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
     @Inject(method = "startGame", at = @At(value = "HEAD"))

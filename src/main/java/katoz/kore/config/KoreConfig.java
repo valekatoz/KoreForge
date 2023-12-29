@@ -10,11 +10,6 @@ import cc.polyfrost.oneconfig.config.data.ModType;
 
 import java.util.Random;
 
-/**
- * The main Config entrypoint that extends the Config type and inits the config options.
- * See <a href="https://docs.polyfrost.cc/oneconfig/config/adding-options">this link</a> for more config Options
- */
-
 public class KoreConfig extends Config {
 
     // CATEGORIES
@@ -113,6 +108,14 @@ public class KoreConfig extends Config {
     )
     public static boolean devMode = false;
 
+    @Info(
+            text = "You need to leave and rejoin the server to apply the changes",
+            category = OTHER,
+            subcategory = PROTECTIONS,
+            type = InfoType.WARNING,
+            size = 2
+    )
+    public static boolean modHiderWarningIgnored;
     @Switch(
             name = "Mod Hider",
             description = "Hides the mod when sending the modlist to the server",
