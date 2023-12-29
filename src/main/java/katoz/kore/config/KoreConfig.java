@@ -106,7 +106,7 @@ public class KoreConfig extends Config {
     public static boolean ultrasequencerSolver = false;
 
     @Switch(
-            name = "Enable",
+            name = "Enabled",
             description = "Enable or disable developer mode (useful for debugging)",
             category = OTHER,
             subcategory = DEVELOPMENT
@@ -115,7 +115,7 @@ public class KoreConfig extends Config {
 
     @Switch(
             name = "Mod Hider",
-            description = "Hides the mod id from the mods list",
+            description = "Hides the mod when sending the modlist to the server",
             category = OTHER,
             subcategory = PROTECTIONS
     )
