@@ -1,4 +1,4 @@
-# Kore (1.0.5)
+# Kore (1.0.6)
 
 Kore is a forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and repetitive tasks. You can access the mod through OneConfig or /koremod
 
@@ -12,7 +12,7 @@ Kore is a forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and
   - Auto Experiments
 - Other
   - DevMode (Debug)
-  - Mod Hider
+  - Mod Hider (Enabled by default)
 
 
 ## Screenshots
