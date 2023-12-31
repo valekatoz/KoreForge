@@ -26,6 +26,7 @@ public abstract class WatermarkHud extends TextHud {
 
     public WatermarkHud(String title, boolean enabled, float x, float y, float scale, boolean background, boolean rounded, float cornerRadius, float paddingX, float paddingY, OneColor bgColor, boolean border, float borderSize, OneColor borderColor) {
         super(enabled, x, y, scale, background, rounded, cornerRadius, paddingX, paddingY, bgColor, border, borderSize, borderColor);
+        super.showInGuis = false;
         this.title = title;
     }
 

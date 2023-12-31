@@ -10,7 +10,7 @@ public class ModUtils {
             message = object.toString().replace("&", "§");
         }
         if (Kore.mc.thePlayer != null) {
-            Kore.mc.thePlayer.addChatMessage(new ChatComponentText("§7[§d" + Kore.NAME + "§7] §f" + message));
+            Kore.mc.thePlayer.addChatMessage(new ChatComponentText("§7[§c" + Kore.NAME + "§7] §f" + message));
         }
     }
 }

@@ -1,7 +1,5 @@
 package katoz.kore.modules.player;
 
-import katoz.kore.utils.ModUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.init.Blocks;
@@ -19,14 +17,18 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import katoz.kore.Kore;
 import katoz.kore.config.KoreConfig;
 import katoz.kore.utils.LocationUtils;
+import katoz.kore.utils.GuiUtils;
+import katoz.kore.utils.ModUtils;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class AutoExperiments {
-    private Minecraft mc = Minecraft.getMinecraft();
     private int tickAmount = 0;
+    private final Random rand = new Random(System.currentTimeMillis());
+    private int randDelay = 0;
     // Chronomatron
     static int lastChronomatronRound = 0;
     static List<String> chronomatronPattern = new ArrayList<>();
@@ -36,21 +38,28 @@ public class AutoExperiments {
     static Slot[] clickInOrderSlots = new Slot[36];
     static int lastUltraSequencerClicked = 0;
     private int until = 0;
-    private Random rand = new Random(System.currentTimeMillis());
-    private int randDelay = 0;
+
+    @SubscribeEvent
+    public void onGuiOpen(GuiOpenEvent event) {
+        lastChronomatronRound = 0;
+        chronomatronPattern.clear();
+        chronomatronMouseClicks = 0;
+        clickInOrderSlots = new Slot[36];
+    }
     
     @SubscribeEvent
     public void onTick(GuiScreenEvent.BackgroundDrawnEvent event) {
         if(!isEnabled()) return;
-        if (mc.currentScreen instanceof GuiChest) {
+
+        if (Kore.mc.currentScreen instanceof GuiChest) {
             GuiChest inventory = (GuiChest) event.gui;
             Container containerChest = inventory.inventorySlots;
             if (containerChest instanceof ContainerChest) {
                 List<Slot> invSlots = containerChest.inventorySlots;
                 String invName = ((ContainerChest) containerChest).getLowerChestInventory().getDisplayName().getUnformattedText().trim();
 
-                if (isEnabled() && KoreConfig.chronomatronSolver && invName.startsWith("Chronomatron (")) {
-                    EntityPlayerSP player = mc.thePlayer;
+                if (KoreConfig.chronomatronSolver && invName.startsWith("Chronomatron (")) {
+                    EntityPlayerSP player = Kore.mc.thePlayer;
                     if (player.inventory.getItemStack() == null && invSlots.size() > 48 && invSlots.get(49).getStack() != null) {
                         if (invSlots.get(49).getStack().getDisplayName().startsWith("§7Timer: §a") && invSlots.get(4).getStack() != null) {
                             int round = invSlots.get(4).getStack().stackSize;
@@ -68,11 +77,14 @@ public class AutoExperiments {
                             if (player.inventory.getItemStack() == null && chronomatronMouseClicks < chronomatronPattern.size()) {
                                 for (int i = 10; i <= 43; i++) {
                                     ItemStack glass = invSlots.get(i).getStack();
-                                    if (player.inventory.getItemStack() == null && glass != null && tickAmount % 5 == 0  && lastClickTime+((KoreConfig.autoExperimentsDelay+randDelay)*50) < System.currentTimeMillis() ) { //tickAmount % 5 == 0
+                                    if (player.inventory.getItemStack() == null && glass != null && tickAmount % 5 == 0  && lastClickTime+((KoreConfig.autoExperimentsDelay+randDelay)*50L) < System.currentTimeMillis() ) { //tickAmount % 5 == 0
                                         Slot glassSlot = invSlots.get(i);
                                         if (glass.getDisplayName().equals(chronomatronPattern.get(chronomatronMouseClicks))) {
                                             randDelay = rand.nextInt(3);
-                                            mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId,glassSlot.slotNumber,2,3, mc.thePlayer);
+                                            Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId,glassSlot.slotNumber,2,3, Kore.mc.thePlayer);
+                                            if(KoreConfig.devMode) {
+                                                ModUtils.sendMessage("(Chronomatron) Clicked Slot " + glassSlot.slotNumber + " (" + glassSlot.getStack().getDisplayName() + "§f)");
+                                            }
                                             lastClickTime = System.currentTimeMillis();
                                             chronomatronMouseClicks++;
                                             break;
@@ -86,8 +98,8 @@ public class AutoExperiments {
                     }
                 }
 
-                if (isEnabled() && KoreConfig.ultrasequencerSolver && invName.startsWith("Ultrasequencer (")) {
-                    EntityPlayerSP player = mc.thePlayer;
+                if (KoreConfig.ultrasequencerSolver && invName.startsWith("Ultrasequencer (")) {
+                    EntityPlayerSP player = Kore.mc.thePlayer;
                     if (player.inventory.getItemStack() == null && invSlots.size() > 48 && invSlots.get(49).getStack() != null && invSlots.get(49).getStack().getDisplayName().startsWith("§7Timer: §a")) {
                         lastUltraSequencerClicked = 0;
                         for (Slot slot: clickInOrderSlots) {
@@ -101,14 +113,20 @@ public class AutoExperiments {
                         if (player.inventory.getItemStack() == null && clickInOrderSlots[lastUltraSequencerClicked] != null && tickAmount % (2+(KoreConfig.autoExperimentsDelay+randDelay)) == 0 && lastUltraSequencerClicked != 0 && until == lastUltraSequencerClicked) {
                             Slot nextSlot = clickInOrderSlots[lastUltraSequencerClicked];
                             randDelay = rand.nextInt(3);
-                            mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId, nextSlot.slotNumber, 2, 3, mc.thePlayer);
+                            Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId, nextSlot.slotNumber, 2, 3, Kore.mc.thePlayer);
+                            if(KoreConfig.devMode) {
+                                ModUtils.sendMessage("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (§c" + (lastUltraSequencerClicked+1) + "§f)");
+                            }
                             until = lastUltraSequencerClicked + 1;
                             tickAmount = 0;
                         }
                         if (player.inventory.getItemStack() == null && clickInOrderSlots[lastUltraSequencerClicked] != null && tickAmount == (18+(KoreConfig.autoExperimentsDelay+randDelay)) && lastUltraSequencerClicked < 1) {
                             Slot nextSlot = clickInOrderSlots[lastUltraSequencerClicked];
                             randDelay = rand.nextInt(3);
-                            mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId, nextSlot.slotNumber, 2, 3, mc.thePlayer);
+                            Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId, nextSlot.slotNumber, 2, 3, Kore.mc.thePlayer);
+                            if(KoreConfig.devMode) {
+                                ModUtils.sendMessage("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (§c" + (lastUltraSequencerClicked+1) + "§f)");
+                            }
                             tickAmount = 0;
                             until = 1;
                         }
@@ -119,29 +137,43 @@ public class AutoExperiments {
     }
 
     @SubscribeEvent
-    public void onGuiOpen(GuiOpenEvent event) {
+    public void onGuiRender(GuiScreenEvent.DrawScreenEvent.Post event) {
         if(!isEnabled()) return;
-        lastChronomatronRound = 0;
-        chronomatronPattern.clear();
-        chronomatronMouseClicks = 0;
-        clickInOrderSlots = new Slot[36];
+
+        if(GuiUtils.getInventoryName(event.gui).startsWith("Chronomatron") || GuiUtils.getInventoryName(event.gui).startsWith("Ultrasequencer") || GuiUtils.getInventoryName(event.gui).startsWith("Experimentation Table")) {
+            Kore.mc.fontRendererObj.drawStringWithShadow("[KORE] ",5,5,new Color(255, 85, 85).getRGB());
+            Kore.mc.fontRendererObj.drawStringWithShadow("AutoExperiments is active",42,5,Color.WHITE.getRGB());
+            if(KoreConfig.devMode) {
+                if(KoreConfig.chronomatronSolver) {
+                    Kore.mc.fontRendererObj.drawStringWithShadow("chronomatronSolver",42,15,Color.GREEN.getRGB());
+                } else {
+                    Kore.mc.fontRendererObj.drawStringWithShadow("chronomatronSolver",42,15,Color.RED.getRGB());
+                }
+                if(KoreConfig.ultrasequencerSolver) {
+                    Kore.mc.fontRendererObj.drawStringWithShadow("ultrasequencerSolver",42,25,Color.GREEN.getRGB());
+                } else {
+                    Kore.mc.fontRendererObj.drawStringWithShadow("ultrasequencerSolver",42,25,Color.RED.getRGB());
+                }
+            }
+        }
     }
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
-        if(!isEnabled()) return;
-        if (event.phase != TickEvent.Phase.START) return;
+        if(!isEnabled() || event.phase != TickEvent.Phase.START) return;
+
         tickAmount++;
         if (tickAmount % (20+(KoreConfig.autoExperimentsDelay+randDelay)) == 0) {
             tickAmount = 0;
         }
-        if (mc.currentScreen instanceof GuiChest) {
-            if (mc.thePlayer != null) {
-                ContainerChest chest = (ContainerChest) mc.thePlayer.openContainer;
-                List<Slot> invSlots = ((GuiChest) mc.currentScreen).inventorySlots.inventorySlots;
+
+        if (Kore.mc.currentScreen instanceof GuiChest) {
+            if (Kore.mc.thePlayer != null) {
+                ContainerChest chest = (ContainerChest) Kore.mc.thePlayer.openContainer;
+                List<Slot> invSlots = ((GuiChest) Kore.mc.currentScreen).inventorySlots.inventorySlots;
                 String chestName = chest.getLowerChestInventory().getDisplayName().getUnformattedText().trim();
 
-                if (isEnabled() && KoreConfig.ultrasequencerSolver && chestName.startsWith("Ultrasequencer (")) {
+                if (KoreConfig.ultrasequencerSolver && chestName.startsWith("Ultrasequencer (")) {
                     if (invSlots.get(49).getStack() != null && invSlots.get(49).getStack().getDisplayName().equals("§aRemember the pattern!")) {
                         for (int i = 9; i <= 44; i++) {
                             if (invSlots.get(i) != null && invSlots.get(i).getStack() != null) {
