@@ -1,0 +1,28 @@
+{
+  "compatibilityLevel": "JAVA_8",
+  "package": "net.kore.mixins",
+  "refmap": "mixins.kore.refmap.json",
+  "mixins": [
+    "MixinMinecraft",
+    "MixinChat",
+    "MixinFontRenderer",
+    "MixinModList",
+    "MixinNetworkManager",
+    "PlayerControllerMixin",
+    "PlayerSPAccessor",
+    "gui.MixinGui",
+    "gui.MixinGuiButton",
+    "gui.MixinGuiChat",
+    "gui.MixinGuiContainer",
+    "gui.MixinGuiScoreboard",
+    "gui.MixinGuiScreen",
+    "render.MixinItemRenderer",
+    "render.MixinRender",
+    "render.MixinRenderCaveSpider",
+    "render.MixinRenderLivingEntity",
+    "render.MixinRenderPlayer",
+    "render.MixinRenderVillager",
+    "render.MixinRenderWither",
+    "settings.GameSettings"
+  ]
+}

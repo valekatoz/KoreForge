@@ -1,27 +1,48 @@
-# Kore (1.0.6)
+# Kore (2.0.0-private)
 
-Kore is a forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and repetitive tasks. You can access the mod through OneConfig or /koremod
+Kore is a forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and repetitive tasks while keeping you entertained with cool features. You can access the mod by using the default keybind (Right Shift), to set a custom keybind hold shift and left click a module.
 
-![Powered by OneConfig](https://polyfrost.org/img/cozy_vector.svg)
+This is my own Kore version, for the more-feature rich and updated version you can check this [Kore fork](https://github.com/Kyrotechnic/Kore/) (at your own risk).
+
 ## Features
 
 - Render 
-  - Watermark
+  - Modern Gui
+  - Modern Interfaces
+  - Modern InventoryDisplay
+  - Nametags
+  - PlayerESP
+  - PopupAnimations
+  - Giant Models
+  - Chinese Hat
+  - Animations
+- Protections
+  - Mod Hider
+  - Nick Hider
+  - Staff Analyzer
+  - Proxy (WIP)
 - Player
-  - Auto Harp
+  - Fast Break
+  - Fast Place
+  - FreeCam
+  - Inventory Move
+  - Ghost Blocks
+- Combat
+  - AimAssist
+  - AntiBot
+- Misc
   - Auto Experiments
-- Other
-  - DevMode (Debug)
-  - Mod Hider (Enabled by default)
+  - Auto Harp
+  - Murder Finder
+- Dev
+  - Debug
 
 
 ## Screenshots
 
-![App Screenshot](screenshots/render.png)
+- ![Home](screenshots/home.png)
 
-![App Screenshot](screenshots/player.png)
-
-![App Screenshot](screenshots/other.png)
+- ![Gui](screenshots/gui.png)
 
 ## Contributing
 
@@ -29,6 +50,10 @@ Contributions are always welcome!
 
 Create a feature for `Kore` and open a `Pull Request` with your code!
 
+## Credits
+
+- valekatoz
+- Kyrotechnic
 
 ## FAQ
 
@@ -38,7 +63,7 @@ Yes.
 
 #### Is it undetected?
 
-Should be, use delays and you will be fine.
+Some features are, render and misc are safe to use (remember to keep modhider enabled).
 
 #### Is this a rat?
 
