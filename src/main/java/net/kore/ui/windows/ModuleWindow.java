@@ -49,8 +49,23 @@ public class ModuleWindow extends Window {
         int offset = 30;
         if (!ModernClickGui.settingsOpened) {
             for (Module module : this.modulesInCategory) {
+                if (module.getFlagType() == Module.FlagType.RISKY && Kore.clickGui.hideRiskyModules.isEnabled())
+                {
+                    continue;
+                }
+
                 RenderUtils.drawBorderedRoundedRect((float)(ModernClickGui.getX() + 95.0), (float)(ModernClickGui.getY() + (double)offset + this.scrollAnimation.getValue()), ModernClickGui.getWidth() - 100.0f, 20.0f, 3.0f, 1.0f, module.isToggled() ? Kore.themeManager.getSecondaryColor().getRGB() : Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
-                Fonts.getPrimary().drawString(module.getName(), ModernClickGui.getX() + 105.0, ModernClickGui.getY() + (double)offset + this.scrollAnimation.getValue() + 6.0, Color.WHITE.getRGB());
+
+                int shift = 105;
+
+                if (module.getFlagType() == Module.FlagType.RISKY)
+                {
+                    shift += 10;
+
+                    Fonts.newIcons.drawString("A", ModernClickGui.getX() + 100, ModernClickGui.getY() + (double) offset + this.scrollAnimation.getValue() + 6.0, Color.YELLOW.getRGB());
+                }
+
+                Fonts.getPrimary().drawString(module.getName(), ModernClickGui.getX() + shift, ModernClickGui.getY() + (double)offset + this.scrollAnimation.getValue() + 7.0, Color.WHITE.getRGB());
                 if (!module.getSettings().isEmpty()) {
                     Fonts.icon.drawString("C", ModernClickGui.getX() + (double)ModernClickGui.getWidth() - 21.0, ModernClickGui.getY() + (double)offset + this.scrollAnimation.getValue() + 8.0, Color.WHITE.getRGB());
                 }

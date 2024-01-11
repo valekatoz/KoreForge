@@ -31,6 +31,7 @@ public class Module {
     private boolean devOnly;
     public final MilliTimer toggledTime;
     public final List<Setting> settings;
+    public FlagType flagType;
 
     public Module(final String name, final int keycode, final Category category) {
         this.toggledTime = new MilliTimer();
@@ -38,6 +39,7 @@ public class Module {
         this.name = name;
         this.keycode = keycode;
         this.category = category;
+        this.flagType = FlagType.SAFE;
     }
 
     public Module(final String name, final Category category) {
@@ -57,6 +59,16 @@ public class Module {
     public void assign()
     {
 
+    }
+
+    public void setFlagType(FlagType type)
+    {
+        this.flagType = type;
+    }
+
+    public FlagType getFlagType()
+    {
+        return this.flagType;
     }
 
     public void onSave() {
@@ -179,5 +191,11 @@ public class Module {
         private Category(final String name) {
             this.name = name;
         }
+    }
+
+    public enum FlagType
+    {
+        SAFE,
+        RISKY
     }
 }

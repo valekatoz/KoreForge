@@ -23,6 +23,8 @@
     "render.MixinRenderPlayer",
     "render.MixinRenderVillager",
     "render.MixinRenderWither",
-    "settings.GameSettings"
+    "settings.GameSettings",
+    "other.essential.cosmetics.MixinCosmeticsManager",
+    "other.essential.cosmetics.MixinServerCosmeticsPopulatePacketHandler"
   ]
 }

@@ -47,6 +47,7 @@ public class Gui extends Module {
     public BooleanSetting arrayOutline;
     public BooleanSetting waterMark;
     public BooleanSetting hsb;
+    public BooleanSetting hideRiskyModules;
     public static final StringSetting commandPrefix = new StringSetting("Prefix", ".", 1);
 
     public Gui() {
@@ -80,9 +81,10 @@ public class Gui extends Module {
         this.arrayOutline = new BooleanSetting("Array line", true);
         this.waterMark = new BooleanSetting("Watermark", true);
         this.hsb = new BooleanSetting("HSB ", true, aBoolean -> !this.colorMode.is("Gradient"));
+        this.hideRiskyModules = new BooleanSetting("Hide risky modules", false);
 
         setToggled(false);
-        this.addSettings(this.colorMode, this.hsb, this.rgbSpeed, this.shiftSpeed, this.redCustom, this.greenCustom, this.blueCustom, this.redShift1, this.greenShift1, this.blueShift1, this.redShift2, this.greenShift2, this.blueShift2, Gui.commandPrefix, this.blur, this.waterMark, this.arrayList, this.arrayOutline, this.arrayBlur, this.disableNotifs, this.scaleGui);
+        this.addSettings(this.colorMode, this.hsb, this.rgbSpeed, this.shiftSpeed, this.redCustom, this.greenCustom, this.blueCustom, this.redShift1, this.greenShift1, this.blueShift1, this.redShift2, this.greenShift2, this.blueShift2, Gui.commandPrefix, this.blur, this.waterMark, this.arrayList, this.arrayOutline, this.arrayBlur, this.disableNotifs, this.scaleGui, this.hideRiskyModules);
     }
 
     public float getHeight() {

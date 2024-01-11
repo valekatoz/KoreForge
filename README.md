@@ -1,12 +1,15 @@
-# Kore (2.0.0-private)
+# Kore (2.0.1-private)
 
-Kore is a forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and repetitive tasks while keeping you entertained with cool features. You can access the mod by using the default keybind (Right Shift), to set a custom keybind hold shift and left click a module.
+Kore is a minecraft forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and repetitive tasks while keeping you entertained with cool features. 
+You can access the mod by using the default keybind (right shift), to set a custom keybind hold shift and left click a module.
 
-This is my own Kore version, for the more-feature rich and updated version you can check this [Kore fork](https://github.com/Kyrotechnic/Kore/) (at your own risk).
+## Note
+
+if this code is not in compliance with some licenses or something let me know opening a new issue.
 
 ## Features
 
-- Render 
+- Render
   - Modern Gui
   - Modern Interfaces
   - Modern InventoryDisplay
@@ -16,6 +19,7 @@ This is my own Kore version, for the more-feature rich and updated version you c
   - Giant Models
   - Chinese Hat
   - Animations
+  - **Essential Cosmetics Unlocker**
 - Protections
   - Mod Hider
   - Nick Hider
@@ -40,9 +44,9 @@ This is my own Kore version, for the more-feature rich and updated version you c
 
 ## Screenshots
 
-- ![Home](screenshots/home.png)
+![Home](screenshots/home.png)
 
-- ![Gui](screenshots/gui.png)
+![Gui](screenshots/gui.png)
 
 ## Contributing
 
@@ -53,7 +57,7 @@ Create a feature for `Kore` and open a `Pull Request` with your code!
 ## Credits
 
 - valekatoz
-- Kyrotechnic
+- Kyrotechnic (UI)
 
 ## FAQ
 
