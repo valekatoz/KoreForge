@@ -21,6 +21,7 @@ if this code is not in compliance with some licenses or something let me know op
   - Animations
   - **Essential Cosmetics Unlocker**
 - Protections
+  - Anti Nicker (WIP)
   - Mod Hider
   - Nick Hider
   - Staff Analyzer
@@ -42,22 +43,15 @@ if this code is not in compliance with some licenses or something let me know op
   - Debug
 
 
-## Screenshots
+## Showcase
 
-![Home](screenshots/home.png)
-
-![Gui](screenshots/gui.png)
-
-## Contributing
-
-Contributions are always welcome!
-
-Create a feature for `Kore` and open a `Pull Request` with your code!
+...soon
 
 ## Credits
 
 - valekatoz
 - Kyrotechnic (UI)
+- dxxxxy (Essential Cosmetics Unlocker)
 
 ## FAQ
 

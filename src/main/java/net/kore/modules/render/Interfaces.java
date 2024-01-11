@@ -85,6 +85,12 @@ public class Interfaces extends Module
         this.addSettings(this.customChat, this.customChatFont, this.customScoreboard, this.customFont, this.outline, this.hideLobby, this.blurStrength, this.customButtons, roundedButton, this.buttonLine, this.lineLocation);
     }
 
+    @Override
+    public void assign()
+    {
+        Kore.interfaces = this;
+    }
+
     @SubscribeEvent
     public void onDraw(final ScoreboardRenderEvent event) {
         if (!this.isToggled() || !this.customScoreboard.isEnabled()) {
@@ -201,11 +207,5 @@ public class Interfaces extends Module
 
     private float getStringWidth(final String s, final boolean customFont) {
         return customFont ? ((float)Fonts.getPrimary().getStringWidth(s)) : ((float)Kore.mc.fontRendererObj.getStringWidth(s));
-    }
-
-    @Override
-    public void assign()
-    {
-        Kore.interfaces = this;
     }
 }

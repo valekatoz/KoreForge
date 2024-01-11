@@ -6,6 +6,7 @@ import net.kore.Kore;
 import net.kore.managers.ConfigManager;
 import net.kore.settings.Setting;
 import net.kore.utils.MilliTimer;
+import net.kore.utils.Notification;
 import net.minecraft.util.ChatComponentText;
 import org.lwjgl.input.Keyboard;
 
@@ -17,20 +18,28 @@ public class Module {
     @Expose
     @SerializedName("name")
     public String name;
+
     @Expose
     @SerializedName("toggled")
     private boolean toggled;
+
     @Expose
     @SerializedName("keyCode")
     private int keycode;
+
     private final Category category;
+
     public boolean extended;
     @Expose
     @SerializedName("settings")
     public ConfigManager.ConfigSetting[] cfgSettings;
+
     private boolean devOnly;
+
     public final MilliTimer toggledTime;
+
     public final List<Setting> settings;
+
     public FlagType flagType;
 
     public Module(final String name, final int keycode, final Category category) {
@@ -50,12 +59,27 @@ public class Module {
         return this.toggled;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public Category getCategory() {
+        return this.category;
+    }
+
     public void toggle() {
         this.setToggled(!this.toggled);
     }
 
     public void onEnable() {
     }
+
+    public void riskWarning() {
+        if(this.flagType == FlagType.RISKY) {
+            Kore.notificationManager.showNotification("This module is detected, use it carefully", 2500, Notification.NotificationType.WARNING);
+        }
+    }
+
     public void assign()
     {
 
@@ -89,14 +113,6 @@ public class Module {
         }
     }
 
-    public Category getCategory() {
-        return this.category;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
     public boolean isPressed() {
         return this.keycode != 0 && Keyboard.isKeyDown(this.keycode);
     }
@@ -117,39 +133,13 @@ public class Module {
         return (List<Module>) Kore.moduleManager.getModules().stream().filter(module -> module.category == c).collect(Collectors.toList());
     }
 
-    /*public static <T> T getModule(final Class<T> module) {
-        for (final Module m : Kore.modules) {
-            if (m.getClass().equals(module)) {
-                return (T)m;
-            }
-        }
-        return null;
-    }
-
-    public static Module getModule(final Predicate<Module> predicate) {
-        for (final Module m : Kore.modules) {
-            if (predicate.test(m)) {
-                return m;
-            }
-        }
-        return null;
-    }
-
-    public static Module getModule(final String string) {
-        for (final Module m : Kore.modules) {
-            if (m.getName().equalsIgnoreCase(string)) {
-                return m;
-            }
-        }
-        return null;
-    }*/
-
     public void setToggled(final boolean toggled) {
         if (this.toggled != toggled) {
             this.toggled = toggled;
             this.toggledTime.reset();
             if (toggled) {
                 this.onEnable();
+                this.riskWarning();
             }
             else {
                 this.onDisable();

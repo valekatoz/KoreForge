@@ -10,22 +10,20 @@ import net.kore.settings.StringSetting;
 import java.net.*;
 
 public class Proxy extends Module {
-    public ModeSetting proxyType = new ModeSetting("Proxy Type", "SOCKS", "HTTP", "SOCKS");
-    public StringSetting address = new StringSetting("Address");
-    public StringSetting port = new StringSetting("Port");
-    public StringSetting user = new StringSetting("User (optional)");
-    public StringSetting pass = new StringSetting("Password (optional)");
+    public ModeSetting proxyType;
+    public StringSetting address;
+    public StringSetting port;
+    public StringSetting user;
+    public StringSetting pass;
     public Proxy()
     {
         super("Proxy", Category.PROTECTIONS);
-
-        addSettings(
-                proxyType,
-                address,
-                user,
-                port,
-                pass
-        );
+        this.proxyType = new ModeSetting("Proxy Type", "SOCKS", "HTTP", "SOCKS");
+        this.address = new StringSetting("Address");
+        this.port = new StringSetting("Port");
+        this.user = new StringSetting("User (optional)");
+        this.pass = new StringSetting("Password (optional)");
+        addSettings(proxyType, address, user, port, pass);
     }
 
     @Override

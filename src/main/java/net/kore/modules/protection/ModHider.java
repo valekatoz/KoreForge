@@ -7,7 +7,6 @@ public class ModHider extends Module {
     public ModHider()
     {
         super("Mod Hider", Category.PROTECTIONS);
-
         setToggled(true);
     }
 

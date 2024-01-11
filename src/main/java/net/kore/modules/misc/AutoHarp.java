@@ -22,7 +22,8 @@ import net.kore.utils.GuiUtils;
 import net.kore.utils.Multithreading;
 
 public class AutoHarp extends Module {
-    public NumberSetting autoHarpDelay = new NumberSetting("Click delay (Milliseconds)", 100, 0, 500, 1);
+    public NumberSetting autoHarpDelay;
+    // Global
     private boolean inHarp;
     private Slot slot;
     private long timestamp;
@@ -34,19 +35,20 @@ public class AutoHarp extends Module {
 
     public AutoHarp() {
         super("Auto Harp", Category.MISC);
-        this.addSettings(autoHarpDelay);
+        this.autoHarpDelay = new NumberSetting("Click delay (Milliseconds)", 100, 0, 500, 1);
+        this.addSetting(autoHarpDelay);
         setToggled(false);
-    }
-
-    public int getRandDelay()
-    {
-        return rand.nextInt(25);
     }
 
     @Override
     public void assign()
     {
         Kore.autoHarp = this;
+    }
+
+    public int getRandDelay()
+    {
+        return rand.nextInt(25);
     }
 
     @SubscribeEvent

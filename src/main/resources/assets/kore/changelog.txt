@@ -1,0 +1,8 @@
+Changelog:
+(12/01/2024) - v2.0.2
+[+] Warn notification for detected modules
+[+] Changelogs on the home
+
+(11/01/2024) - v2.0.1
+[+] Warn icon for detected modules
+[+] Essential cosmetics unlocker

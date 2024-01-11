@@ -87,6 +87,12 @@ public class Gui extends Module {
         this.addSettings(this.colorMode, this.hsb, this.rgbSpeed, this.shiftSpeed, this.redCustom, this.greenCustom, this.blueCustom, this.redShift1, this.greenShift1, this.blueShift1, this.redShift2, this.greenShift2, this.blueShift2, Gui.commandPrefix, this.blur, this.waterMark, this.arrayList, this.arrayOutline, this.arrayBlur, this.disableNotifs, this.scaleGui, this.hideRiskyModules);
     }
 
+    @Override
+    public void assign()
+    {
+        Kore.clickGui = this;
+    }
+
     public float getHeight() {
         if (!this.arrayList.isEnabled()) {
             return 0.0f;
@@ -209,11 +215,5 @@ public class Gui extends Module {
 
     public Color getColor(int index) {
         return Kore.themeManager.getSecondaryColor(index);
-    }
-
-    @Override
-    public void assign()
-    {
-        Kore.clickGui = this;
     }
 }

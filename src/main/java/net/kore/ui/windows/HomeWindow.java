@@ -21,7 +21,7 @@ public class HomeWindow extends Window {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        int yOffset = (int) (50 + scroll.getValue());
+        int yOffset = (int) (35 + scroll.getValue());
         for (String str : Kore.changelog) {
             Fonts.getPrimary().drawString(str, ModernClickGui.getX() + 100.0, ModernClickGui.getY() + (double)yOffset, Color.WHITE.getRGB());
             yOffset += 12;

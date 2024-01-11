@@ -7,7 +7,6 @@ public class Debug extends Module {
     public Debug()
     {
         super("Debug Mode", Category.DEV);
-
         setToggled(false);
     }
 

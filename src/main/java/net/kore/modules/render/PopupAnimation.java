@@ -31,6 +31,12 @@ public class PopupAnimation extends Module
         this.addSettings(PopupAnimation.clickGui, PopupAnimation.inventory, PopupAnimation.chests, PopupAnimation.startSize, PopupAnimation.time);
     }
 
+    @Override
+    public void assign()
+    {
+        Kore.popupAnimation = this;
+    }
+
     public static float getScaling() {
         if (!PopupAnimation.animationTimer.hasTimePassed((long)PopupAnimation.time.getValue())) {
             return (float)(PopupAnimation.animationTimer.getTimePassed() / PopupAnimation.time.getValue() * (1.0 - PopupAnimation.startSize.getValue()) + PopupAnimation.startSize.getValue());
@@ -54,12 +60,6 @@ public class PopupAnimation extends Module
         if (Kore.mc.currentScreen == null && PopupAnimation.lastGuiTimer.hasTimePassed(150L)) {
             PopupAnimation.animationTimer.reset();
         }
-    }
-
-    @Override
-    public void assign()
-    {
-        Kore.popupAnimation = this;
     }
 
     public static void doScaling() {

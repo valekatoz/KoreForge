@@ -26,17 +26,17 @@ public class InventoryDisplay extends Module
         this.addSettings(defaultPosition, this.x, this.y, this.blurStrength);
     }
 
+    @Override
+    public void assign()
+    {
+        Kore.inventoryDisplay = this;
+    }
+
     @SubscribeEvent
     public void onRender(final RenderGameOverlayEvent.Post event) {
         if (this.isToggled() && event.type.equals((Object)RenderGameOverlayEvent.ElementType.HOTBAR) && Kore.mc.thePlayer != null) {
             InventoryHud.inventoryHUD.drawScreen();
         }
-    }
-
-    @Override
-    public void assign()
-    {
-        Kore.inventoryDisplay = this;
     }
 
     @SubscribeEvent

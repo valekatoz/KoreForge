@@ -17,12 +17,15 @@ import net.kore.utils.render.BlurUtils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import com.google.common.collect.Lists;
 
+import java.io.*;
+import java.util.Collections;
 import java.util.List;
 
 @Mod(modid = Kore.MOD_ID, name = Kore.MOD_NAME, version = Kore.VERSION)
@@ -53,6 +56,7 @@ public class Kore {
     public static Nametags nametags;
     public static ModHider modHider;
     public static NickHider nickHider;
+    public static AntiNicker antiNicker;
     public static StaffAnalyser staffAnalyser;
     public static Proxy proxy;
     public static FreeCam freeCam;
@@ -108,7 +112,27 @@ public class Kore {
 
     public static void loadChangelog()
     {
-        changelog = Lists.newArrayList("This is a development build of Kore", "Use it and be aware we are not liable", "if you get banned.");
+        changelog = Lists.newArrayList("This is a development build of Kore", "Use it and be aware we are not liable", "if you get banned.","");
+
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("Kore", "changelog.txt")).getInputStream()));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                changelog.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
     }
 
     @Mod.EventHandler

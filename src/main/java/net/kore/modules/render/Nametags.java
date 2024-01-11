@@ -21,6 +21,12 @@ public class Nametags extends Module
         super("Nametags", Category.RENDER);
     }
 
+    @Override
+    public void assign()
+    {
+        Kore.nametags = this;
+    }
+
     @SubscribeEvent
     public void onRender(final RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
         if (this.isToggled() && AntiBot.isValidEntity((Entity)event.entity) && event.entity instanceof EntityPlayer && event.entity != Kore.mc.thePlayer && event.entity.getDistanceToEntity((Entity)Kore.mc.thePlayer) < 100.0f) {
@@ -60,11 +66,5 @@ public class Nametags extends Module
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             GlStateManager.popMatrix();
         }
-    }
-
-    @Override
-    public void assign()
-    {
-        Kore.nametags = this;
     }
 }

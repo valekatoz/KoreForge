@@ -9,10 +9,8 @@ public class NickHider extends Module {
     public NickHider()
     {
         super("Nick Hider", Category.PROTECTIONS);
-
-        addSettings(
-                nick = new StringSetting("Name", Kore.mc.getSession().getUsername())
-        );
+        this.nick = new StringSetting("Name", Kore.mc.getSession().getUsername());
+        addSettings(nick);
     }
 
     @Override

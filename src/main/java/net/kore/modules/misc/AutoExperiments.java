@@ -28,10 +28,10 @@ import net.kore.utils.ModUtils;
 import net.kore.utils.GuiUtils;
 
 public class AutoExperiments extends Module {
-    public NumberSetting autoExperimentsDelay = new NumberSetting("Click delay (Ticks)", 10, 0, 30, 1);
-    public ModeSetting delayRandomizer = new ModeSetting("Delay Randomizer", "High", new String[] { "Off", "Low", "Medium", "High" });
-    public BooleanSetting chronomatronSolver = new BooleanSetting("Chronomatron",true);
-    public BooleanSetting ultrasequencerSolver = new BooleanSetting("Ultrasequencer",true);
+    public NumberSetting autoExperimentsDelay;
+    public ModeSetting delayRandomizer;
+    public BooleanSetting chronomatronSolver;
+    public BooleanSetting ultrasequencerSolver;
     // Global
     private int tickAmount = 0;
     private final Random rand = new Random(System.currentTimeMillis());
@@ -48,8 +48,18 @@ public class AutoExperiments extends Module {
     public AutoExperiments()
     {
         super("Auto Experiments", Category.MISC);
+        this.autoExperimentsDelay = new NumberSetting("Click delay (Ticks)", 10, 0, 30, 1);
+        this.delayRandomizer = new ModeSetting("Delay Randomizer", "High", new String[] { "Off", "Low", "Medium", "High" });
+        this.chronomatronSolver = new BooleanSetting("Chronomatron",true);
+        this.ultrasequencerSolver = new BooleanSetting("Ultrasequencer",true);
         this.addSettings(autoExperimentsDelay, delayRandomizer, chronomatronSolver, ultrasequencerSolver);
         setToggled(false);
+    }
+
+    @Override
+    public void assign()
+    {
+        Kore.autoExperiments = this;
     }
 
     public int getRandDelay()
@@ -65,12 +75,6 @@ public class AutoExperiments extends Module {
         }
 
         return rand.nextInt(150);
-    }
-
-    @Override
-    public void assign()
-    {
-        Kore.autoExperiments = this;
     }
 
     @SubscribeEvent

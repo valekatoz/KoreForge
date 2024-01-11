@@ -38,14 +38,14 @@ public class GuiMove extends Module
     }
 
     @Override
-    public boolean isToggled() {
-        return super.isToggled();
-    }
-
-    @Override
     public void assign()
     {
         Kore.guiMove = this;
+    }
+
+    @Override
+    public boolean isToggled() {
+        return super.isToggled();
     }
 
     @Override
