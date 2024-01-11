@@ -24,7 +24,6 @@ import net.kore.modules.Module;
 import net.kore.settings.ModeSetting;
 import net.kore.settings.NumberSetting;
 import net.kore.settings.BooleanSetting;
-import net.kore.utils.ModUtils;
 import net.kore.utils.GuiUtils;
 
 public class AutoExperiments extends Module {
@@ -121,9 +120,9 @@ public class AutoExperiments extends Module {
                                         if (glass.getDisplayName().equals(chronomatronPattern.get(chronomatronMouseClicks))) {
                                             Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId,glassSlot.slotNumber,2,3, Kore.mc.thePlayer);
                                             if(Kore.Debug.isToggled()) {
-                                                ModUtils.sendMessage("(Chronomatron) Clicked Slot " + glassSlot.slotNumber + " (&c" + glassSlot.getStack().getDisplayName() + "&f)");
+                                                Kore.sendMessage("(Chronomatron) Clicked Slot " + glassSlot.slotNumber + " (&c" + glassSlot.getStack().getDisplayName() + "&f)");
                                                 if(lastClickTime > 0) {
-                                                    ModUtils.sendMessage("(Chronomatron) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
+                                                    Kore.sendMessage("(Chronomatron) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
                                                 }
                                             }
                                             lastClickTime = System.currentTimeMillis();
@@ -156,9 +155,9 @@ public class AutoExperiments extends Module {
                             if(lastClickTime+((autoExperimentsDelay.getValue()*50L)+getRandDelay()) < System.currentTimeMillis()) {
                                 Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId, nextSlot.slotNumber, 2, 3, Kore.mc.thePlayer);
                                 if(Kore.Debug.isToggled()) {
-                                    ModUtils.sendMessage("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
+                                    Kore.sendMessage("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
                                     if(lastClickTime > 0) {
-                                        ModUtils.sendMessage("(Ultrasequencer) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
+                                        Kore.sendMessage("(Ultrasequencer) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
                                     }
                                 }
                                 lastClickTime = System.currentTimeMillis();
@@ -171,9 +170,9 @@ public class AutoExperiments extends Module {
                             if(lastClickTime+((autoExperimentsDelay.getValue()*50L)+getRandDelay()) < System.currentTimeMillis()) {
                                 Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId, nextSlot.slotNumber, 2, 3, Kore.mc.thePlayer);
                                 if(Kore.Debug.isToggled()) {
-                                    ModUtils.sendMessage("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
+                                    Kore.sendMessage("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
                                     if(lastClickTime > 0) {
-                                        ModUtils.sendMessage("(Ultrasequencer) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
+                                        Kore.sendMessage("(Ultrasequencer) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
                                     }
                                 }
                                 lastClickTime = System.currentTimeMillis();

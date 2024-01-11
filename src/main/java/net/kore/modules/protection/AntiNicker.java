@@ -12,6 +12,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class AntiNicker extends Module {
     public static ArrayList<UUID> nicked;
 
     public AntiNicker() {
-        super("Anti Nicker", 0, Category.MISC);
+        super("Anti Nicker", 0, Category.PROTECTIONS);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class AntiNicker extends Module {
     }
 
     @SubscribeEvent
-    public void onWorldJoin(final JoinGameEvent event) {
+    public void onWorldChange(final WorldEvent.Load event) {
         AntiNicker.nicked.clear();
     }
 

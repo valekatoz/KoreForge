@@ -3,8 +3,6 @@ package net.kore.modules.protection;
 import net.kore.Kore;
 import net.kore.modules.Module;
 import net.kore.settings.NumberSetting;
-import net.kore.utils.MilliTimer;
-import net.kore.utils.ModUtils;
 import net.kore.utils.Multithreading;
 import net.kore.utils.Notification;
 import net.kore.utils.api.PlanckeScraper;

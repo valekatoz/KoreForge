@@ -3,7 +3,6 @@ package net.kore.commands.impl;
 import net.kore.Kore;
 import net.kore.commands.Command;
 import net.kore.managers.CommandManager;
-import net.kore.utils.ModUtils;
 import net.kore.utils.Notification;
 
 public class KoreCommand extends Command {
@@ -16,7 +15,7 @@ public class KoreCommand extends Command {
     public void execute(String[] args) throws Exception {
         if (args.length > 2)
         {
-            ModUtils.sendMessage(".kore <help/dev>");
+            Kore.sendMessage(".kore <help/dev>");
             return;
         }
 
@@ -25,7 +24,7 @@ public class KoreCommand extends Command {
         } else if(args.length > 1 && args[1].equals("dev")) {
             // Dev test command
             Kore.notificationManager.showNotification("This is a notification", 2000, Notification.NotificationType.INFO);
-            ModUtils.sendMessage("Notification executed");
+            Kore.sendMessage("Notification executed");
         } else {
             Kore.clickGui.setToggled(true);
         }

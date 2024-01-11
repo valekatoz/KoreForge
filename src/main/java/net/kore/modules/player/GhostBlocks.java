@@ -6,28 +6,22 @@ import net.kore.events.BlockChangeEvent;
 import net.kore.events.JoinGameEvent;
 import net.kore.events.PacketReceivedEvent;
 import net.kore.modules.Module;
-import net.kore.settings.BooleanSetting;
 import net.kore.settings.ModeSetting;
 import net.kore.settings.NumberSetting;
 import net.kore.utils.MilliTimer;
-import net.kore.utils.ModUtils;
 import net.kore.utils.SkyblockUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class GhostBlocks extends Module {
     public NumberSetting range;

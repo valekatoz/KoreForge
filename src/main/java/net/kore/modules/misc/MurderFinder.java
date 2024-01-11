@@ -3,7 +3,6 @@ package net.kore.modules.misc;
 import net.kore.Kore;
 import net.kore.modules.Module;
 import net.kore.settings.BooleanSetting;
-import net.kore.utils.ModUtils;
 import net.kore.utils.Notification;
 import net.kore.utils.render.RenderUtils;
 
@@ -100,14 +99,14 @@ public class MurderFinder extends Module
                             }
                             if (detectives.size() < 2 && player.getHeldItem().getItem().equals(Items.bow)) {
                                 detectives.add(player);
-                                ModUtils.sendMessage(String.format(Kore.fancy + "b%s is detective!", player.getName()));
+                                Kore.sendMessage(String.format(Kore.fancy + "b%s is detective!", player.getName()));
                                 Kore.notificationManager.showNotification(String.format(Kore.fancy + "b%s is detective!", player.getName()), 5000, Notification.NotificationType.WARNING);
                             }
                             if (!this.knives.contains(player.getHeldItem().getItem())) {
                                 continue;
                             }
                             murderers.add(player);
-                            ModUtils.sendMessage(String.format(Kore.fancy + "c%s is murderer!", player.getName()));
+                            Kore.sendMessage(String.format(Kore.fancy + "c%s is murderer!", player.getName()));
                             Kore.notificationManager.showNotification(String.format(Kore.fancy + "c%s is murderer!", player.getName()), 10000, Notification.NotificationType.WARNING);
                             if (!this.autoSay.isEnabled() || player == Kore.mc.thePlayer) {
                                 continue;

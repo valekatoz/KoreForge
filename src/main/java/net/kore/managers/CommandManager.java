@@ -2,7 +2,6 @@ package net.kore.managers;
 
 import net.kore.Kore;
 import net.kore.commands.Command;
-import net.kore.utils.ModUtils;
 import org.reflections.Reflections;
 
 import java.util.Set;
@@ -56,7 +55,7 @@ public class CommandManager {
             }
         }
 
-        ModUtils.sendMessage(baseCommand);
+        Kore.sendMessage(baseCommand);
 
         printHelp();
 
