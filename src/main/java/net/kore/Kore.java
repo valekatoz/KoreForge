@@ -57,6 +57,7 @@ public class Kore {
     public static ModHider modHider;
     public static NickHider nickHider;
     public static AntiNicker antiNicker;
+    public static PurseSpoofer purseSpoofer;
     public static StaffAnalyser staffAnalyser;
     public static Proxy proxy;
     public static FreeCam freeCam;

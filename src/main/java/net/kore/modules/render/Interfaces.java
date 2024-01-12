@@ -70,7 +70,7 @@ public class Interfaces extends Module
                 return !Interfaces.this.customScoreboard.isEnabled();
             }
         };
-        this.buttonLine = new ModeSetting("Button line", "Single", new String[] { "Wave", "Single", "None" }) {
+        this.buttonLine = new ModeSetting("Button line", "None", new String[] { "Wave", "Single", "None" }) {
             @Override
             public boolean isHidden() {
                 return !Interfaces.this.customButtons.isEnabled();

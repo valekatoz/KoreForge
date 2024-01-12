@@ -1,4 +1,7 @@
 Changelog:
+(13/01/2024) - v2.0.3
+[+] Purse Spoofing
+
 (12/01/2024) - v2.0.2
 [+] Warn notification for detected modules
 [+] Changelogs on the home

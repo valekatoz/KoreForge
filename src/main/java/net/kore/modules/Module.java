@@ -72,6 +72,7 @@ public class Module {
     }
 
     public void onEnable() {
+
     }
 
     public void riskWarning() {
@@ -96,6 +97,7 @@ public class Module {
     }
 
     public void onSave() {
+
     }
 
     public String getSuffix()
@@ -153,6 +155,7 @@ public class Module {
     }
 
     public void onDisable() {
+
     }
 
     public void setDevOnly(final boolean devOnly) {
@@ -161,10 +164,6 @@ public class Module {
 
     public boolean isDevOnly() {
         return this.devOnly;
-    }
-
-    protected static void sendMessage(final String message) {
-        Kore.mc.thePlayer.addChatMessage(new ChatComponentText(message));
     }
 
     public enum Category

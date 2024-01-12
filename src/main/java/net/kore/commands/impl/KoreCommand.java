@@ -8,7 +8,7 @@ import net.kore.utils.Notification;
 public class KoreCommand extends Command {
     public KoreCommand()
     {
-        super("Kore", "kore");
+        super("kore");
     }
 
     @Override
@@ -24,9 +24,11 @@ public class KoreCommand extends Command {
         } else if(args.length > 1 && args[1].equals("dev")) {
             // Dev test command
             Kore.notificationManager.showNotification("This is a notification", 2000, Notification.NotificationType.INFO);
-            Kore.sendMessage("Notification executed");
+            Kore.sendMessage("(Dev) Notification executed");
         } else {
-            Kore.clickGui.setToggled(true);
+            Kore.sendMessage("(Dev) Gui should have opened");
+            Kore.clickGui.toggle();
+            Kore.clickGui.onEnable();
         }
     }
 

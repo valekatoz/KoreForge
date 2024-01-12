@@ -1,9 +1,9 @@
-# Kore (2.0.2-private)
+# Kore (2.0.3-private)
 
 Kore is a minecraft forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and repetitive tasks while keeping you entertained with cool features. 
 You can access the mod by using the default keybind (right shift), to set a custom keybind hold shift and left click a module.
 
-## Note
+### Note
 
 if this code is not in compliance with some licenses or something let me know opening a new issue.
 
@@ -19,6 +19,7 @@ if this code is not in compliance with some licenses or something let me know op
   - Giant Models
   - Chinese Hat
   - Animations
+  - **Purse Spoofer**
   - **Essential Cosmetics Unlocker**
 - Protections
   - Anti Nicker (WIP)
@@ -50,7 +51,7 @@ if this code is not in compliance with some licenses or something let me know op
 ## Credits
 
 - valekatoz
-- Kyrotechnic (UI)
+- Kyrotechnic (UI, PurseSpoofer)
 - dxxxxy (Essential Cosmetics Unlocker)
 
 ## FAQ
