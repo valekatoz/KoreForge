@@ -30,7 +30,7 @@ public class CommandManager {
     {
         for (Command command : commands)
         {
-            Kore.sendMessage(Kore.fancy + "b" + command.getName() + Kore.fancy + "7: " + command.getDescription());
+            Kore.sendMessageWithPrefix(Kore.fancy + "b" + command.getName() + Kore.fancy + "7: " + command.getDescription());
         }
     }
     public static boolean handle(String msg) {
@@ -55,7 +55,7 @@ public class CommandManager {
             }
         }
 
-        Kore.sendMessage(baseCommand);
+        Kore.sendMessageWithPrefix(baseCommand);
 
         printHelp();
 

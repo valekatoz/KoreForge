@@ -14,6 +14,6 @@ public class EditCommand extends Command {
 
     @Override
     public String getDescription() {
-        return "Shows things";
+        return ".edit";
     }
 }

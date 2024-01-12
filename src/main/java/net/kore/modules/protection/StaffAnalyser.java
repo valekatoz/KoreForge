@@ -15,6 +15,7 @@ public class StaffAnalyser extends Module
 {
     private NumberSetting delay;
     private int lastBans;
+    private int ticks;
 
     public StaffAnalyser() {
         super("Staff Analyser", Category.PROTECTIONS);
@@ -28,15 +29,18 @@ public class StaffAnalyser extends Module
     {
         Kore.staffAnalyser = this;
     }
-
     @SubscribeEvent
     public void onTick(final TickEvent.ClientTickEvent event) {
-        if(this.isToggled()) {
+        if(!Kore.staffAnalyser.isToggled() || event.phase != TickEvent.Phase.START) return;
+
+        ticks = (ticks + 1) % 20 == 0 ? 0 : ticks;
+
+        if(ticks % 10 == 0) {
             Multithreading.schedule(() -> {
                 final int bans = PlanckeScraper.getBans();
                 if (bans != this.lastBans && this.lastBans != -1 && bans > this.lastBans) {
                     if(Kore.Debug.isToggled()) {
-                        Kore.sendMessage("(StaffAnalyzer) Checking staff bans...");
+                        Kore.sendMessageWithPrefix("(StaffAnalyzer) Checking staff bans...");
                     }
                     Kore.notificationManager.showNotification(String.format("Staff has banned %s %s in the last %s minutes", bans - this.lastBans, (bans - this.lastBans > 1) ? "people" : "person", (int)this.delay.getValue()), 5000, (bans - this.lastBans > 2) ? Notification.NotificationType.WARNING : Notification.NotificationType.INFO);
                 }

@@ -1,10 +1,8 @@
 package net.kore.modules.protection;
 
 import net.kore.Kore;
-import net.kore.events.JoinGameEvent;
 import net.kore.modules.Module;
 import net.kore.utils.PlayerUtil;
-import net.kore.utils.SkyblockUtils;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
@@ -35,7 +33,6 @@ public class AntiNicker extends Module {
 
     public static String getRealName(final GameProfile profile) {
         final AtomicReference<String> toReturn = new AtomicReference<String>("");
-        JsonParser parser;
         final AtomicReference<String> atomicReference = new AtomicReference<>();
         profile.getProperties().entries().forEach(entry -> {
             if (entry.getKey().equals("textures")) {
@@ -59,7 +56,7 @@ public class AntiNicker extends Module {
             final String stipped = ChatFormatting.stripFormatting(e.entity.getName());
             if (stipped.equals(e.entity.getName()) && !realName.equals(stipped)) {
                 AntiNicker.nicked.add(e.entity.getUniqueID());
-                Kore.sendMessage((e.entity.getDisplayName().getUnformattedText().contains(ChatFormatting.OBFUSCATED.toString()) ? e.entity.getName() : e.entity.getDisplayName().getUnformattedText()) + ChatFormatting.RESET + ChatFormatting.GRAY + " is nicked!" + ((realName.equals("")) ? "" : (" Their real name is " + realName + "!")));
+                Kore.sendMessageWithPrefix((e.entity.getDisplayName().getUnformattedText().contains(ChatFormatting.OBFUSCATED.toString()) ? e.entity.getName() : e.entity.getDisplayName().getUnformattedText()) + ChatFormatting.RESET + ChatFormatting.GRAY + " is nicked!" + ((realName.equals("")) ? "" : (" Their real name is " + realName + "!")));
             }
         }
     }

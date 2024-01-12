@@ -97,7 +97,7 @@ public class AutoHarp extends Module {
                             slot = Kore.mc.thePlayer.openContainer.inventorySlots.get(finalSlotNumber);
                             timestamp = System.currentTimeMillis();
                             if(Kore.Debug.isToggled()) {
-                                Kore.sendMessage("(AutoHarp) Clicked Slot " + slot.slotNumber+9 + " (&c" + (timestamp - startedSongTimestamp) +"&f)");
+                                Kore.sendMessageWithPrefix("(AutoHarp) Clicked Slot " + slot.slotNumber+9 + " (&c" + (timestamp - startedSongTimestamp) +"&f)");
                             }
                             Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId,finalSlotNumber + 9,2,3,Kore.mc.thePlayer);
                         }, (long)autoHarpDelay.getValue()+getRandDelay(), TimeUnit.MILLISECONDS);

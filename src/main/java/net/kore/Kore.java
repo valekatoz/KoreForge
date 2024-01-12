@@ -25,7 +25,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import com.google.common.collect.Lists;
 
 import java.io.*;
-import java.util.Collections;
 import java.util.List;
 
 @Mod(modid = Kore.MOD_ID, name = Kore.MOD_NAME, version = Kore.VERSION)
@@ -42,7 +41,6 @@ public class Kore {
     public static Minecraft mc;
     public static List<String> changelog;
     public static char fancy = (char) 167;
-
 
     // Modules
     public static Gui clickGui;
@@ -150,14 +148,17 @@ public class Kore {
         start();
     }
 
-
     public static void sendMessage(Object object) {
-        String message = "null";
-        if (object != null) {
-            message = object.toString().replace("&", ""+Kore.fancy);
+        if (Kore.mc.thePlayer != null)
+        {
+            mc.thePlayer.addChatMessage(new ChatComponentText(object.toString()));
         }
-        if (Kore.mc.thePlayer != null) {
-            Kore.mc.thePlayer.addChatMessage(new ChatComponentText(Kore.fancy + "7[" + Kore.fancy + "c" + Kore.MOD_NAME + Kore.fancy + "7] " + Kore.fancy + "f" + message)); // §7[§cKORE§7] §f
+    }
+
+    public static void sendMessageWithPrefix(Object object) {
+        if (Kore.mc.thePlayer != null)
+        {
+            Kore.mc.thePlayer.addChatMessage(new ChatComponentText(Kore.fancy + "7[" + Kore.fancy + "q" + Kore.MOD_NAME + Kore.fancy + "7] " + Kore.fancy + "f" + object.toString().replaceAll("&", Kore.fancy + "")));
         }
     }
 }

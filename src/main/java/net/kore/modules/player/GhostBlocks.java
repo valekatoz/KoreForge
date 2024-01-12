@@ -54,14 +54,10 @@ public class GhostBlocks extends Module {
 
     @SubscribeEvent
     public void onKey(final TickEvent.ClientTickEvent event) {
-        ticks++;
-        if(ticks % 20 == 0) {
-            ticks = 0;
-        }
+        if (Kore.mc.currentScreen != null || Kore.mc.theWorld == null || !Kore.ghostBlock.isToggled() || event.phase != TickEvent.Phase.START) return;
 
-        if (Kore.mc.currentScreen != null || Kore.mc.theWorld == null || !Kore.ghostBlock.isToggled()) {
-            return;
-        }
+        ticks = (ticks + 1) % 20 == 0 ? 0 : ticks;
+
         switch(key.getSelected()) {
             case "LCONTROL":
                 activeKey = Keyboard.KEY_LCONTROL;

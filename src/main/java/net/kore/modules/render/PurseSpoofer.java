@@ -4,7 +4,6 @@ import net.kore.Kore;
 import net.kore.events.PacketReceivedEvent;
 import net.kore.modules.Module;
 import net.kore.settings.NumberSetting;
-import net.kore.utils.Notification;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S3EPacketTeams;
 import net.minecraft.util.StringUtils;
@@ -26,7 +25,7 @@ public class PurseSpoofer extends Module {
 
     @Override
     public void onEnable() {
-        Kore.sendMessage("(PurseSpoofer) Usage -> .setpurse <value>");
+        Kore.sendMessageWithPrefix("(PurseSpoofer) Usage -> .setpurse <value>");
     }
 
     @SubscribeEvent

@@ -15,7 +15,7 @@ public class KoreCommand extends Command {
     public void execute(String[] args) throws Exception {
         if (args.length > 2)
         {
-            Kore.sendMessage(".kore <help/dev>");
+            Kore.sendMessageWithPrefix(".kore <help/dev>");
             return;
         }
 
@@ -24,9 +24,9 @@ public class KoreCommand extends Command {
         } else if(args.length > 1 && args[1].equals("dev")) {
             // Dev test command
             Kore.notificationManager.showNotification("This is a notification", 2000, Notification.NotificationType.INFO);
-            Kore.sendMessage("(Dev) Notification executed");
+            Kore.sendMessageWithPrefix("(Dev) Notification executed");
         } else {
-            Kore.sendMessage("(Dev) Gui should have opened");
+            Kore.sendMessageWithPrefix("(Dev) Gui should have opened");
             Kore.clickGui.toggle();
             Kore.clickGui.onEnable();
         }
@@ -34,6 +34,6 @@ public class KoreCommand extends Command {
 
     @Override
     public String getDescription() {
-        return "koreclient main command -> .kore <help/dev>";
+        return ".kore <help/dev>";
     }
 }

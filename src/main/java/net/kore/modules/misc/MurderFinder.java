@@ -99,14 +99,14 @@ public class MurderFinder extends Module
                             }
                             if (detectives.size() < 2 && player.getHeldItem().getItem().equals(Items.bow)) {
                                 detectives.add(player);
-                                Kore.sendMessage(String.format(Kore.fancy + "b%s is detective!", player.getName()));
+                                Kore.sendMessageWithPrefix(String.format(Kore.fancy + "b%s is detective!", player.getName()));
                                 Kore.notificationManager.showNotification(String.format(Kore.fancy + "b%s is detective!", player.getName()), 5000, Notification.NotificationType.WARNING);
                             }
                             if (!this.knives.contains(player.getHeldItem().getItem())) {
                                 continue;
                             }
                             murderers.add(player);
-                            Kore.sendMessage(String.format(Kore.fancy + "c%s is murderer!", player.getName()));
+                            Kore.sendMessageWithPrefix(String.format(Kore.fancy + "c%s is murderer!", player.getName()));
                             Kore.notificationManager.showNotification(String.format(Kore.fancy + "c%s is murderer!", player.getName()), 10000, Notification.NotificationType.WARNING);
                             if (!this.autoSay.isEnabled() || player == Kore.mc.thePlayer) {
                                 continue;

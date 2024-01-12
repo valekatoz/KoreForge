@@ -32,7 +32,7 @@ public class AutoExperiments extends Module {
     public BooleanSetting chronomatronSolver;
     public BooleanSetting ultrasequencerSolver;
     // Global
-    private int tickAmount = 0;
+    private int ticks = 0;
     private final Random rand = new Random(System.currentTimeMillis());
     private long lastClickTime = 0L;
     // Chronomatron
@@ -47,7 +47,7 @@ public class AutoExperiments extends Module {
     public AutoExperiments()
     {
         super("Auto Experiments", Category.MISC);
-        this.autoExperimentsDelay = new NumberSetting("Click delay (Ticks)", 10, 0, 30, 1);
+        this.autoExperimentsDelay = new NumberSetting("Click delay (Ticks)", 15, 0, 30, 1);
         this.delayRandomizer = new ModeSetting("Delay Randomizer", "High", new String[] { "Off", "Low", "Medium", "High" });
         this.chronomatronSolver = new BooleanSetting("Chronomatron",true);
         this.ultrasequencerSolver = new BooleanSetting("Ultrasequencer",true);
@@ -63,17 +63,18 @@ public class AutoExperiments extends Module {
 
     public int getRandDelay()
     {
-        if(delayRandomizer.is("Off")) {
-            return 0;
-        } else if(delayRandomizer.is("Low")) {
-            return rand.nextInt(75);
-        } else if(delayRandomizer.is("Medium")) {
-            return rand.nextInt(150);
-        } else if(delayRandomizer.is("High")) {
-            return rand.nextInt(300);
-        }
+        String delayRandomizerIs = delayRandomizer.getSelected();
 
-        return rand.nextInt(150);
+        switch (delayRandomizerIs) {
+            case "Off":
+                return 0;
+            case "Low":
+                return rand.nextInt(75);
+            case "High":
+                return rand.nextInt(300);
+            default:
+                return rand.nextInt(150);
+        }
     }
 
     @SubscribeEvent
@@ -115,14 +116,14 @@ public class AutoExperiments extends Module {
                             if (player.inventory.getItemStack() == null && chronomatronMouseClicks < chronomatronPattern.size()) {
                                 for (int i = 10; i <= 43; i++) {
                                     ItemStack glass = invSlots.get(i).getStack();
-                                    if (player.inventory.getItemStack() == null && glass != null && tickAmount % 5 == 0  && lastClickTime+((autoExperimentsDelay.getValue()*50L)+getRandDelay()) < System.currentTimeMillis()) {
+                                    if (player.inventory.getItemStack() == null && glass != null && ticks % 5 == 0  && lastClickTime+((autoExperimentsDelay.getValue()*50L)+getRandDelay()) < System.currentTimeMillis()) {
                                         Slot glassSlot = invSlots.get(i);
                                         if (glass.getDisplayName().equals(chronomatronPattern.get(chronomatronMouseClicks))) {
                                             Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId,glassSlot.slotNumber,2,3, Kore.mc.thePlayer);
                                             if(Kore.Debug.isToggled()) {
-                                                Kore.sendMessage("(Chronomatron) Clicked Slot " + glassSlot.slotNumber + " (&c" + glassSlot.getStack().getDisplayName() + "&f)");
+                                                Kore.sendMessageWithPrefix("(Chronomatron) Clicked Slot " + glassSlot.slotNumber + " (&c" + glassSlot.getStack().getDisplayName() + "&f)");
                                                 if(lastClickTime > 0) {
-                                                    Kore.sendMessage("(Chronomatron) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
+                                                    Kore.sendMessageWithPrefix("(Chronomatron) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
                                                 }
                                             }
                                             lastClickTime = System.currentTimeMillis();
@@ -150,33 +151,33 @@ public class AutoExperiments extends Module {
                                 }
                             }
                         }
-                        if (player.inventory.getItemStack() == null && clickInOrderSlots[lastUltraSequencerClicked] != null && tickAmount % 2 == 0 && lastUltraSequencerClicked != 0 && until == lastUltraSequencerClicked) {
+                        if (player.inventory.getItemStack() == null && clickInOrderSlots[lastUltraSequencerClicked] != null && ticks % 2 == 0 && lastUltraSequencerClicked != 0 && until == lastUltraSequencerClicked) {
                             Slot nextSlot = clickInOrderSlots[lastUltraSequencerClicked];
                             if(lastClickTime+((autoExperimentsDelay.getValue()*50L)+getRandDelay()) < System.currentTimeMillis()) {
                                 Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId, nextSlot.slotNumber, 2, 3, Kore.mc.thePlayer);
                                 if(Kore.Debug.isToggled()) {
-                                    Kore.sendMessage("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
+                                    Kore.sendMessageWithPrefix("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
                                     if(lastClickTime > 0) {
-                                        Kore.sendMessage("(Ultrasequencer) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
+                                        Kore.sendMessageWithPrefix("(Ultrasequencer) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
                                     }
                                 }
                                 lastClickTime = System.currentTimeMillis();
                                 until = lastUltraSequencerClicked + 1;
-                                tickAmount = 0;
+                                ticks = 0;
                             }
                         }
-                        if (player.inventory.getItemStack() == null && clickInOrderSlots[lastUltraSequencerClicked] != null && tickAmount % 5 == 0 && lastUltraSequencerClicked < 1) {
+                        if (player.inventory.getItemStack() == null && clickInOrderSlots[lastUltraSequencerClicked] != null && ticks % 5 == 0 && lastUltraSequencerClicked < 1) {
                             Slot nextSlot = clickInOrderSlots[lastUltraSequencerClicked];
                             if(lastClickTime+((autoExperimentsDelay.getValue()*50L)+getRandDelay()) < System.currentTimeMillis()) {
                                 Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId, nextSlot.slotNumber, 2, 3, Kore.mc.thePlayer);
                                 if(Kore.Debug.isToggled()) {
-                                    Kore.sendMessage("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
+                                    Kore.sendMessageWithPrefix("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
                                     if(lastClickTime > 0) {
-                                        Kore.sendMessage("(Ultrasequencer) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
+                                        Kore.sendMessageWithPrefix("(Ultrasequencer) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
                                     }
                                 }
                                 lastClickTime = System.currentTimeMillis();
-                                tickAmount = 0;
+                                ticks = 0;
                                 until = 1;
                             }
                         }
@@ -216,10 +217,7 @@ public class AutoExperiments extends Module {
     public void onTick(TickEvent.ClientTickEvent event) {
         if(!Kore.autoExperiments.isToggled() || event.phase != TickEvent.Phase.START) return;
 
-        tickAmount++;
-        if (tickAmount % 20 == 0) {
-            tickAmount = 0;
-        }
+        ticks = (ticks + 1) % 20 == 0 ? 0 : ticks;
 
         if (Kore.mc.currentScreen instanceof GuiChest) {
             if (Kore.mc.thePlayer != null) {
