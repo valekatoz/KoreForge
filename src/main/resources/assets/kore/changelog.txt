@@ -1,4 +1,8 @@
 Changelog:
+(14/01/2024) - v2.0.4
+[+] Client settings
+[+] Toggle cosmetics unlocker
+
 (13/01/2024) - v2.0.3
 [+] Themed chat prefix
 [+] Purse Spoofing

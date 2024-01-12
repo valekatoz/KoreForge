@@ -120,7 +120,7 @@ public class AutoExperiments extends Module {
                                         Slot glassSlot = invSlots.get(i);
                                         if (glass.getDisplayName().equals(chronomatronPattern.get(chronomatronMouseClicks))) {
                                             Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId,glassSlot.slotNumber,2,3, Kore.mc.thePlayer);
-                                            if(Kore.Debug.isToggled()) {
+                                            if(Kore.clientSettings.debug.isEnabled()) {
                                                 Kore.sendMessageWithPrefix("(Chronomatron) Clicked Slot " + glassSlot.slotNumber + " (&c" + glassSlot.getStack().getDisplayName() + "&f)");
                                                 if(lastClickTime > 0) {
                                                     Kore.sendMessageWithPrefix("(Chronomatron) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
@@ -155,7 +155,7 @@ public class AutoExperiments extends Module {
                             Slot nextSlot = clickInOrderSlots[lastUltraSequencerClicked];
                             if(lastClickTime+((autoExperimentsDelay.getValue()*50L)+getRandDelay()) < System.currentTimeMillis()) {
                                 Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId, nextSlot.slotNumber, 2, 3, Kore.mc.thePlayer);
-                                if(Kore.Debug.isToggled()) {
+                                if(Kore.clientSettings.debug.isEnabled()) {
                                     Kore.sendMessageWithPrefix("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
                                     if(lastClickTime > 0) {
                                         Kore.sendMessageWithPrefix("(Ultrasequencer) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
@@ -170,7 +170,7 @@ public class AutoExperiments extends Module {
                             Slot nextSlot = clickInOrderSlots[lastUltraSequencerClicked];
                             if(lastClickTime+((autoExperimentsDelay.getValue()*50L)+getRandDelay()) < System.currentTimeMillis()) {
                                 Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId, nextSlot.slotNumber, 2, 3, Kore.mc.thePlayer);
-                                if(Kore.Debug.isToggled()) {
+                                if(Kore.clientSettings.debug.isEnabled()) {
                                     Kore.sendMessageWithPrefix("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
                                     if(lastClickTime > 0) {
                                         Kore.sendMessageWithPrefix("(Ultrasequencer) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
@@ -194,7 +194,7 @@ public class AutoExperiments extends Module {
         if(GuiUtils.getInventoryName(event.gui).startsWith("Chronomatron") || GuiUtils.getInventoryName(event.gui).startsWith("Ultrasequencer") || GuiUtils.getInventoryName(event.gui).startsWith("Experimentation Table")) {
             Kore.mc.fontRendererObj.drawStringWithShadow("[KORE] ",5,5,new Color(255, 85, 85).getRGB());
             Kore.mc.fontRendererObj.drawStringWithShadow("AutoExperiments",42,5,Color.WHITE.getRGB());
-            if(Kore.Debug.isToggled()) {
+            if(Kore.clientSettings.debug.isEnabled()) {
                 if(chronomatronSolver.isEnabled()) {
                     Kore.mc.fontRendererObj.drawStringWithShadow("chronomatronSolver is ",5,15,Color.WHITE.getRGB());
                     Kore.mc.fontRendererObj.drawStringWithShadow("Enabled",124,15,Color.GREEN.getRGB());

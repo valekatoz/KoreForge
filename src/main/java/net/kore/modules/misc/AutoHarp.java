@@ -96,7 +96,7 @@ public class AutoHarp extends Module {
                         Multithreading.schedule(() -> {
                             slot = Kore.mc.thePlayer.openContainer.inventorySlots.get(finalSlotNumber);
                             timestamp = System.currentTimeMillis();
-                            if(Kore.Debug.isToggled()) {
+                            if(Kore.clientSettings.debug.isEnabled()) {
                                 Kore.sendMessageWithPrefix("(AutoHarp) Clicked Slot " + slot.slotNumber+9 + " (&c" + (timestamp - startedSongTimestamp) +"&f)");
                             }
                             Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId,finalSlotNumber + 9,2,3,Kore.mc.thePlayer);
@@ -115,7 +115,7 @@ public class AutoHarp extends Module {
         GlStateManager.disableDepth();
         Kore.mc.fontRendererObj.drawStringWithShadow("[KORE] ",5,5,new Color(255, 85, 85).getRGB());
         Kore.mc.fontRendererObj.drawStringWithShadow("AutoHarp",42,5,Color.WHITE.getRGB());
-        if (updates != 0 &&  Kore.Debug.isToggled()) {
+        if(Kore.clientSettings.debug.isEnabled()) {
             Kore.mc.fontRendererObj.drawStringWithShadow("Song Speed: " + (System.currentTimeMillis() - startedSongTimestamp) / updates + "ms",5,15,Color.LIGHT_GRAY.getRGB());
             Kore.mc.fontRendererObj.drawStringWithShadow("Gui Updates: " + updates,5,25,Color.LIGHT_GRAY.getRGB());
             Kore.mc.fontRendererObj.drawStringWithShadow("Time Elapsed : " + (System.currentTimeMillis() - startedSongTimestamp),5,35,Color.LIGHT_GRAY.getRGB());

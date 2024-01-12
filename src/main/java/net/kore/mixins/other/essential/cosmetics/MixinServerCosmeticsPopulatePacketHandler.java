@@ -23,28 +23,30 @@ import java.util.List;
 public class MixinServerCosmeticsPopulatePacketHandler {
     @Inject(method = "onHandle(Lgg/essential/network/connectionmanager/ConnectionManager;Lgg/essential/connectionmanager/common/packet/cosmetic/ServerCosmeticsPopulatePacket;)V", at = @At("HEAD"))
     public void onHandle(ConnectionManager connectionManager, ServerCosmeticsPopulatePacket packet, CallbackInfo ci) {
-        try {
-            Gson gson = new Gson();
-            List<Cosmetic> cosmetics = new ArrayList<>();
-            File file = new File(System.getenv("LOCALAPPDATA"), "kore.cosmeticsdump.txt");
+        if(Kore.clientSettings != null && Kore.clientSettings.cosmeticsUnlocker != null && Kore.clientSettings.cosmeticsUnlocker.isEnabled()) {
+            try {
+                Gson gson = new Gson();
+                List<Cosmetic> cosmetics = new ArrayList<>();
+                File file = new File(System.getenv("LOCALAPPDATA"), "kore.cosmeticsdump.txt");
 
-            //start with already existing or new list
-            if (file.exists()) {
-                cosmetics = gson.fromJson(Files.readAllLines(file.toPath()).toString(), new TypeToken<List<Cosmetic>>() {}.getType());
+                //start with already existing or new list
+                if (file.exists()) {
+                    cosmetics = gson.fromJson(Files.readAllLines(file.toPath()).toString(), new TypeToken<List<Cosmetic>>() {}.getType());
+                }
+
+                //add incoming cosmetics to the list
+                cosmetics.addAll(packet.getCosmetics());
+
+                //dump the list to file
+                System.out.println("[Kore] Dumping cosmetics to file...");
+                PrintWriter pw = new PrintWriter(new FileOutputStream(file, true));
+                pw.println(new Gson().toJson(cosmetics));
+                pw.close();
+                System.out.println("[Kore] Dumped cosmetics to file!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("[Kore] Could not dump cosmetics to file.");
             }
-
-            //add incoming cosmetics to the list
-            cosmetics.addAll(packet.getCosmetics());
-
-            //dump the list to file
-            System.out.println("[Kore] Dumping cosmetics to file...");
-            PrintWriter pw = new PrintWriter(new FileOutputStream(file, true));
-            pw.println(new Gson().toJson(cosmetics));
-            pw.close();
-            System.out.println("[Kore] Dumped cosmetics to file!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("[Kore] Could not dump cosmetics to file.");
         }
     }
 }

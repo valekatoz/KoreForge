@@ -1,4 +1,4 @@
-# Kore (2.0.3-private)
+# Kore (2.0.4-private)
 
 Kore is a minecraft forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and repetitive tasks while keeping you entertained with cool features. 
 You can access the mod by using the default keybind (right shift), to set a custom keybind hold shift and left click a module.

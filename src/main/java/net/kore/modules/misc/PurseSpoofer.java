@@ -1,4 +1,4 @@
-package net.kore.modules.render;
+package net.kore.modules.misc;
 
 import net.kore.Kore;
 import net.kore.events.PacketReceivedEvent;
@@ -15,7 +15,7 @@ public class PurseSpoofer extends Module {
     public NumberSetting additionalCoins = new NumberSetting("Coins", 1000d, Double.MIN_VALUE + 1, Double.MAX_VALUE - 1, 0, aBoolean -> true);
 
     public PurseSpoofer() {
-        super("Purse Spoofer", Module.Category.RENDER);
+        super("Purse Spoofer", Category.MISC);
     }
 
     @Override

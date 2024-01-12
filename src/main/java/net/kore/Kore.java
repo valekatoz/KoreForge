@@ -1,16 +1,17 @@
 package net.kore;
 
 import net.kore.managers.*;
+import net.kore.modules.ClientSettings;
 import net.kore.modules.Module;
 import net.kore.modules.combat.AimAssist;
 import net.kore.modules.combat.AntiBot;
 import net.kore.modules.misc.MurderFinder;
+import net.kore.modules.misc.PurseSpoofer;
 import net.kore.modules.player.*;
 import net.kore.modules.protection.*;
 import net.kore.modules.render.*;
 import net.kore.modules.misc.AutoExperiments;
 import net.kore.modules.misc.AutoHarp;
-import net.kore.modules.dev.Debug;
 import net.kore.utils.Notification;
 import net.kore.utils.font.Fonts;
 import net.kore.utils.render.BlurUtils;
@@ -33,17 +34,22 @@ public class Kore {
     public static final String MOD_NAME = "@NAME@";
     public static final String VERSION = "@VER@";
 
-    //Managers
+    // Managers
     public static ModuleManager moduleManager;
     public static ConfigManager configManager;
     public static ThemeManager themeManager;
     public static NotificationManager notificationManager;
+
+    // Variables
     public static Minecraft mc;
     public static List<String> changelog;
     public static char fancy = (char) 167;
 
-    // Modules
+    // (Important) Modules
     public static Gui clickGui;
+    public static ClientSettings clientSettings;
+
+    // Modules
     public static PopupAnimation popupAnimation;
     public static Interfaces interfaces;
     public static InventoryDisplay inventoryDisplay;
@@ -51,11 +57,11 @@ public class Kore {
     public static Giants giants;
     public static ChinaHat chinaHat;
     public static PlayerEsp playerEsp;
+    public static PurseSpoofer purseSpoofer;
     public static Nametags nametags;
     public static ModHider modHider;
     public static NickHider nickHider;
     public static AntiNicker antiNicker;
-    public static PurseSpoofer purseSpoofer;
     public static StaffAnalyser staffAnalyser;
     public static Proxy proxy;
     public static FreeCam freeCam;
@@ -68,7 +74,6 @@ public class Kore {
     public static MurderFinder murderFinder;
     public static AntiBot antiBot;
     public static AimAssist aimAssist;
-    public static Debug Debug;
 
     public static void start()
     {

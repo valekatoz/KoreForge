@@ -20,6 +20,7 @@ public class ModernClickGui extends GuiScreen {
     public static boolean settingsOpened;
     private static double x;
     private static double y;
+    private int settingsOffset = 209;
 
     public ModernClickGui() {
         selectedWindow = this.windowManager.getDefaultWindow();
@@ -42,6 +43,7 @@ public class ModernClickGui extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         int categoryOffset = 25;
+
         GLUtil.startScale((float)(getX() + (getX() + (double)getWidth())) / 2.0f, (float)(getY() + (getY() + (double)getHeight())) / 2.0f, 1.0f);
         RenderUtils.drawBorderedRoundedRect((float) getX() - 5, (float) getY() - 5, getWidth() + 10, getHeight() + 10, 6, 2 , Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
         RenderUtils.drawBorderedRoundedRect((float)getX(), (float)getY(), 85.0f, getHeight(), 3.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
@@ -50,22 +52,40 @@ public class ModernClickGui extends GuiScreen {
         Fonts.getSecondary().drawCenteredString("Kore Client", (float)(getX() + 42.5), (float)(getY() + 6.0), Color.WHITE.getRGB());
         drawTopBar(mouseX, mouseY);
         for (Window window : this.windowManager.windows) {
-            if (window == selectedWindow) {
-                RenderUtils.drawBorderedRoundedRect((float)(getX() + 5.0), (float)(getY() + (double)categoryOffset + 3.0), 75.0f, 12.0f, 4.0f, 2.0f, Kore.themeManager.getSecondaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
+            if(window.getName().equals("Settings")) {
+                if (window == selectedWindow) {
+                    RenderUtils.drawBorderedRoundedRect((float)(getX() + 5.0), (float)(getY() + (double)settingsOffset + 3.0), 75.0f, 12.0f, 4.0f, 2.0f, Kore.themeManager.getSecondaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
+                }
+                Fonts.getPrimary().drawStringWithShadow(window.getName(), getX() + 12.0, getY() + (double)settingsOffset + 5.0, Color.WHITE.getRGB());
+
+                StencilUtils.enableStencilBuffer();
+                RenderUtils.drawBorderedRoundedRect((float)ModernClickGui.getX() + 88.0f, (float)ModernClickGui.getY() + 25.0f, ModernClickGui.getWidth() - 88.0f, ModernClickGui.getHeight() - 25.0f, 6.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getPrimaryColor().getRGB());
+                StencilUtils.readStencilBuffer(1);
+
+                if (selectedWindow == window)
+                {
+                    selectedWindow.drawScreen(mouseX, mouseY, partialTicks);
+                }
+
+                StencilUtils.disableStencilBuffer();
+            } else {
+                if (window == selectedWindow) {
+                    RenderUtils.drawBorderedRoundedRect((float)(getX() + 5.0), (float)(getY() + (double)categoryOffset + 3.0), 75.0f, 12.0f, 4.0f, 2.0f, Kore.themeManager.getSecondaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
+                }
+                Fonts.getPrimary().drawStringWithShadow(window.getName(), getX() + 12.0, getY() + (double)categoryOffset + 5.0, Color.WHITE.getRGB());
+                categoryOffset += 14;
+
+                StencilUtils.enableStencilBuffer();
+                RenderUtils.drawBorderedRoundedRect((float)ModernClickGui.getX() + 88.0f, (float)ModernClickGui.getY() + 25.0f, ModernClickGui.getWidth() - 88.0f, ModernClickGui.getHeight() - 25.0f, 6.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getPrimaryColor().getRGB());
+                StencilUtils.readStencilBuffer(1);
+
+                if (selectedWindow == window)
+                {
+                    selectedWindow.drawScreen(mouseX, mouseY, partialTicks);
+                }
+
+                StencilUtils.disableStencilBuffer();
             }
-            Fonts.getPrimary().drawStringWithShadow(window.getName(), getX() + 12.0, getY() + (double)categoryOffset + 5.0, Color.WHITE.getRGB());
-            categoryOffset += 14;
-
-            StencilUtils.enableStencilBuffer();
-            RenderUtils.drawBorderedRoundedRect((float)ModernClickGui.getX() + 88.0f, (float)ModernClickGui.getY() + 25.0f, ModernClickGui.getWidth() - 88.0f, ModernClickGui.getHeight() - 25.0f, 6.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getPrimaryColor().getRGB());
-            StencilUtils.readStencilBuffer(1);
-
-            if (selectedWindow == window)
-            {
-                selectedWindow.drawScreen(mouseX, mouseY, partialTicks);
-            }
-
-            StencilUtils.disableStencilBuffer();
         }
 
         GlStateManager.popMatrix();
@@ -85,17 +105,30 @@ public class ModernClickGui extends GuiScreen {
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         int categoryOffset = 25;
         for (Window c : this.windowManager.windows) {
-            if (this.isHovered(mouseX, mouseY, getX() + 4.0, getY() + (double)categoryOffset, 75.0, 16.0) && mouseButton == 0) {
-                selectedWindow = c;
-                settingsOpened = false;
-                ModuleWindow.selectedModule = null;
+            if(c.getName().equals("Settings")) {
+                if (this.isHovered(mouseX, mouseY, getX() + 4.0, getY() + (double)settingsOffset, 75.0, 16.0) && mouseButton == 0) {
+                    selectedWindow = c;
+                    settingsOpened = false;
+                    ModuleWindow.selectedModule = null;
 
-                if (selectedWindow instanceof ModuleWindow)
-                {
-                    ((ModuleWindow) c).close();
+                    if (selectedWindow instanceof ModuleWindow)
+                    {
+                        ((ModuleWindow) c).close();
+                    }
                 }
+            } else {
+                if (this.isHovered(mouseX, mouseY, getX() + 4.0, getY() + (double)categoryOffset, 75.0, 16.0) && mouseButton == 0) {
+                    selectedWindow = c;
+                    settingsOpened = false;
+                    ModuleWindow.selectedModule = null;
+
+                    if (selectedWindow instanceof ModuleWindow)
+                    {
+                        ((ModuleWindow) c).close();
+                    }
+                }
+                categoryOffset += 14;
             }
-            categoryOffset += 14;
         }
         selectedWindow.mouseClicked(mouseX, mouseY, mouseButton);
     }

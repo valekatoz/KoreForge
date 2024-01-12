@@ -52,7 +52,7 @@ public class Gui extends Module {
 
     public Gui() {
         super("Gui", Keyboard.KEY_RSHIFT, Module.Category.RENDER);
-        this.colorMode = new ModeSetting("Mode", "Astolfo", new String[] { "Rainbow", "Gradient", "Astolfo", "Vape", "Mint", "Devil"})
+        this.colorMode = new ModeSetting("Theme", "Astolfo", new String[] { "Rainbow", "Gradient", "Astolfo", "Vape", "Mint", "Devil"})
         {
             @Override
             public void cycle(int key)

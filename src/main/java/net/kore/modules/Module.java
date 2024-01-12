@@ -171,9 +171,9 @@ public class Module {
         RENDER("Render"),
         COMBAT("Combat"),
         PLAYER("Player"),
-        PROTECTIONS("Protections"),
         MISC("Misc"),
-        DEV("Dev");
+        PROTECTIONS("Protections"),
+        SETTINGS("Settings");
 
         public String name;
 
