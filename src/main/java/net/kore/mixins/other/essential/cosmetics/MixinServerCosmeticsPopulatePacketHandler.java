@@ -23,7 +23,7 @@ import java.util.List;
 public class MixinServerCosmeticsPopulatePacketHandler {
     @Inject(method = "onHandle(Lgg/essential/network/connectionmanager/ConnectionManager;Lgg/essential/connectionmanager/common/packet/cosmetic/ServerCosmeticsPopulatePacket;)V", at = @At("HEAD"))
     public void onHandle(ConnectionManager connectionManager, ServerCosmeticsPopulatePacket packet, CallbackInfo ci) {
-        if(Kore.clientSettings != null && Kore.clientSettings.cosmeticsUnlocker != null && Kore.clientSettings.cosmeticsUnlocker.isEnabled()) {
+        if(Kore.clientSettings != null && Kore.clientSettings.unlockCosmetics != null && Kore.clientSettings.unlockCosmetics.isEnabled()) {
             try {
                 Gson gson = new Gson();
                 List<Cosmetic> cosmetics = new ArrayList<>();

@@ -7,7 +7,6 @@ import net.kore.managers.ConfigManager;
 import net.kore.settings.Setting;
 import net.kore.utils.MilliTimer;
 import net.kore.utils.Notification;
-import net.minecraft.util.ChatComponentText;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
@@ -76,7 +75,7 @@ public class Module {
     }
 
     public void riskWarning() {
-        if(this.flagType == FlagType.RISKY) {
+        if(this.flagType == FlagType.DETECTED) {
             Kore.notificationManager.showNotification("This module is detected, use it carefully", 2500, Notification.NotificationType.WARNING);
         }
     }
@@ -172,6 +171,7 @@ public class Module {
         COMBAT("Combat"),
         PLAYER("Player"),
         MISC("Misc"),
+        SKYBLOCK("Skyblock"),
         PROTECTIONS("Protections"),
         SETTINGS("Settings");
 
@@ -185,6 +185,6 @@ public class Module {
     public enum FlagType
     {
         SAFE,
-        RISKY
+        DETECTED
     }
 }

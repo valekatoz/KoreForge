@@ -1,6 +1,7 @@
 package net.kore.mixins;
 
 import net.kore.Kore;
+import net.kore.utils.font.Fonts;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -16,14 +17,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class)
 public class MixinMinecraft {
+    @Shadow private int rightClickDelayTimer;
+    @Shadow private Entity renderViewEntity;
+
     @Inject(method = "startGame", at = @At("TAIL"), cancellable = false)
     public void startGame(CallbackInfo ci)
     {
-        Kore.mc = Minecraft.getMinecraft();
+        Fonts.bootstrap();
+        Kore.start();
     }
-
-    @Shadow private int rightClickDelayTimer;
-    @Shadow private Entity renderViewEntity;
 
     @Inject(method = { "runTick" }, at = { @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;dispatchKeypresses()V") })
     public void keyPresses(final CallbackInfo ci) {

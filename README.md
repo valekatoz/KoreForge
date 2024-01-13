@@ -19,8 +19,6 @@ if this code is not in compliance with some licenses or something let me know op
   - Giant Models
   - Chinese Hat
   - Animations
-  - **Purse Spoofer**
-  - **Essential Cosmetics Unlocker**
 - Protections
   - Anti Nicker (WIP)
   - Mod Hider
@@ -32,15 +30,19 @@ if this code is not in compliance with some licenses or something let me know op
   - Fast Place
   - FreeCam
   - Inventory Move
-  - Ghost Blocks
 - Combat
   - AimAssist
   - AntiBot
-- Misc
+- Skyblock
+  - **Purse Spoofer**
   - Auto Experiments
   - Auto Harp
+- Misc
+  - Ghost Blocks
   - Murder Finder
-- Dev
+- Client
+  - **License system** (soon)
+  - **Essential Cosmetics Unlocker**
   - Debug
 
 

@@ -1,4 +1,4 @@
-package net.kore.modules.misc;
+package net.kore.modules.skyblock;
 
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -46,7 +46,7 @@ public class AutoExperiments extends Module {
 
     public AutoExperiments()
     {
-        super("Auto Experiments", Category.MISC);
+        super("Auto Experiments", Category.SKYBLOCK);
         this.autoExperimentsDelay = new NumberSetting("Click delay (Ticks)", 15, 0, 30, 1);
         this.delayRandomizer = new ModeSetting("Delay Randomizer", "High", new String[] { "Off", "Low", "Medium", "High" });
         this.chronomatronSolver = new BooleanSetting("Chronomatron",true);

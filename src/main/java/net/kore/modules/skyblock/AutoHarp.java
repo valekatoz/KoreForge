@@ -1,4 +1,4 @@
-package net.kore.modules.misc;
+package net.kore.modules.skyblock;
 
 import net.kore.modules.Module;
 import net.minecraft.client.renderer.GlStateManager;
@@ -33,7 +33,7 @@ public class AutoHarp extends Module {
     private final Random rand = new Random(System.currentTimeMillis());
 
     public AutoHarp() {
-        super("Auto Harp", Category.MISC);
+        super("Auto Harp", Category.SKYBLOCK);
         this.autoHarpDelay = new NumberSetting("Click delay (Milliseconds)", 100, 0, 500, 1);
         this.addSetting(autoHarpDelay);
         setToggled(false);

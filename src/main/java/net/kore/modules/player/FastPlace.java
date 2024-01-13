@@ -10,7 +10,7 @@ public class FastPlace extends Module {
     {
         super("Fast Place", Category.PLAYER);
         this.addSettings(this.placeDelay = new NumberSetting("Place delay", 2.0, 0.0, 4.0, 1.0));
-        this.setFlagType(FlagType.RISKY);
+        this.setFlagType(FlagType.DETECTED);
     }
 
     @Override

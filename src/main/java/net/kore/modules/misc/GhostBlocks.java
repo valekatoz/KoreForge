@@ -1,4 +1,4 @@
-package net.kore.modules.player;
+package net.kore.modules.misc;
 
 import com.mojang.authlib.properties.Property;
 import net.kore.Kore;
@@ -37,7 +37,7 @@ public class GhostBlocks extends Module {
     private int ticks;
 
     public GhostBlocks() {
-        super("Ghost Blocks", 0, Category.PLAYER);
+        super("Ghost Blocks", 0, Category.MISC);
         this.range = new NumberSetting("Range", 10.0, 1.0, 100.0, 1.0);
         this.delay = new NumberSetting("Delay (Seconds)", 3.0, 1.0, 15.0, 1.0);
         this.mode = new ModeSetting("Speed", "Fast", new String[]{"Slow", "Fast"});

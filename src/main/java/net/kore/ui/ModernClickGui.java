@@ -20,7 +20,7 @@ public class ModernClickGui extends GuiScreen {
     public static boolean settingsOpened;
     private static double x;
     private static double y;
-    private int settingsOffset = 209;
+    private int settingsOffset = 210;
 
     public ModernClickGui() {
         selectedWindow = this.windowManager.getDefaultWindow();
@@ -45,7 +45,7 @@ public class ModernClickGui extends GuiScreen {
         int categoryOffset = 25;
 
         GLUtil.startScale((float)(getX() + (getX() + (double)getWidth())) / 2.0f, (float)(getY() + (getY() + (double)getHeight())) / 2.0f, 1.0f);
-        RenderUtils.drawBorderedRoundedRect((float) getX() - 5, (float) getY() - 5, getWidth() + 10, getHeight() + 10, 6, 2 , Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
+        RenderUtils.drawBorderedRoundedRect((float) getX() - 5, (float) getY() - 5, getWidth() + 10, getHeight() + 10, 3.0f, 2 , Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
         RenderUtils.drawBorderedRoundedRect((float)getX(), (float)getY(), 85.0f, getHeight(), 3.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
         RenderUtils.drawBorderedRoundedRect((float)(getX() + 90.0), (float)getY(), getWidth() - 90.0f, 20.0f, 3.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
         RenderUtils.drawBorderedRoundedRect((float)(getX() + 90.0), (float)(getY() + 25.0), getWidth() - 90.0f, getHeight() - 25.0f, 3.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
@@ -54,38 +54,27 @@ public class ModernClickGui extends GuiScreen {
         for (Window window : this.windowManager.windows) {
             if(window.getName().equals("Settings")) {
                 if (window == selectedWindow) {
-                    RenderUtils.drawBorderedRoundedRect((float)(getX() + 5.0), (float)(getY() + (double)settingsOffset + 3.0), 75.0f, 12.0f, 4.0f, 2.0f, Kore.themeManager.getSecondaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
+                    RenderUtils.drawBorderedRoundedRect((float)(getX() + 5.0), (float)(getY() + (double)settingsOffset + 3.0), 75.0f, 12.0f, 4.0f, 4.0f, Kore.themeManager.getSecondaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
                 }
                 Fonts.getPrimary().drawStringWithShadow(window.getName(), getX() + 12.0, getY() + (double)settingsOffset + 5.0, Color.WHITE.getRGB());
-
-                StencilUtils.enableStencilBuffer();
-                RenderUtils.drawBorderedRoundedRect((float)ModernClickGui.getX() + 88.0f, (float)ModernClickGui.getY() + 25.0f, ModernClickGui.getWidth() - 88.0f, ModernClickGui.getHeight() - 25.0f, 6.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getPrimaryColor().getRGB());
-                StencilUtils.readStencilBuffer(1);
-
-                if (selectedWindow == window)
-                {
-                    selectedWindow.drawScreen(mouseX, mouseY, partialTicks);
-                }
-
-                StencilUtils.disableStencilBuffer();
             } else {
                 if (window == selectedWindow) {
-                    RenderUtils.drawBorderedRoundedRect((float)(getX() + 5.0), (float)(getY() + (double)categoryOffset + 3.0), 75.0f, 12.0f, 4.0f, 2.0f, Kore.themeManager.getSecondaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
+                    RenderUtils.drawBorderedRoundedRect((float)(getX() + 5.0), (float)(getY() + (double)categoryOffset + 3.0), 75.0f, 12.0f, 4.0f, 4.0f, Kore.themeManager.getSecondaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
                 }
                 Fonts.getPrimary().drawStringWithShadow(window.getName(), getX() + 12.0, getY() + (double)categoryOffset + 5.0, Color.WHITE.getRGB());
                 categoryOffset += 14;
-
-                StencilUtils.enableStencilBuffer();
-                RenderUtils.drawBorderedRoundedRect((float)ModernClickGui.getX() + 88.0f, (float)ModernClickGui.getY() + 25.0f, ModernClickGui.getWidth() - 88.0f, ModernClickGui.getHeight() - 25.0f, 6.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getPrimaryColor().getRGB());
-                StencilUtils.readStencilBuffer(1);
-
-                if (selectedWindow == window)
-                {
-                    selectedWindow.drawScreen(mouseX, mouseY, partialTicks);
-                }
-
-                StencilUtils.disableStencilBuffer();
             }
+
+            StencilUtils.enableStencilBuffer();
+            RenderUtils.drawBorderedRoundedRect((float)ModernClickGui.getX() + 88.0f, (float)ModernClickGui.getY() + 25.0f, ModernClickGui.getWidth() - 88.0f, ModernClickGui.getHeight() - 25.0f, 6.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getPrimaryColor().getRGB());
+            StencilUtils.readStencilBuffer(1);
+
+            if (selectedWindow == window)
+            {
+                selectedWindow.drawScreen(mouseX, mouseY, partialTicks);
+            }
+
+            StencilUtils.disableStencilBuffer();
         }
 
         GlStateManager.popMatrix();

@@ -34,7 +34,7 @@ public class GuiMove extends Module
         };
         this.sensivity = new NumberSetting("Sensivity", 1.5, 0.1, 3.0, 0.01, aBoolean -> !this.rotate.isEnabled());
         this.addSettings(this.rotate, this.sensivity, this.drag);
-        this.setFlagType(FlagType.RISKY);
+        this.setFlagType(FlagType.DETECTED);
     }
 
     @Override

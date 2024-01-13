@@ -56,7 +56,7 @@ public class HomeWindow extends Window {
 
     public int getHeight()
     {
-        return 12 * Kore.changelog.size();
+        return 12 * Kore.changelog.size() + 8;
     }
 
     @Override

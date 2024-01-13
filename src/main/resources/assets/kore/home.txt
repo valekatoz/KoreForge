@@ -1,0 +1,11 @@
+(Failed to fetch online home)
+
+This is a development build for Kore
+
+Informations:
+- Github: github.com/valekatoz/Kore
+- Discord: valekatoz
+
+Developers:
+- valekatoz
+- Kyrotechnic

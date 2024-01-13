@@ -1,0 +1,14 @@
+Latest update:
+(01/01/1970) - v6.9
+- Bug fixes and improvements
+- Bug fixes and improvements
+- Bug fixes and improvements
+- Bug fixes and improvements
+
+Informations:
+- Github: github.com/valekatoz/Kore
+- Discord: valekatoz
+
+Developers:
+- valekatoz
+- Kyrotechnic

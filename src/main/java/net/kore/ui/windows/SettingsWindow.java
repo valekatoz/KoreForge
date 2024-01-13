@@ -2,7 +2,6 @@ package net.kore.ui.windows;
 
 import net.kore.Kore;
 import net.kore.settings.Setting;
-import net.kore.ui.components.CompModeSetting;
 import net.kore.ui.components.Comp;
 
 import java.util.ArrayList;

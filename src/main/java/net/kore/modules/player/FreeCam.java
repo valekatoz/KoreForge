@@ -28,7 +28,7 @@ public class FreeCam extends Module
         this.speed = new NumberSetting("Speed", 3.0, 0.1, 5.0, 0.1);
         this.tracer = new BooleanSetting("Show tracer", false);
         this.addSettings(this.speed, this.tracer);
-        this.setFlagType(FlagType.RISKY);
+        this.setFlagType(FlagType.DETECTED);
     }
 
     @Override

@@ -1,17 +1,19 @@
 package net.kore;
 
+import net.kore.events.JoinGameEvent;
 import net.kore.managers.*;
 import net.kore.modules.ClientSettings;
 import net.kore.modules.Module;
 import net.kore.modules.combat.AimAssist;
 import net.kore.modules.combat.AntiBot;
+import net.kore.modules.misc.GhostBlocks;
 import net.kore.modules.misc.MurderFinder;
-import net.kore.modules.misc.PurseSpoofer;
+import net.kore.modules.skyblock.PurseSpoofer;
 import net.kore.modules.player.*;
 import net.kore.modules.protection.*;
 import net.kore.modules.render.*;
-import net.kore.modules.misc.AutoExperiments;
-import net.kore.modules.misc.AutoHarp;
+import net.kore.modules.skyblock.AutoExperiments;
+import net.kore.modules.skyblock.AutoHarp;
 import net.kore.utils.Notification;
 import net.kore.utils.font.Fonts;
 import net.kore.utils.render.BlurUtils;
@@ -24,9 +26,16 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import com.google.common.collect.Lists;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mod(modid = Kore.MOD_ID, name = Kore.MOD_NAME, version = Kore.VERSION)
 public class Kore {
@@ -42,7 +51,7 @@ public class Kore {
 
     // Variables
     public static Minecraft mc;
-    public static List<String> changelog;
+    public static List<String> changelog = new ArrayList<>();
     public static char fancy = (char) 167;
 
     // (Important) Modules
@@ -61,7 +70,6 @@ public class Kore {
     public static Nametags nametags;
     public static ModHider modHider;
     public static NickHider nickHider;
-    public static AntiNicker antiNicker;
     public static StaffAnalyser staffAnalyser;
     public static Proxy proxy;
     public static FreeCam freeCam;
@@ -116,27 +124,40 @@ public class Kore {
 
     public static void loadChangelog()
     {
-        changelog = Lists.newArrayList("This is a development build of Kore", "Use it and be aware we are not liable", "if you get banned.","");
-
+        URL url2 = null;
         BufferedReader reader = null;
+
+        // Tries fetching the home from server
         try {
-            reader = new BufferedReader(new InputStreamReader(Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("Kore", "changelog.txt")).getInputStream()));
-            String line = null;
+            url2 = new URL("https://kore.valekatoz.com/home.txt");
+
+            HttpURLConnection connection = (HttpURLConnection) url2.openConnection();
+            connection.setRequestProperty("User-Agent", "Kore/"+Kore.VERSION); // custom UserAgent to skip cloudflare managed challenge
+
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            String line;
             while ((line = reader.readLine()) != null) {
                 changelog.add(line);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+            if(Kore.clientSettings.debug.isEnabled()) {
+                e.printStackTrace();
+            }
+
+            // If fetching the home from server failed we fetch it from local file
+            try {
+                reader = new BufferedReader(new InputStreamReader(Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("Kore", "home.txt")).getInputStream()));
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    changelog.add(line);
                 }
+
+                reader.close();
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
             }
         }
-
     }
 
     @Mod.EventHandler
@@ -148,9 +169,7 @@ public class Kore {
     @Mod.EventHandler
     public void startLate(FMLInitializationEvent event)
     {
-        Fonts.bootstrap();
 
-        start();
     }
 
     public static void sendMessage(Object object) {

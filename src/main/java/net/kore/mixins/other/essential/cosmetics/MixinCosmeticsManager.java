@@ -50,7 +50,7 @@ public abstract class MixinCosmeticsManager {
      */
     @Overwrite
     public @NotNull State<Set<String>> getUnlockedCosmetics() {
-        if(Kore.themeManager != null && Kore.clientSettings.cosmeticsUnlocker != null && Kore.clientSettings.cosmeticsUnlocker.isEnabled()) {
+        if(Kore.themeManager != null && Kore.clientSettings.unlockCosmetics != null && Kore.clientSettings.unlockCosmetics.isEnabled()) {
             return StateKt.stateOf(getCosmeticsData().getCosmetics().get().stream().map(Cosmetic::getId).collect(Collectors.toSet()));
         } else {
             return unlockedCosmetics;
@@ -59,7 +59,7 @@ public abstract class MixinCosmeticsManager {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     public void CosmeticManager(ConnectionManager connectionManager, File baseDir, CallbackInfo ci) {
-        if(Kore.clientSettings != null && Kore.clientSettings.cosmeticsUnlocker != null && Kore.clientSettings.cosmeticsUnlocker.isEnabled()) {
+        if(Kore.clientSettings != null && Kore.clientSettings.unlockCosmetics != null && Kore.clientSettings.unlockCosmetics.isEnabled()) {
             //load config
             try {
                 System.out.println("[Kore] Loading config");
@@ -81,14 +81,14 @@ public abstract class MixinCosmeticsManager {
 
     @Inject(method = "resetState", at = @At("TAIL"))
     public void resetState(CallbackInfo ci) {
-        if(Kore.clientSettings != null && Kore.clientSettings.cosmeticsUnlocker != null && Kore.clientSettings.cosmeticsUnlocker.isEnabled()) {
+        if(Kore.clientSettings != null && Kore.clientSettings.unlockCosmetics != null && Kore.clientSettings.unlockCosmetics.isEnabled()) {
             setEquippedCosmetics(UUIDUtil.getClientUUID(), map);
         }
     }
 
     @Inject(method = "toggleOwnCosmeticVisibility", at = @At("HEAD"))
     public void toggleOwnCosmeticVisibility(boolean notification, CallbackInfo ci) {
-        if(Kore.clientSettings != null && Kore.clientSettings.cosmeticsUnlocker != null && Kore.clientSettings.cosmeticsUnlocker.isEnabled()) {
+        if(Kore.clientSettings != null && Kore.clientSettings.unlockCosmetics != null && Kore.clientSettings.unlockCosmetics.isEnabled()) {
             if (ownCosmeticsVisible) return;
             Notifications.INSTANCE.push("Kore", "Loaded cosmetics from config.");
             setEquippedCosmetics(UUIDUtil.getClientUUID(), map);
@@ -101,7 +101,7 @@ public abstract class MixinCosmeticsManager {
      */
     @Overwrite
     public @NotNull ImmutableMap<CosmeticSlot, String> getEquippedCosmetics() {
-        if(Kore.clientSettings != null && Kore.clientSettings != null && Kore.clientSettings.cosmeticsUnlocker != null && Kore.clientSettings.cosmeticsUnlocker.isEnabled()) {
+        if(Kore.clientSettings != null && Kore.clientSettings != null && Kore.clientSettings.unlockCosmetics != null && Kore.clientSettings.unlockCosmetics.isEnabled()) {
             ImmutableMap<CosmeticSlot, String> result = ImmutableMap.copyOf(map);
             return result != null ? result : ImmutableMap.of();
         } else {
@@ -112,7 +112,7 @@ public abstract class MixinCosmeticsManager {
 
     @Inject(method = "updateEquippedCosmetic(Lgg/essential/mod/cosmetics/CosmeticSlot;Ljava/lang/String;)V", at = @At("HEAD"))
     public void updateEquippedCosmetic(CosmeticSlot slot, String cosmeticId, CallbackInfo ci) {
-        if(Kore.clientSettings != null && Kore.clientSettings.cosmeticsUnlocker != null && Kore.clientSettings.cosmeticsUnlocker.isEnabled()) {
+        if(Kore.clientSettings != null && Kore.clientSettings.unlockCosmetics != null && Kore.clientSettings.unlockCosmetics.isEnabled()) {
             if (cosmeticId != null) map.put(slot, cosmeticId);
             else map.remove(slot);
 

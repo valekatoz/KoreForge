@@ -49,7 +49,7 @@ public class ModuleWindow extends Window {
         int offset = 30;
         if (!ModernClickGui.settingsOpened) {
             for (Module module : this.modulesInCategory) {
-                if (module.getFlagType() == Module.FlagType.RISKY && Kore.clickGui.hideRiskyModules.isEnabled())
+                if (module.getFlagType() == Module.FlagType.DETECTED && Kore.clickGui.hideRiskyModules.isEnabled())
                 {
                     continue;
                 }
@@ -58,7 +58,7 @@ public class ModuleWindow extends Window {
 
                 int shift = 105;
 
-                if (module.getFlagType() == Module.FlagType.RISKY)
+                if (module.getFlagType() == Module.FlagType.DETECTED)
                 {
                     shift += 10;
 

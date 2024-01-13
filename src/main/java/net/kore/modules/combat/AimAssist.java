@@ -66,7 +66,7 @@ public class AimAssist extends Module
         this.invisibles = new BooleanSetting("Invisibles", false);
         this.teams = new BooleanSetting("Teams", true);
         this.addSettings(this.fov, this.range, this.minSpeed, this.speed, this.players, this.mobs, this.teams, this.invisibles, this.vertical);
-        this.setFlagType(FlagType.RISKY);
+        this.setFlagType(FlagType.DETECTED);
     }
 
     @Override

@@ -1,9 +1,10 @@
-package net.kore.modules.misc;
+package net.kore.modules.skyblock;
 
 import net.kore.Kore;
 import net.kore.events.PacketReceivedEvent;
 import net.kore.modules.Module;
 import net.kore.settings.NumberSetting;
+import net.kore.utils.PacketUtils;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S3EPacketTeams;
 import net.minecraft.util.StringUtils;
@@ -12,10 +13,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.lang.reflect.Field;
 
 public class PurseSpoofer extends Module {
-    public NumberSetting additionalCoins = new NumberSetting("Coins", 1000d, Double.MIN_VALUE + 1, Double.MAX_VALUE - 1, 0, aBoolean -> true);
+    public NumberSetting additionalCoins = new NumberSetting("Coins", 0.0, Double.MIN_VALUE + 1, Double.MAX_VALUE - 1, 0, aBoolean -> true);
 
     public PurseSpoofer() {
-        super("Purse Spoofer", Category.MISC);
+        super("Purse Spoofer", Category.SKYBLOCK);
     }
 
     @Override
@@ -51,7 +52,13 @@ public class PurseSpoofer extends Module {
                 field.setAccessible(true);
                 field.set(team, newPurse);
             } catch (Exception e) {
-                e.printStackTrace();
+                try {
+                    Field field = S3EPacketTeams.class.getDeclaredField("field_149319_c");
+                    field.setAccessible(true);
+                    field.set(team, newPurse);
+                } catch (Exception ex) {
+                    e.printStackTrace();
+                }
             }
         }
     }
