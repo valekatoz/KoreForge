@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import static net.minecraft.client.renderer.GlStateManager.*;
 import static org.lwjgl.opengl.GL11.*;
 
-public class GLUtil {
+public class GLUtils {
     public static void startScale(float x, float y, float scale) {
         pushMatrix();
         translate(x, y, 0);

@@ -1,4 +1,4 @@
-package net.kore.mixins;
+package net.kore.mixins.network;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.netty.bootstrap.Bootstrap;

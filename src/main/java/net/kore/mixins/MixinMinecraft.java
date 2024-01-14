@@ -1,13 +1,11 @@
 package net.kore.mixins;
 
 import net.kore.Kore;
-import net.kore.utils.font.Fonts;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,8 +21,7 @@ public class MixinMinecraft {
     @Inject(method = "startGame", at = @At("TAIL"), cancellable = false)
     public void startGame(CallbackInfo ci)
     {
-        Fonts.bootstrap();
-        Kore.start();
+        Kore.mc = Minecraft.getMinecraft();
     }
 
     @Inject(method = { "runTick" }, at = { @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;dispatchKeypresses()V") })

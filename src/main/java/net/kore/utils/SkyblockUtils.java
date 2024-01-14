@@ -6,16 +6,13 @@ import com.google.common.collect.Ordering;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import net.kore.Kore;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.item.ItemSkull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.scoreboard.Score;
-import net.minecraft.scoreboard.ScorePlayerTeam;
-import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.scoreboard.*;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.util.Constants;
 
@@ -24,6 +21,82 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SkyblockUtils {
+    public enum SkyblockAreas {
+        DUNGEON("Catacombs"),
+        PRIVATE_ISLAND("Private Island"),
+        DUNGEON_HUB("Dungeon Hub"),
+        GOLD_MINE("Gold Mine"),
+        DEEP_CAVERNS("Deep Caverns"),
+        DWARVEN_MINES("Dwarven Mines"),
+        CRYSTAL_HOLLOWS("Crystal Hollows"),
+        SPIDERS_DEN("Spider's Den"),
+        CRIMSON_ISLE("Crimson Isle"),
+        END("The End"),
+        PARK("The Park"),
+        FARMING_ISLANDS("The Farming Islands"),
+        KUUDRA("Instanced"),
+        HUB("Hub"),
+        GARDEN("Garden"),
+        RIFT("The Rift");
+
+        public String areaName;
+
+        public String getAreaName()
+        {
+            return areaName;
+        }
+
+        SkyblockAreas(String name)
+        {
+            this.areaName = name;
+        }
+
+        public static SkyblockAreas getArea(String name)
+        {
+            for (SkyblockAreas area : SkyblockAreas.values())
+            {
+                if (area.getAreaName() == name)
+                    return area;
+            }
+
+            return null;
+        }
+    }
+
+    public static boolean isOnHypixel()
+    {
+        return Kore.mc.getCurrentServerData().serverIP.endsWith("hypixel.net");
+    }
+
+    public static boolean isOnSkyBlock() {
+        try {
+            final ScoreObjective titleObjective = Kore.mc.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1);
+            if (Kore.mc.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(0) != null) {
+                return ChatFormatting.stripFormatting(Kore.mc.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(0).getDisplayName()).contains("SKYBLOCK");
+            }
+            return ChatFormatting.stripFormatting(Kore.mc.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1).getDisplayName()).contains("SKYBLOCK");
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean isInOtherGame() {
+        try {
+            final Scoreboard sb = Kore.mc.thePlayer.getWorldScoreboard();
+            final List<Score> list = new ArrayList<Score>(sb.getSortedScores(sb.getObjectiveInDisplaySlot(1)));
+            for (final Score score : list) {
+                final ScorePlayerTeam team = sb.getPlayersTeam(score.getPlayerName());
+                final String s = ChatFormatting.stripFormatting(ScorePlayerTeam.formatPlayerName((Team)team, score.getPlayerName()));
+                if (s.contains("Map")) {
+                    return true;
+                }
+            }
+        }
+        catch (Exception ex) {}
+        return false;
+    }
+
     public static final String FAIRY_SOUL_TEXTURE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjk2OTIzYWQyNDczMTAwMDdmNmFlNWQzMjZkODQ3YWQ1Mzg2NGNmMTZjMzU2NWExODFkYzhlNmIyMGJlMjM4NyJ9fX0=";
     public static String getDisplayName(final ItemStack item) {
         if (item == null) {
@@ -67,7 +140,7 @@ public class SkyblockUtils {
     public static final int NBT_STRING = 8;
     public static final int NBT_LIST = 9;
 
-    public static SkyblockArea currentArea = null;
+    public static SkyblockAreas currentArea = null;
     public static int ticks;
     public static Regex areaRegex = new Regex("^(?:Area|Dungeon): ([\\w ].+)\\$");
 

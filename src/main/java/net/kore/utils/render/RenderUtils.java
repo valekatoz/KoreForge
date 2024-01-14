@@ -239,19 +239,14 @@ public class RenderUtils
 
     public static void setupRender(final boolean start) {
         if (start) {
-            GlStateManager.enableBlend();
-            GL11.glEnable(2848);
+            GlStateManager.disableLighting();
             GlStateManager.disableDepth();
-            GlStateManager.disableTexture2D();
-            GlStateManager.blendFunc(770, 771);
-            GL11.glHint(3154, 4354);
-        } else {
             GlStateManager.disableBlend();
-            GlStateManager.enableTexture2D();
-            GL11.glDisable(2848);
+        } else {
+            GlStateManager.enableLighting();
             GlStateManager.enableDepth();
+            GlStateManager.enableBlend();
         }
-        GlStateManager.depthMask(!start);
     }
 
     public static void circle(final float x, final float y, final float radius, final int fill) {

@@ -104,7 +104,7 @@ public class GhostBlocks extends Module {
     }
 
     @SubscribeEvent
-    public void onWorldJOin(final JoinGameEvent event) {
+    public void onWorldJoin(final JoinGameEvent event) {
         GhostBlocks.eventQueue.clear();
         GhostBlocks.ghostBlocks.clear();
     }

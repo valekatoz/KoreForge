@@ -5,7 +5,7 @@ import net.kore.events.JoinGameEvent;
 import net.kore.modules.Module;
 import net.kore.settings.BooleanSetting;
 import net.kore.settings.ModeSetting;
-import net.kore.utils.PlayerUtil;
+import net.kore.utils.PlayerUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -47,14 +47,14 @@ public class AntiBot extends Module
         if (Kore.antiBot.isToggled() && entity instanceof EntityPlayer && entity != Kore.mc.thePlayer) {
             final EntityData data = AntiBot.entityData.get(entity.getEntityId());
             if (data != null && mode.is("Hypixel")) {
-                return (!tabTicks.isEnabled() || data.getTabTicks() >= 150) && (!ticksInvis.isEnabled() || data.getTicksExisted() - data.getTicksInvisible() >= 150) && (!npcCheck.isEnabled() || !PlayerUtil.isNPC(entity));
+                return (!tabTicks.isEnabled() || data.getTabTicks() >= 150) && (!ticksInvis.isEnabled() || data.getTicksExisted() - data.getTicksInvisible() >= 150) && (!npcCheck.isEnabled() || !PlayerUtils.isNPC(entity));
             }
         }
         return true;
     }
 
     @SubscribeEvent
-    public void onWorldJOin(final JoinGameEvent event) {
+    public void onWorldJoin(final JoinGameEvent event) {
         entityData.clear();
     }
 

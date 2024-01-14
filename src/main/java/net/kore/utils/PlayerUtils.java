@@ -1,9 +1,13 @@
 package net.kore.utils;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import net.kore.Kore;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
@@ -11,9 +15,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C09PacketHeldItemChange;
 import net.minecraft.potion.Potion;
+import net.minecraft.scoreboard.*;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +29,52 @@ public class PlayerUtils
 {
     public static boolean lastGround;
 
+    public static Method clickMouse;
+
     private PlayerUtils() {
+    }
+
+    public static boolean isNPC(final Entity entity) {
+        if (!(entity instanceof EntityOtherPlayerMP)) {
+            return false;
+        }
+        final EntityLivingBase entityLivingBase = (EntityLivingBase)entity;
+        return ChatFormatting.stripFormatting(entity.getDisplayName().getUnformattedText()).startsWith("[NPC]") || (entity.getUniqueID().version() == 2 && entityLivingBase.getHealth() == 20.0f && entityLivingBase.getMaxHealth() == 20.0f);
+    }
+
+    public static void click()
+    {
+        if (clickMouse != null)
+        {
+            try {
+                clickMouse.invoke(Kore.mc);
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+            return;
+        }
+        try {
+            try {
+                clickMouse = Minecraft.class.getDeclaredMethod("clickMouse");
+            }
+            catch (NoSuchMethodException e2) {
+                e2.printStackTrace();
+            }
+            if(clickMouse != null) {
+                clickMouse.setAccessible(true);
+                clickMouse.invoke(Minecraft.getMinecraft(), new Object[0]);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void swingItem()
+    {
+        Kore.mc.thePlayer.swingItem();
     }
 
     public static void swapToSlot(final int slot) {

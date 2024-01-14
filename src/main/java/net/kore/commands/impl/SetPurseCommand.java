@@ -16,11 +16,14 @@ public class SetPurseCommand extends Command {
             Kore.sendMessageWithPrefix("Invalid command!");
             return;
         }
-        double value = Long.parseLong(args[1]);
 
-        Kore.purseSpoofer.additionalCoins.setRawValue(value);
+        double value = Double.parseDouble(args[1]);
 
-        Kore.sendMessageWithPrefix(String.format("Purse spoofed to %,.1f coins", value));
+        Kore.purseSpoofer.coins.set(value);
+
+        Kore.sendMessageWithPrefix(String.format("Purse spoofed to %,.1f coins", Kore.purseSpoofer.coins.getValue()));
+
+        Kore.configManager.saveConfig();
     }
 
     @Override

@@ -5,9 +5,9 @@ import net.kore.modules.Module;
 import net.kore.settings.BooleanSetting;
 import net.kore.settings.NumberSetting;
 import net.kore.utils.EntityUtils;
-import net.kore.utils.MathUtil;
-import net.kore.utils.Rotation;
-import net.kore.utils.RotationUtils;
+import net.kore.utils.MathUtils;
+import net.kore.utils.rotation.Rotation;
+import net.kore.utils.rotation.RotationUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
@@ -83,8 +83,8 @@ public class AimAssist extends Module
                 final Rotation rotation = this.getRotation(target);
                 final float yaw = Kore.mc.thePlayer.rotationYaw + MathHelper.wrapAngleTo180_float(rotation.getYaw() - Kore.mc.thePlayer.rotationYaw);
                 final float pitch = Kore.mc.thePlayer.rotationPitch + MathHelper.wrapAngleTo180_float(rotation.getPitch() - Kore.mc.thePlayer.rotationPitch);
-                final float diffY = (float)((yaw - Kore.mc.thePlayer.rotationYaw) / MathUtil.getRandomInRange(this.speed.getValue(), this.minSpeed.getValue()));
-                final float diffP = (float)((pitch - Kore.mc.thePlayer.rotationPitch) / MathUtil.getRandomInRange(this.speed.getValue(), this.minSpeed.getValue()));
+                final float diffY = (float)((yaw - Kore.mc.thePlayer.rotationYaw) / MathUtils.getRandomInRange(this.speed.getValue(), this.minSpeed.getValue()));
+                final float diffP = (float)((pitch - Kore.mc.thePlayer.rotationPitch) / MathUtils.getRandomInRange(this.speed.getValue(), this.minSpeed.getValue()));
                 Kore.mc.thePlayer.rotationYaw += diffY;
                 if (this.vertical.isEnabled()) {
                     Kore.mc.thePlayer.rotationPitch += diffP;

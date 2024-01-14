@@ -1,10 +1,10 @@
 package net.kore.utils;
 
-public class AnimationUtil {
+public class AnimationUtils {
     private double value;
     private long lastMS;
 
-    public AnimationUtil(final double value) {
+    public AnimationUtils(final double value) {
         this.value = value;
         this.lastMS = System.currentTimeMillis();
     }

@@ -46,10 +46,6 @@ public class NumberSetting extends Setting
         this.value = value;
     }
 
-    public void setRawValue(double value) {
-        this.value = value;
-    }
-
     public void set(final double value) {
         this.value = value;
     }

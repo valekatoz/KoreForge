@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(net.minecraft.client.settings.GameSettings.class)
-public class GameSettings {
+public class MixinGameSettings {
     @Shadow
     public boolean pauseOnLostFocus = false;
 

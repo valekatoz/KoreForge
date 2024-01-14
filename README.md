@@ -1,11 +1,11 @@
-# Kore (2.0.4-private)
+# Kore (2.1.0-beta)
 
 Kore is a minecraft forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and repetitive tasks while keeping you entertained with cool features. 
 You can access the mod by using the default keybind (right shift), to set a custom keybind hold shift and left click a module.
 
 ### Note
 
-if this code is not in compliance with some licenses or something let me know opening a new issue.
+If this code is not in compliance with some licenses or something let me know opening a new issue.
 
 ## Features
 
@@ -20,11 +20,10 @@ if this code is not in compliance with some licenses or something let me know op
   - Chinese Hat
   - Animations
 - Protections
-  - Anti Nicker (WIP)
   - Mod Hider
   - Nick Hider
   - Staff Analyzer
-  - Proxy (WIP)
+  - Proxy (WorkInProgress)
 - Player
   - Fast Break
   - Fast Place
@@ -41,7 +40,8 @@ if this code is not in compliance with some licenses or something let me know op
   - Ghost Blocks
   - Murder Finder
 - Client
-  - **License system** (soon)
+  - **Custom Apis**
+  - **Custom License System**
   - **Essential Cosmetics Unlocker**
   - Debug
 
@@ -53,7 +53,7 @@ if this code is not in compliance with some licenses or something let me know op
 ## Credits
 
 - valekatoz
-- Kyrotechnic (UI, PurseSpoofer)
+- Kyrotechnic (UI, Themes)
 - dxxxxy (Essential Cosmetics Unlocker)
 
 ## FAQ
@@ -64,7 +64,7 @@ Yes.
 
 #### Is it undetected?
 
-Some features are, render and misc are safe to use (remember to keep modhider enabled).
+Detected features are marked by a warning sign, keep modhider enabled and you will be fine.
 
 #### Is this a rat?
 

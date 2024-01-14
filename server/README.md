@@ -1,1 +1,0 @@
-(these are just example files you might wanna have on your server to handle stuff correctly)

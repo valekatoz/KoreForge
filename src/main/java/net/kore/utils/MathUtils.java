@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Random;
 
-public class MathUtil
+public class MathUtils
 {
     public static Double interpolate(double oldValue, double newValue, double interpolationValue){
         return (oldValue + (newValue - oldValue) * interpolationValue);
@@ -37,12 +37,12 @@ public class MathUtil
     }
 
     public static double getRandomInRange(final double max, final double min) {
-        return min + (max - min) * MathUtil.rand.nextFloat();
+        return min + (max - min) * MathUtils.rand.nextFloat();
     }
 
     public static int getRandomInRange(int bound)
     {
-        return MathUtil.rand.nextInt(bound);
+        return MathUtils.rand.nextInt(bound);
     }
 
     public static double clamp(final double num, double max, double min) {

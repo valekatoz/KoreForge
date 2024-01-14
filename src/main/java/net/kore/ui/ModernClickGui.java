@@ -5,7 +5,7 @@ import net.kore.managers.WindowManager;
 import net.kore.ui.windows.ModuleWindow;
 import net.kore.ui.windows.Window;
 import net.kore.utils.StencilUtils;
-import net.kore.utils.render.GLUtil;
+import net.kore.utils.render.GLUtils;
 import net.kore.utils.render.RenderUtils;
 import net.kore.utils.font.Fonts;
 import net.minecraft.client.gui.GuiScreen;
@@ -44,7 +44,7 @@ public class ModernClickGui extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         int categoryOffset = 25;
 
-        GLUtil.startScale((float)(getX() + (getX() + (double)getWidth())) / 2.0f, (float)(getY() + (getY() + (double)getHeight())) / 2.0f, 1.0f);
+        GLUtils.startScale((float)(getX() + (getX() + (double)getWidth())) / 2.0f, (float)(getY() + (getY() + (double)getHeight())) / 2.0f, 1.0f);
         RenderUtils.drawBorderedRoundedRect((float) getX() - 5, (float) getY() - 5, getWidth() + 10, getHeight() + 10, 3.0f, 2 , Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
         RenderUtils.drawBorderedRoundedRect((float)getX(), (float)getY(), 85.0f, getHeight(), 3.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
         RenderUtils.drawBorderedRoundedRect((float)(getX() + 90.0), (float)getY(), getWidth() - 90.0f, 20.0f, 3.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());

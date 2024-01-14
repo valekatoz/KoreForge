@@ -1,6 +1,5 @@
 package net.kore;
 
-import net.kore.events.JoinGameEvent;
 import net.kore.managers.*;
 import net.kore.modules.ClientSettings;
 import net.kore.modules.Module;
@@ -15,27 +14,23 @@ import net.kore.modules.render.*;
 import net.kore.modules.skyblock.AutoExperiments;
 import net.kore.modules.skyblock.AutoHarp;
 import net.kore.utils.Notification;
+import net.kore.utils.api.ServerUtils;
 import net.kore.utils.font.Fonts;
-import net.kore.utils.render.BlurUtils;
+import net.kore.utils.render.shader.BlurUtils;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import com.google.common.collect.Lists;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
-
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Mod(modid = Kore.MOD_ID, name = Kore.MOD_NAME, version = Kore.VERSION)
 public class Kore {
@@ -44,6 +39,7 @@ public class Kore {
     public static final String VERSION = "@VER@";
 
     // Managers
+    public static LicenseManager licenseManager;
     public static ModuleManager moduleManager;
     public static ConfigManager configManager;
     public static ThemeManager themeManager;
@@ -51,7 +47,6 @@ public class Kore {
 
     // Variables
     public static Minecraft mc;
-    public static List<String> changelog = new ArrayList<>();
     public static char fancy = (char) 167;
 
     // (Important) Modules
@@ -99,7 +94,7 @@ public class Kore {
 
         CommandManager.init();
 
-        loadChangelog();
+        ServerUtils.loadChangelog();
 
         for (Module module : moduleManager.modules)
         {
@@ -116,60 +111,34 @@ public class Kore {
             if (module.getKeycode() == key)
             {
                 module.toggle();
-                if (!clickGui.disableNotifs.isEnabled() && !module.getName().equals("Ghost Blocks"))
+                if (!clickGui.disableNotifs.isEnabled())
                     notificationManager.showNotification((module.isToggled() ? "Enabled" : "Disabled") + " " + module.getName(), 2000, Notification.NotificationType.INFO);
             }
         }
     }
 
-    public static void loadChangelog()
-    {
-        URL url2 = null;
-        BufferedReader reader = null;
+    @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent pre) {
+        MinecraftForge.EVENT_BUS.register(this);
+        Fonts.bootstrap();
+        Kore.start();
+    }
 
-        // Tries fetching the home from server
-        try {
-            url2 = new URL("https://kore.valekatoz.com/home.txt");
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent event) {
 
-            HttpURLConnection connection = (HttpURLConnection) url2.openConnection();
-            connection.setRequestProperty("User-Agent", "Kore/"+Kore.VERSION); // custom UserAgent to skip cloudflare managed challenge
+    }
 
-            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+    @Mod.EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                changelog.add(line);
-            }
-        } catch (IOException e) {
-            if(Kore.clientSettings.debug.isEnabled()) {
-                e.printStackTrace();
-            }
+    }
 
-            // If fetching the home from server failed we fetch it from local file
-            try {
-                reader = new BufferedReader(new InputStreamReader(Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("Kore", "home.txt")).getInputStream()));
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    changelog.add(line);
-                }
-
-                reader.close();
-            } catch (IOException exception) {
-                throw new RuntimeException(exception);
-            }
+    @SubscribeEvent
+    public void onEntityJoinWorld(EntityJoinWorldEvent event) {
+        if (licenseManager == null && event.entity instanceof  net.minecraft.client.entity.EntityPlayerSP) {
+            licenseManager = new LicenseManager();
         }
-    }
-
-    @Mod.EventHandler
-    public void startForge(FMLPreInitializationEvent pre)
-    {
-
-    }
-
-    @Mod.EventHandler
-    public void startLate(FMLInitializationEvent event)
-    {
-
     }
 
     public static void sendMessage(Object object) {

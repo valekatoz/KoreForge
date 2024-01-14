@@ -1,4 +1,4 @@
-package net.kore.utils;
+package net.kore.utils.rotation;
 
 import net.minecraft.util.*;
 

@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.*;
 import java.util.*;
 import java.util.List;
 
-public class MinecraftFontRenderer extends CFont
+public class FontRenderer extends CFont
 {
     CFont.CharData[] boldChars;
     CFont.CharData[] italicChars;
@@ -20,11 +20,11 @@ public class MinecraftFontRenderer extends CFont
     DynamicTexture texItalic;
     DynamicTexture texItalicBold;
 
-    public MinecraftFontRenderer(final Font font) {
+    public FontRenderer(final Font font) {
         this(font, true, false);
     }
 
-    public MinecraftFontRenderer(final Font font, final boolean antiAlias, final boolean fractionalMetrics) {
+    public FontRenderer(final Font font, final boolean antiAlias, final boolean fractionalMetrics) {
         super(font, antiAlias, fractionalMetrics);
         this.boldChars = new CFont.CharData[256];
         this.italicChars = new CFont.CharData[256];

@@ -6,7 +6,7 @@ import net.kore.ui.hud.DraggableComponent;
 import net.kore.ui.hud.HudVec;
 import net.kore.utils.StencilUtils;
 import net.kore.utils.font.Fonts;
-import net.kore.utils.render.BlurUtils;
+import net.kore.utils.render.shader.BlurUtils;
 import net.kore.utils.render.RenderUtils;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;

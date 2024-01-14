@@ -40,7 +40,7 @@ public class StaffAnalyser extends Module
                 final int bans = PlanckeScraper.getBans();
                 if (bans != this.lastBans && this.lastBans != -1 && bans > this.lastBans) {
                     if(Kore.clientSettings.debug.isEnabled()) {
-                        Kore.sendMessageWithPrefix("(StaffAnalyzer) Checking staff bans...");
+                        Kore.sendMessageWithPrefix("(&cStaffAnalyzer&f) Checking staff bans...");
                     }
                     Kore.notificationManager.showNotification(String.format("Staff has banned %s %s in the last %s minutes", bans - this.lastBans, (bans - this.lastBans > 1) ? "people" : "person", (int)this.delay.getValue()), 5000, (bans - this.lastBans > 2) ? Notification.NotificationType.WARNING : Notification.NotificationType.INFO);
                 }

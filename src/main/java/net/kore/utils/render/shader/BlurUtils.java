@@ -1,6 +1,7 @@
-package net.kore.utils.render;
+package net.kore.utils.render.shader;
 
 import net.kore.Kore;
+import net.kore.utils.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;

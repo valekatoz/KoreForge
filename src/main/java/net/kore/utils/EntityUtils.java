@@ -1,7 +1,6 @@
 package net.kore.utils;
 
 import net.kore.Kore;
-import net.kore.utils.PlayerUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +22,7 @@ public class EntityUtils
         if (!(e2 instanceof EntityPlayer) || e2.getDisplayName().getUnformattedText().length() < 4) {
             return false;
         }
-        if (PlayerUtil.isOnSkyBlock()) {
+        if (SkyblockUtils.isOnSkyBlock()) {
             return isOnTeam((EntityPlayer)e2);
         }
         return Kore.mc.thePlayer.getDisplayName().getFormattedText().charAt(2) == Kore.fancy && e2.getDisplayName().getFormattedText().charAt(2) == '?' && Kore.mc.thePlayer.getDisplayName().getFormattedText().charAt(3) == e2.getDisplayName().getFormattedText().charAt(3);

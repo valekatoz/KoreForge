@@ -1,6 +1,8 @@
 package net.kore.modules.skyblock;
 
 import net.kore.modules.Module;
+import net.kore.utils.font.Fonts;
+import net.kore.utils.render.RenderUtils;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Slot;
@@ -53,7 +55,7 @@ public class AutoHarp extends Module {
     @SubscribeEvent
     public final void onGuiOpen(GuiOpenEvent event) {
         inHarp = GuiUtils.getInventoryName(event.gui).startsWith("Harp -");
-        updates = 0;
+        updates = 1;
         currentInventory.clear();
     }
 
@@ -97,7 +99,7 @@ public class AutoHarp extends Module {
                             slot = Kore.mc.thePlayer.openContainer.inventorySlots.get(finalSlotNumber);
                             timestamp = System.currentTimeMillis();
                             if(Kore.clientSettings.debug.isEnabled()) {
-                                Kore.sendMessageWithPrefix("(AutoHarp) Clicked Slot " + slot.slotNumber+9 + " (&c" + (timestamp - startedSongTimestamp) +"&f)");
+                                Kore.sendMessageWithPrefix("(&cAutoHarp&f) Clicked Slot " + slot.slotNumber+9 + " (&c" + (timestamp - startedSongTimestamp) +"&f)");
                             }
                             Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId,finalSlotNumber + 9,2,3,Kore.mc.thePlayer);
                         }, (long)autoHarpDelay.getValue()+getRandDelay(), TimeUnit.MILLISECONDS);
@@ -112,9 +114,8 @@ public class AutoHarp extends Module {
     public void onGuiRender(GuiScreenEvent.DrawScreenEvent.Post event) {
         if (!Kore.autoHarp.isToggled() || !inHarp) return;
 
-        GlStateManager.disableDepth();
-        Kore.mc.fontRendererObj.drawStringWithShadow("[KORE] ",5,5,new Color(255, 85, 85).getRGB());
-        Kore.mc.fontRendererObj.drawStringWithShadow("AutoHarp",42,5,Color.WHITE.getRGB());
+        RenderUtils.setupRender(true);
+        Fonts.getSecondary().drawSmoothString("ore", Fonts.getSecondary().drawSmoothString("K", 5.0, 5.0f, Color.white.darker().getRGB()) + 1.0f, 5.0f,Kore.themeManager.getSecondaryColor(0).getRGB());
         if(Kore.clientSettings.debug.isEnabled()) {
             Kore.mc.fontRendererObj.drawStringWithShadow("Song Speed: " + (System.currentTimeMillis() - startedSongTimestamp) / updates + "ms",5,15,Color.LIGHT_GRAY.getRGB());
             Kore.mc.fontRendererObj.drawStringWithShadow("Gui Updates: " + updates,5,25,Color.LIGHT_GRAY.getRGB());
@@ -128,6 +129,6 @@ public class AutoHarp extends Module {
                     Color.RED.getRGB()
             );
         }
-        GlStateManager.enableDepth();
+        RenderUtils.setupRender(false);
     }
 }

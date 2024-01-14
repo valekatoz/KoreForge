@@ -41,6 +41,8 @@ public class Module {
 
     public FlagType flagType;
 
+    public VersionType versionType;
+
     public Module(final String name, final int keycode, final Category category) {
         this.toggledTime = new MilliTimer();
         this.settings = new ArrayList<Setting>();
@@ -93,6 +95,16 @@ public class Module {
     public FlagType getFlagType()
     {
         return this.flagType;
+    }
+
+    public void setVersionType(VersionType type)
+    {
+        this.versionType = type;
+    }
+
+    public VersionType getVersionType()
+    {
+        return this.versionType;
     }
 
     public void onSave() {
@@ -180,6 +192,12 @@ public class Module {
         private Category(final String name) {
             this.name = name;
         }
+    }
+
+    public enum VersionType
+    {
+        FREE,
+        PREMIUM
     }
 
     public enum FlagType

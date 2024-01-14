@@ -1,9 +1,10 @@
-package net.kore.utils;
+package net.kore.utils.rotation;
 
 import java.util.*;
 
 import net.kore.Kore;
-import net.kore.mixins.PlayerSPAccessor;
+import net.kore.mixins.player.PlayerSPAccessor;
+import net.kore.utils.MovementUtils;
 import net.minecraft.util.*;
 import net.minecraft.entity.*;
 

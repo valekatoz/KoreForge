@@ -1,15 +1,15 @@
 package net.kore.ui.windows;
 
-import net.kore.Kore;
 import net.kore.ui.ModernClickGui;
-import net.kore.utils.AnimationUtil;
+import net.kore.utils.AnimationUtils;
 import net.kore.utils.MouseUtils;
+import net.kore.utils.api.ServerUtils;
 import net.kore.utils.font.Fonts;
 
 import java.awt.*;
 
 public class HomeWindow extends Window {
-    public static AnimationUtil scroll = new AnimationUtil(0.0);
+    public static AnimationUtils scroll = new AnimationUtils(0.0);
     public int scrollY;
     public HomeWindow() {
         super("Home");
@@ -22,7 +22,7 @@ public class HomeWindow extends Window {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         int yOffset = (int) (35 + scroll.getValue());
-        for (String str : Kore.changelog) {
+        for (String str : ServerUtils.changelog) {
             Fonts.getPrimary().drawString(str, ModernClickGui.getX() + 100.0, ModernClickGui.getY() + (double)yOffset, Color.WHITE.getRGB());
             yOffset += 12;
         }
@@ -56,7 +56,7 @@ public class HomeWindow extends Window {
 
     public int getHeight()
     {
-        return 12 * Kore.changelog.size() + 8;
+        return 12 * ServerUtils.changelog.size() + 8;
     }
 
     @Override

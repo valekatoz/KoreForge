@@ -1,13 +1,15 @@
 package net.kore.ui.windows;
 
 import net.kore.Kore;
+import net.kore.managers.LicenseManager;
 import net.kore.modules.Module;
 import net.kore.settings.*;
 import net.kore.ui.ModernClickGui;
 import net.kore.ui.components.*;
-import net.kore.utils.AnimationUtil;
+import net.kore.utils.AnimationUtils;
 import net.kore.utils.MouseUtils;
 import net.kore.utils.StencilUtils;
+import net.kore.utils.api.ServerUtils;
 import net.kore.utils.font.Fonts;
 import net.kore.utils.render.RenderUtils;
 import net.minecraft.util.ChatAllowedCharacters;
@@ -23,7 +25,7 @@ import java.util.stream.Collectors;
 import static net.minecraft.client.gui.GuiScreen.getClipboardString;
 
 public class ModuleWindow extends Window {
-    public AnimationUtil scrollAnimation = new AnimationUtil(0.0);
+    public AnimationUtils scrollAnimation = new AnimationUtils(0.0);
     public static double scrollY;
     public static double scrollYsettings;
     public List<Module> modulesInCategory;
@@ -31,7 +33,7 @@ public class ModuleWindow extends Window {
     public static StringSetting selectedString = null;
     public static NumberSetting selectedNumber = null;
     public static Module changeBind = null;
-    public static AnimationUtil settingsAnimation = new AnimationUtil(0.0);
+    public static AnimationUtils settingsAnimation = new AnimationUtils(0.0);
 
     public ModuleWindow(Module.Category moduleCategory) {
         super(moduleCategory.name);
@@ -49,7 +51,7 @@ public class ModuleWindow extends Window {
         int offset = 30;
         if (!ModernClickGui.settingsOpened) {
             for (Module module : this.modulesInCategory) {
-                if (module.getFlagType() == Module.FlagType.DETECTED && Kore.clickGui.hideRiskyModules.isEnabled())
+                if (module.getFlagType() == Module.FlagType.DETECTED && Kore.clientSettings.hideDetectedModules.isEnabled())
                 {
                     continue;
                 }
@@ -63,6 +65,13 @@ public class ModuleWindow extends Window {
                     shift += 10;
 
                     Fonts.newIcons.drawString("A", ModernClickGui.getX() + 100, ModernClickGui.getY() + (double) offset + this.scrollAnimation.getValue() + 6.0, Color.YELLOW.getRGB());
+                }
+
+                if (module.getVersionType() == Module.VersionType.PREMIUM)
+                {
+                    shift += 10;
+
+                    Fonts.newIcons.drawString("n", ModernClickGui.getX() + 100, ModernClickGui.getY() + (double) offset + this.scrollAnimation.getValue() + 6.0, Color.BLACK.getRGB());
                 }
 
                 Fonts.getPrimary().drawString(module.getName(), ModernClickGui.getX() + shift, ModernClickGui.getY() + (double)offset + this.scrollAnimation.getValue() + 7.0, Color.WHITE.getRGB());
@@ -82,7 +91,7 @@ public class ModuleWindow extends Window {
                 offset += 25;
             }
         } else if (selectedModule != null) {
-            Fonts.getPrimary().drawString(selectedModule.getName(), ModernClickGui.getX() + 95.0, 30.0, Color.WHITE.getRGB());
+            //Fonts.getPrimary().drawString(selectedModule.getName(), ModernClickGui.getX() + 95.0, 30.0, Color.WHITE.getRGB());
 
             for (Comp comp : updateComps(selectedModule.getSettings())) {
                 comp.drawScreen(mouseX, mouseY, partialTicks);
@@ -205,16 +214,34 @@ public class ModuleWindow extends Window {
                                 changeBind = module;
                                 return;
                             }
-                            module.toggle();
+                            if(!module.isToggled() && module.getVersionType() == Module.VersionType.PREMIUM) {
+                                if(Kore.licenseManager != null && Kore.licenseManager.isPremium()) {
+                                    module.toggle();
+                                } else {
+                                    Kore.sendMessageWithPrefix("You need to be premium to use that.");
+                                }
+                            } else {
+                                module.toggle();
+                            }
                             break;
                         }
                         case 1: {
                             if (module.getSettings().isEmpty()) {
                                 return;
                             }
-                            close();
-                            selectedModule = module;
-                            ModernClickGui.settingsOpened = true;
+                            if(module.getVersionType() == Module.VersionType.PREMIUM) {
+                                if(Kore.licenseManager != null && Kore.licenseManager.isPremium()) {
+                                    close();
+                                    selectedModule = module;
+                                    ModernClickGui.settingsOpened = true;
+                                } else {
+                                    Kore.sendMessageWithPrefix("You need to be premium to use that.");
+                                }
+                            } else {
+                                close();
+                                selectedModule = module;
+                                ModernClickGui.settingsOpened = true;
+                            }
                             break;
                         }
                         case 2: {

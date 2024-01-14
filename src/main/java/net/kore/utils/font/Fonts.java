@@ -16,17 +16,17 @@ import java.util.Map;
 public class Fonts
 {
     private static Map<String, Font> fontCache;
-    public static MinecraftFontRenderer tenacity;
-    public static MinecraftFontRenderer tenacityBold;
-    public static MinecraftFontRenderer icon;
-    public static MinecraftFontRenderer newIcons;
+    public static FontRenderer tenacity;
+    public static FontRenderer tenacityBold;
+    public static FontRenderer icon;
+    public static FontRenderer newIcons;
 
-    public static MinecraftFontRenderer getPrimary()
+    public static FontRenderer getPrimary()
     {
         return tenacity;
     }
 
-    public static MinecraftFontRenderer getSecondary()
+    public static FontRenderer getSecondary()
     {
         return tenacityBold;
     }
@@ -61,10 +61,10 @@ public class Fonts
     }
 
     public static void bootstrap() {
-        Fonts.tenacity = new MinecraftFontRenderer(getFont("rubik-medium.ttf", 19), true, false);
-        Fonts.tenacityBold = new MinecraftFontRenderer(getFont("tenacity-bold.ttf", 19), true, false);
-        Fonts.icon = new MinecraftFontRenderer(getFont("icon.ttf", 20), true, false);
-        Fonts.newIcons = new MinecraftFontRenderer(getFont("new_icons.ttf", 24), true, false);
+        Fonts.tenacity = new FontRenderer(getFont("rubik-medium.ttf", 19), true, false);
+        Fonts.tenacityBold = new FontRenderer(getFont("tenacity-bold.ttf", 19), true, false);
+        Fonts.icon = new FontRenderer(getFont("icon.ttf", 20), true, false);
+        Fonts.newIcons = new FontRenderer(getFont("new_icons.ttf", 24), true, false);
     }
 
     static {

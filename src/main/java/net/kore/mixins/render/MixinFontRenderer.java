@@ -1,4 +1,4 @@
-package net.kore.mixins;
+package net.kore.mixins.render;
 
 import net.kore.Kore;
 import net.minecraft.client.gui.FontRenderer;

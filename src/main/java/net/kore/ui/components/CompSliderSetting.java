@@ -4,7 +4,7 @@ import net.kore.Kore;
 import net.kore.settings.NumberSetting;
 import net.kore.ui.ModernClickGui;
 import net.kore.ui.windows.ModuleWindow;
-import net.kore.utils.MathUtil;
+import net.kore.utils.MathUtils;
 import net.kore.utils.font.Fonts;
 import net.kore.utils.render.RenderUtils;
 
@@ -37,7 +37,7 @@ public class CompSliderSetting extends Comp {
             }
             else
             {
-                double newValue = MathUtil.round(((diff / width) * (max - min) + min), 2);
+                double newValue = MathUtils.round(((diff / width) * (max - min) + min), 2);
                 numberSetting.setValue(newValue);
             }
         }

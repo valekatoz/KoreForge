@@ -3,7 +3,7 @@ package net.kore.modules.render;
 import net.kore.Kore;
 import net.kore.modules.Module;
 import net.kore.modules.combat.AntiBot;
-import net.kore.utils.MathUtil;
+import net.kore.utils.MathUtils;
 import net.kore.utils.render.RenderUtils;
 import net.kore.utils.font.*;
 
@@ -55,7 +55,7 @@ public class Nametags extends Module
             final float textWidth = (float)Math.max(Fonts.getPrimary().getStringWidth(name) / 2.0, 30.0);
             GlStateManager.disableTexture2D();
             RenderUtils.drawRect(-textWidth - 3.0f, (float)(Fonts.getPrimary().getHeight() + 3), textWidth + 3.0f, -3.0f, new Color(20, 20, 20, 80).getRGB());
-            RenderUtils.drawRect(-textWidth - 3.0f, (float)(Fonts.getPrimary().getHeight() + 3), (float)((textWidth + 3.0f) * ((MathUtil.clamp(event.entity.getHealth() / event.entity.getMaxHealth(), 1.0, 0.0) - 0.5) * 2.0)), (float)(Fonts.getPrimary().getHeight() + 2), Kore.clickGui.getColor().getRGB());
+            RenderUtils.drawRect(-textWidth - 3.0f, (float)(Fonts.getPrimary().getHeight() + 3), (float)((textWidth + 3.0f) * ((MathUtils.clamp(event.entity.getHealth() / event.entity.getMaxHealth(), 1.0, 0.0) - 0.5) * 2.0)), (float)(Fonts.getPrimary().getHeight() + 2), Kore.clickGui.getColor().getRGB());
             GlStateManager.enableTexture2D();
             Fonts.getPrimary().drawSmoothString(name, -Fonts.getPrimary().getStringWidth(name) / 2.0, 0.0f, Color.WHITE.getRGB());
             GlStateManager.enableDepth();

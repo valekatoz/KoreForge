@@ -1,5 +1,7 @@
 package net.kore.modules.skyblock;
 
+import net.kore.utils.font.Fonts;
+import net.kore.utils.render.RenderUtils;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.init.Blocks;
@@ -52,6 +54,7 @@ public class AutoExperiments extends Module {
         this.chronomatronSolver = new BooleanSetting("Chronomatron",true);
         this.ultrasequencerSolver = new BooleanSetting("Ultrasequencer",true);
         this.addSettings(autoExperimentsDelay, delayRandomizer, chronomatronSolver, ultrasequencerSolver);
+        this.setVersionType(VersionType.PREMIUM);
         setToggled(false);
     }
 
@@ -121,9 +124,9 @@ public class AutoExperiments extends Module {
                                         if (glass.getDisplayName().equals(chronomatronPattern.get(chronomatronMouseClicks))) {
                                             Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId,glassSlot.slotNumber,2,3, Kore.mc.thePlayer);
                                             if(Kore.clientSettings.debug.isEnabled()) {
-                                                Kore.sendMessageWithPrefix("(Chronomatron) Clicked Slot " + glassSlot.slotNumber + " (&c" + glassSlot.getStack().getDisplayName() + "&f)");
+                                                Kore.sendMessageWithPrefix("(&cChronomatron&f) Clicked Slot " + glassSlot.slotNumber + " (&c" + glassSlot.getStack().getDisplayName() + "&f)");
                                                 if(lastClickTime > 0) {
-                                                    Kore.sendMessageWithPrefix("(Chronomatron) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
+                                                    Kore.sendMessageWithPrefix("(&cChronomatron&f) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
                                                 }
                                             }
                                             lastClickTime = System.currentTimeMillis();
@@ -156,9 +159,9 @@ public class AutoExperiments extends Module {
                             if(lastClickTime+((autoExperimentsDelay.getValue()*50L)+getRandDelay()) < System.currentTimeMillis()) {
                                 Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId, nextSlot.slotNumber, 2, 3, Kore.mc.thePlayer);
                                 if(Kore.clientSettings.debug.isEnabled()) {
-                                    Kore.sendMessageWithPrefix("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
+                                    Kore.sendMessageWithPrefix("(&cUltrasequencer&f) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
                                     if(lastClickTime > 0) {
-                                        Kore.sendMessageWithPrefix("(Ultrasequencer) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
+                                        Kore.sendMessageWithPrefix("(&cUltrasequencer&f) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
                                     }
                                 }
                                 lastClickTime = System.currentTimeMillis();
@@ -171,9 +174,9 @@ public class AutoExperiments extends Module {
                             if(lastClickTime+((autoExperimentsDelay.getValue()*50L)+getRandDelay()) < System.currentTimeMillis()) {
                                 Kore.mc.playerController.windowClick(Kore.mc.thePlayer.openContainer.windowId, nextSlot.slotNumber, 2, 3, Kore.mc.thePlayer);
                                 if(Kore.clientSettings.debug.isEnabled()) {
-                                    Kore.sendMessageWithPrefix("(Ultrasequencer) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
+                                    Kore.sendMessageWithPrefix("(&cUltrasequencer&f) Clicked Slot " + nextSlot.slotNumber + " (&c" + (lastUltraSequencerClicked+1) + "&f)");
                                     if(lastClickTime > 0) {
-                                        Kore.sendMessageWithPrefix("(Ultrasequencer) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
+                                        Kore.sendMessageWithPrefix("(&cUltrasequencer&f) Since last click &c"+(System.currentTimeMillis()-lastClickTime)+"ms&f passed");
                                     }
                                 }
                                 lastClickTime = System.currentTimeMillis();
@@ -192,24 +195,25 @@ public class AutoExperiments extends Module {
         if(!Kore.autoExperiments.isToggled()) return;
 
         if(GuiUtils.getInventoryName(event.gui).startsWith("Chronomatron") || GuiUtils.getInventoryName(event.gui).startsWith("Ultrasequencer") || GuiUtils.getInventoryName(event.gui).startsWith("Experimentation Table")) {
-            Kore.mc.fontRendererObj.drawStringWithShadow("[KORE] ",5,5,new Color(255, 85, 85).getRGB());
-            Kore.mc.fontRendererObj.drawStringWithShadow("AutoExperiments",42,5,Color.WHITE.getRGB());
+            RenderUtils.setupRender(true);
+            Fonts.getSecondary().drawSmoothString("ore", Fonts.getSecondary().drawSmoothString("K", 5.0, 5.0f, Color.white.darker().getRGB()) + 1.0f, 5.0f,Kore.themeManager.getSecondaryColor(0).getRGB());
             if(Kore.clientSettings.debug.isEnabled()) {
                 if(chronomatronSolver.isEnabled()) {
                     Kore.mc.fontRendererObj.drawStringWithShadow("chronomatronSolver is ",5,15,Color.WHITE.getRGB());
-                    Kore.mc.fontRendererObj.drawStringWithShadow("Enabled",124,15,Color.GREEN.getRGB());
+                    Kore.mc.fontRendererObj.drawStringWithShadow("Enabled",125,15,Color.GREEN.getRGB());
                 } else {
                     Kore.mc.fontRendererObj.drawStringWithShadow("chronomatronSolver is ",5,15,Color.WHITE.getRGB());
-                    Kore.mc.fontRendererObj.drawStringWithShadow("Disabled",124,15,Color.RED.getRGB());
+                    Kore.mc.fontRendererObj.drawStringWithShadow("Disabled",125,15,Color.RED.getRGB());
                 }
                 if(ultrasequencerSolver.isEnabled()) {
                     Kore.mc.fontRendererObj.drawStringWithShadow("ultrasequencerSolver is",5,25,Color.WHITE.getRGB());
-                    Kore.mc.fontRendererObj.drawStringWithShadow("Enabled",132,25,Color.GREEN.getRGB());
+                    Kore.mc.fontRendererObj.drawStringWithShadow("Enabled",133,25,Color.GREEN.getRGB());
                 } else {
                     Kore.mc.fontRendererObj.drawStringWithShadow("ultrasequencerSolver is",5,25,Color.WHITE.getRGB());
-                    Kore.mc.fontRendererObj.drawStringWithShadow("Disabled",132,25,Color.RED.getRGB());
+                    Kore.mc.fontRendererObj.drawStringWithShadow("Disabled",133,25,Color.RED.getRGB());
                 }
             }
+            RenderUtils.setupRender(false);
         }
     }
 

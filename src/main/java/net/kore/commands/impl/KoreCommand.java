@@ -24,11 +24,9 @@ public class KoreCommand extends Command {
         } else if(args.length > 1 && args[1].equals("dev")) {
             // Dev test command
             Kore.notificationManager.showNotification("This is a notification", 2000, Notification.NotificationType.INFO);
-            Kore.sendMessageWithPrefix("(Dev) Notification executed");
+            Kore.sendMessageWithPrefix("(&cDev&f) Notification executed");
         } else {
-            Kore.sendMessageWithPrefix("(Dev) Gui should have opened");
-            Kore.clickGui.toggle();
-            Kore.clickGui.onEnable();
+
         }
     }
 
