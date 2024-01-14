@@ -4,7 +4,6 @@ import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import net.kore.Kore;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.item.EntityArmorStand;
@@ -142,7 +141,6 @@ public class SkyblockUtils {
 
     public static SkyblockAreas currentArea = null;
     public static int ticks;
-    public static Regex areaRegex = new Regex("^(?:Area|Dungeon): ([\\w ].+)\\$");
 
     public static Ordering<NetworkPlayerInfo> playerInfoOrdering = new Ordering<NetworkPlayerInfo>() {
         @Override

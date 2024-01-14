@@ -25,6 +25,9 @@ public class KoreCommand extends Command {
             // Dev test command
             Kore.notificationManager.showNotification("This is a notification", 2000, Notification.NotificationType.INFO);
             Kore.sendMessageWithPrefix("(&cDev&f) Notification executed");
+        } else if(args.length > 1 && args[1].equals("disconnect")) {
+            Kore.sendMessageWithPrefix("(&cDev&f) You successfully disconnected from Kore");
+            Kore.licenseManager.disconnect();
         } else {
 
         }

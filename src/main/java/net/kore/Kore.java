@@ -19,8 +19,6 @@ import net.kore.utils.font.Fonts;
 import net.kore.utils.render.shader.BlurUtils;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -29,8 +27,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
 @Mod(modid = Kore.MOD_ID, name = Kore.MOD_NAME, version = Kore.VERSION)
 public class Kore {
@@ -136,7 +132,7 @@ public class Kore {
 
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-        if (licenseManager == null && event.entity instanceof  net.minecraft.client.entity.EntityPlayerSP) {
+        if (licenseManager == null && event.entity instanceof net.minecraft.client.entity.EntityPlayerSP) {
             licenseManager = new LicenseManager();
         }
     }

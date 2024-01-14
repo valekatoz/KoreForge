@@ -25,6 +25,10 @@ public class LicenseManager {
         return isPremium;
     }
 
+    public void disconnect() {
+        this.isPremium = false;
+    }
+
     public boolean checkLicense(String uuid) {
         try {
             URL url = new URL("https://kore.valekatoz.com/api/checkLicense.php?key="+ Base64.getEncoder().encodeToString(uuid.getBytes()));
