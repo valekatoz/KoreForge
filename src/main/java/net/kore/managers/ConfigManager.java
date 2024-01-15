@@ -56,9 +56,14 @@ public class ConfigManager
                         try {
                             try {
                                 if(module.getVersionType() == Module.VersionType.PREMIUM) {
-                                    module.setToggled(false);
+                                    if(Kore.licenseManager.isPremium()) {
+                                        module.setToggled(configModule.isToggled());
+                                    } else {
+                                        module.setToggled(false);
+                                    }
+                                } else {
+                                    module.setToggled(configModule.isToggled());
                                 }
-                                module.setToggled(configModule.isToggled());
                             }
                             catch (Exception e) {
                                 e.printStackTrace();
@@ -105,72 +110,6 @@ public class ConfigManager
 
     public void loadConfig() {
         loadConfig(Kore.mc.mcDataDir + "/config/Kore/Kore.json");
-    }
-
-    public boolean reloadConfig(final String configPath, boolean isPremium) {
-        try {
-            final String configString = new String(Files.readAllBytes(new File(configPath).toPath()));
-            final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
-            final Module[] modules = (Module[])gson.fromJson(configString, (Class)Module[].class);
-            for (final Module module : Kore.moduleManager.getModules()) {
-                for (final Module configModule : modules) {
-                    if (module == null || configModule == null) continue;
-                    if (module.getName().equals(configModule.getName())) {
-                        try {
-                            try {
-                                if(module.getVersionType() == Module.VersionType.PREMIUM) {
-                                    if(isPremium) {
-                                        module.setToggled(configModule.isToggled());
-                                    } else {
-                                        module.setToggled(false);
-                                    }
-                                }
-                            }
-                            catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            module.setKeycode(configModule.getKeycode());
-                            for (final Setting setting : module.settings) {
-                                for (final ConfigSetting cfgSetting : configModule.cfgSettings) {
-                                    if (setting != null) {
-                                        if (setting.name.equals(cfgSetting.name)) {
-                                            if (setting instanceof BooleanSetting) {
-                                                ((BooleanSetting)setting).setEnabled((boolean)cfgSetting.value);
-                                            }
-                                            else if (setting instanceof ModeSetting) {
-                                                ((ModeSetting)setting).setSelected((String)cfgSetting.value);
-                                            }
-                                            else if (setting instanceof NumberSetting) {
-                                                ((NumberSetting)setting).setValue((double)cfgSetting.value);
-                                            }
-                                            else if (setting instanceof StringSetting) {
-                                                ((StringSetting)setting).setValue((String)cfgSetting.value);
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        System.out.println("[Kore] Setting in " + module.getName() + " is null!");
-                                    }
-                                }
-                            }
-                        }
-                        catch (Exception e) {
-                            e.printStackTrace();
-                            System.out.println("Config Issue");
-                        }
-                    }
-                }
-            }
-        }
-        catch (Exception e2) {
-            e2.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-
-    public void reloadConfig(boolean isPremium) {
-        reloadConfig(Kore.mc.mcDataDir + "/config/Kore/Kore.json", isPremium);
     }
 
     public void saveConfig() {

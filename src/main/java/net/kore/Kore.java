@@ -3,16 +3,12 @@ package net.kore;
 import net.kore.managers.*;
 import net.kore.modules.ClientSettings;
 import net.kore.modules.Module;
-import net.kore.modules.combat.AimAssist;
-import net.kore.modules.combat.AntiBot;
-import net.kore.modules.misc.GhostBlocks;
-import net.kore.modules.misc.MurderFinder;
-import net.kore.modules.skyblock.PurseSpoofer;
+import net.kore.modules.combat.*;
+import net.kore.modules.misc.*;
+import net.kore.modules.skyblock.*;
 import net.kore.modules.player.*;
 import net.kore.modules.protection.*;
 import net.kore.modules.render.*;
-import net.kore.modules.skyblock.AutoExperiments;
-import net.kore.modules.skyblock.AutoHarp;
 import net.kore.utils.Notification;
 import net.kore.utils.api.ServerUtils;
 import net.kore.utils.font.Fonts;
@@ -78,6 +74,8 @@ public class Kore {
     {
         Kore.mc = Minecraft.getMinecraft();
 
+        licenseManager = new LicenseManager();
+
         moduleManager = new ModuleManager("net.kore.modules");
 
         moduleManager.initReflection();
@@ -115,14 +113,14 @@ public class Kore {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent pre) {
-        MinecraftForge.EVENT_BUS.register(this);
-        Fonts.bootstrap();
-        Kore.start();
+
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-
+        MinecraftForge.EVENT_BUS.register(this);
+        Fonts.bootstrap();
+        Kore.start();
     }
 
     @Mod.EventHandler
@@ -132,8 +130,14 @@ public class Kore {
 
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-        if (licenseManager == null && event.entity instanceof net.minecraft.client.entity.EntityPlayerSP) {
-            licenseManager = new LicenseManager();
+        if (!licenseManager.hasConnected() && event.entity instanceof net.minecraft.client.entity.EntityPlayerSP) {
+            licenseManager.setConnected(true);
+
+            if(licenseManager.isPremium()) {
+                sendMessageWithPrefix("You successfully authenticated to Kore (Premium)");
+            } else {
+                sendMessageWithPrefix("Looks like you are not premium. You should consider upgrading to premium for the best features.");
+            }
         }
     }
 

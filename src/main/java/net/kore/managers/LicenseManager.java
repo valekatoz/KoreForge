@@ -9,20 +9,24 @@ import java.net.URL;
 import java.util.Base64;
 
 public class LicenseManager {
+    private boolean hasConnected = false;
     private boolean isPremium = false;
     public LicenseManager() {
-        if(Kore.mc.thePlayer != null && this.checkLicense(Kore.mc.thePlayer.getUniqueID().toString())) {
-            Kore.sendMessageWithPrefix("You successfully authenticated to Kore (Premium)");
+        if(Kore.mc.getSession().getPlayerID() != null && this.checkLicense(Kore.mc.getSession().getPlayerID())) {
             isPremium = true;
-        } else {
-            Kore.sendMessageWithPrefix("Looks like you are not premium. You should consider upgrading to premium for the best features.");
         }
-
-        Kore.configManager.reloadConfig(isPremium);
     }
 
     public boolean isPremium() {
         return isPremium;
+    }
+
+    public boolean hasConnected() {
+        return hasConnected;
+    }
+
+    public void setConnected(boolean value) {
+        this.hasConnected = value;
     }
 
     public void disconnect() {
@@ -45,11 +49,6 @@ public class LicenseManager {
                 response.append(line);
             }
             reader.close();
-
-            if(Kore.clientSettings.debug.isEnabled()) {
-                System.out.println("Response Code: " + connection.getResponseCode());
-                System.out.println("Response Data: " + response.toString());
-            }
 
             connection.disconnect();
 

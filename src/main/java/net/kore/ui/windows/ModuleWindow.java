@@ -1,7 +1,6 @@
 package net.kore.ui.windows;
 
 import net.kore.Kore;
-import net.kore.managers.LicenseManager;
 import net.kore.modules.Module;
 import net.kore.settings.*;
 import net.kore.ui.ModernClickGui;
@@ -9,7 +8,6 @@ import net.kore.ui.components.*;
 import net.kore.utils.AnimationUtils;
 import net.kore.utils.MouseUtils;
 import net.kore.utils.StencilUtils;
-import net.kore.utils.api.ServerUtils;
 import net.kore.utils.font.Fonts;
 import net.kore.utils.render.RenderUtils;
 import net.minecraft.util.ChatAllowedCharacters;
@@ -51,9 +49,18 @@ public class ModuleWindow extends Window {
         int offset = 30;
         if (!ModernClickGui.settingsOpened) {
             for (Module module : this.modulesInCategory) {
-                if (module.getFlagType() == Module.FlagType.DETECTED && Kore.clientSettings.hideDetectedModules.isEnabled())
+                if (module.getFlagType() == Module.FlagType.DETECTED)
                 {
-                    continue;
+                    if(Kore.clientSettings.hideModules.getSelected().equals("Detected") || Kore.clientSettings.hideModules.getSelected().equals("Premium + Detected")) {
+                        continue;
+                    }
+                }
+
+                if (module.getVersionType() == Module.VersionType.PREMIUM)
+                {
+                    if(Kore.clientSettings.hideModules.getSelected().equals("Premium") || Kore.clientSettings.hideModules.getSelected().equals("Premium + Detected")) {
+                        continue;
+                    }
                 }
 
                 RenderUtils.drawBorderedRoundedRect((float)(ModernClickGui.getX() + 95.0), (float)(ModernClickGui.getY() + (double)offset + this.scrollAnimation.getValue()), ModernClickGui.getWidth() - 100.0f, 20.0f, 3.0f, 1.0f, module.isToggled() ? Kore.themeManager.getSecondaryColor().getRGB() : Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());

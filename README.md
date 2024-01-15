@@ -1,4 +1,4 @@
-# Kore (2.1.0-beta)
+# Kore (2.1.1-beta)
 
 Kore is a minecraft forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and repetitive tasks while keeping you entertained with cool features. 
 You can access the mod by using the default keybind (right shift), to set a custom keybind hold shift and left click a module.
@@ -33,8 +33,8 @@ If this code is not in compliance with some licenses or something let me know op
   - AimAssist
   - AntiBot
 - Skyblock
-  - **Purse Spoofer**
-  - Auto Experiments
+  - **Purse Spoofer** (Premium)
+  - Auto Experiments (Premium)
   - Auto Harp
 - Misc
   - Ghost Blocks
@@ -42,13 +42,14 @@ If this code is not in compliance with some licenses or something let me know op
 - Client
   - **Custom Apis**
   - **Custom License System**
+  - **Discord Rich Presence**
   - **Essential Cosmetics Unlocker**
   - Debug
 
 
 ## Showcase
 
-...soon
+https://www.veed.io/view/524a93c1-c681-40e2-8a2e-be6b40ffe39e
 
 ## Credits
 

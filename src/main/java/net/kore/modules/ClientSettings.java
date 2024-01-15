@@ -2,27 +2,25 @@ package net.kore.modules;
 
 import net.kore.Kore;
 import net.kore.settings.BooleanSetting;
-import net.kore.settings.RunnableSetting;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import net.kore.settings.ModeSetting;
 
 public class ClientSettings extends Module {
-    public BooleanSetting hideDetectedModules;
+    public ModeSetting hideModules;
     public BooleanSetting debug;
+    public BooleanSetting richPresence;
 
-    public ClientSettings()
-    {
+    public ClientSettings() {
         super("Client Settings", Category.SETTINGS);
+        this.setToggled(true);
+        this.hideModules = new ModeSetting("Hidden modules", "None", "None", "Detected", "Premium", "Premium + Detected");
         this.debug = new BooleanSetting("Developer Mode", false);
-        this.hideDetectedModules = new BooleanSetting("Hide Detected", false);
-        this.addSettings(debug, hideDetectedModules);
+        this.richPresence = new BooleanSetting("Rich Presence", true);
+        this.addSettings(hideModules, debug, richPresence);
     }
 
     @Override
-    public void assign()
-    {
+    public void assign() {
         Kore.clientSettings = this;
     }
+
 }
