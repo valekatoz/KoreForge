@@ -1,11 +1,15 @@
 package net.kore.modules;
 
-import moe.nea.libautoupdate.*;
+import moe.nea.libautoupdate.CurrentVersion;
+import moe.nea.libautoupdate.UpdateSource;
+import moe.nea.libautoupdate.UpdateTarget;
 import net.kore.Kore;
 import net.kore.settings.BooleanSetting;
 import net.kore.settings.ModeSetting;
+import moe.nea.libautoupdate.UpdateContext;
 
 import java.util.Base64;
+import java.util.concurrent.CompletableFuture;
 
 public class ClientSettings extends Module {
     public ModeSetting hideModules;
@@ -26,16 +30,27 @@ public class ClientSettings extends Module {
             String stream = "upstream";
             UpdateContext updateContext = new UpdateContext(
                     UpdateSource.gistSource("valekatoz","83a452dad0b31823d77f3b37e6a5ff3b"),
-                    UpdateTarget.deleteAndSaveInTheSameFolder(Main.class),
+                    UpdateTarget.deleteAndSaveInTheSameFolder(Kore.class),
                     CurrentVersion.of(Integer.parseInt(Kore.VERSION_NUMBER)),
                     Base64.getEncoder().encodeToString(Kore.MOD_ID.getBytes())
             );
+            updateContext.checkUpdate(stream)
+                    .thenCompose(it -> {
+                        System.out.println("Checked for update on " + stream + ": " + it);
+                        System.out.println("Can update: " + it.isUpdateAvailable());
+                        if (it.isUpdateAvailable()) {
+                            return it.launchUpdate();
+                        } else {
+                            return CompletableFuture.completedFuture(null);
+                        }
+                    })
+                    .exceptionally(ex -> {
+                        ex.printStackTrace();
+                        return null;
+                    })
+                    .join();
+
             updateContext.cleanup();
-            updateContext.checkUpdate(stream).thenCompose(it -> {
-                System.out.println("Checked for update on " + stream + ": " + it);
-                System.out.println("Can update: " + it.isUpdateAvailable());
-                return it.launchUpdate();
-            }).join();
         }
     }
 
