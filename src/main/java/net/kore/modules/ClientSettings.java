@@ -24,6 +24,7 @@ import com.jagrosh.discordipc.entities.RichPresence;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
+import java.time.OffsetDateTime;
 import java.util.Base64;
 import java.util.concurrent.CompletableFuture;
 import java.util.Random;
@@ -117,7 +118,7 @@ public class ClientSettings extends Module {
                         builder.setState("Enjoying Free Features");
                     }
                     builder.setLargeImage(ServerUtils.logo);
-                    builder.setStartTimestamp(System.currentTimeMillis());
+                    builder.setStartTimestamp(OffsetDateTime.now());
 
                     richPresenceData = builder.build();
                     client.sendRichPresence(richPresenceData);

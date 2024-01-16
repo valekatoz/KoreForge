@@ -20,7 +20,7 @@ public class MixinPlayerController
     @Redirect(method = { "onPlayerDamageBlock" }, at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getPlayerRelativeBlockHardness(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraft/util/BlockPos;)F"))
     public float onPlayerDamageBlock(final Block instance, final EntityPlayer playerIn, final World worldIn, final BlockPos pos) {
         float hardness = instance.getPlayerRelativeBlockHardness(playerIn, worldIn, pos);
-        if (Kore.fastBreak.isToggled()) {
+        if (Kore.fastBreak != null && Kore.fastBreak.isToggled()) {
             hardness *= (float)Kore.fastBreak.mineSpeed.getValue();
         }
         return hardness;

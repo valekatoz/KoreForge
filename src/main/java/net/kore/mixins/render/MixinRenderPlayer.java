@@ -15,7 +15,7 @@ public abstract class MixinRenderPlayer extends MixinRenderLivingEntity
 {
     @Inject(method = { "preRenderCallback(Lnet/minecraft/client/entity/AbstractClientPlayer;F)V" }, at = { @At("HEAD") })
     public void onPreRenderCallback(final AbstractClientPlayer entitylivingbaseIn, final float partialTickTime, final CallbackInfo ci) {
-        if (Kore.giants.isToggled() && Kore.giants.players.isEnabled()) {
+        if (Kore.giants != null && Kore.giants.isToggled() && Kore.giants.players.isEnabled()) {
             GlStateManager.scale(Kore.giants.scale.getValue(), Kore.giants.scale.getValue(), Kore.giants.scale.getValue());
         }
     }

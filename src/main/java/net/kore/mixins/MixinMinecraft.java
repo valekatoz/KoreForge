@@ -37,7 +37,7 @@ public class MixinMinecraft {
 
     @Inject(method = { "rightClickMouse" }, at = { @At("RETURN") }, cancellable = true)
     public void onRightClickPost(final CallbackInfo callbackInfo) {
-        if (Kore.fastPlace.isToggled()) {
+        if (Kore.fastPlace != null && Kore.fastPlace.isToggled()) {
             this.rightClickDelayTimer = (int)Kore.fastPlace.placeDelay.getValue();
         }
     }
@@ -45,7 +45,7 @@ public class MixinMinecraft {
     @Inject(method = { "sendClickBlockToController" }, at = { @At("RETURN") })
     public void sendClickBlock(final CallbackInfo callbackInfo) {
         final boolean click = Kore.mc.currentScreen == null && Kore.mc.gameSettings.keyBindAttack.isKeyDown() && Kore.mc.inGameHasFocus;
-        if (Kore.fastBreak.isToggled() && click && Kore.mc.objectMouseOver != null && Kore.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+        if (Kore.fastBreak != null && Kore.fastBreak.isToggled() && click && Kore.mc.objectMouseOver != null && Kore.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
             for (int i = 0; i < Kore.fastBreak.maxBlocks.getValue(); ++i) {
                 final BlockPos prevBlockPos = Kore.mc.objectMouseOver.getBlockPos();
                 Kore.mc.objectMouseOver = this.renderViewEntity.rayTrace((double)Kore.mc.playerController.getBlockReachDistance(), 1.0f);

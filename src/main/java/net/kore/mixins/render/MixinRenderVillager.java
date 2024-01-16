@@ -14,7 +14,7 @@ public class MixinRenderVillager
 {
     @Inject(method = { "preRenderCallback(Lnet/minecraft/entity/passive/EntityVillager;F)V" }, at = { @At("HEAD") }, cancellable = true)
     private <T extends EntityVillager> void onPreRenderCallback(final T entitylivingbaseIn, final float partialTickTime, final CallbackInfo ci) {
-        if (Kore.giants.isToggled() && Kore.giants.mobs.isEnabled()) {
+        if (Kore.giants != null && Kore.giants.isToggled() && Kore.giants.mobs.isEnabled()) {
             GlStateManager.scale(Kore.giants.scale.getValue(), Kore.giants.scale.getValue(), Kore.giants.scale.getValue());
         }
     }

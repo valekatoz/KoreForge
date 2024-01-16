@@ -35,7 +35,7 @@ public abstract class MixinNetworkManager {
     @Inject(method = "createNetworkManagerAndConnect", at = @At("HEAD"), cancellable = true)
     private static void createNetworkManagerAndConnect(InetAddress address, int serverPort, boolean useNativeTransport, CallbackInfoReturnable<NetworkManager> cir)
     {
-        if (!Kore.proxy.isToggled())
+        if (Kore.proxy != null && !Kore.proxy.isToggled())
             return;
 
         NetworkManager manager = new NetworkManager(EnumPacketDirection.CLIENTBOUND);

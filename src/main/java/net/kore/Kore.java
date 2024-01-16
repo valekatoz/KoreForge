@@ -114,14 +114,14 @@ public class Kore {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent pre) {
-
+        MinecraftForge.EVENT_BUS.register(this);
+        Fonts.bootstrap();
+        Kore.start();
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(this);
-        Fonts.bootstrap();
-        Kore.start();
+
     }
 
     @Mod.EventHandler

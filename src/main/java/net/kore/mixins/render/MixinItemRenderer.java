@@ -202,7 +202,7 @@ public abstract class MixinItemRenderer {
         float rotation2y = 0.0f;
         float rotation2z = 0.0f;
         final String selected = Kore.animations.mode.getSelected();
-        if(Kore.animations.isToggled()) {
+        if(Kore.animations != null && Kore.animations.isToggled()) {
             switch (selected) {
                 case "vertical spin": {
                     angle1 = (float)(System.currentTimeMillis() % 720L);

@@ -82,7 +82,7 @@ public abstract class MixinRenderLivingEntity extends MixinRender
 
     @Inject(method = { "preRenderCallback" }, at = { @At("HEAD") }, cancellable = true)
     private <T extends EntityLivingBase> void onPreRenderCallback(final T entitylivingbaseIn, final float partialTickTime, final CallbackInfo ci) {
-        if (Kore.giants.isToggled() && Kore.giants.mobs.isEnabled() && (!(entitylivingbaseIn instanceof EntityArmorStand) || Kore.giants.armorStands.isEnabled())) {
+        if (Kore.giants != null && Kore.giants.isToggled() && Kore.giants.mobs.isEnabled() && (!(entitylivingbaseIn instanceof EntityArmorStand) || Kore.giants.armorStands.isEnabled())) {
             GlStateManager.scale(Kore.giants.scale.getValue(), Kore.giants.scale.getValue(), Kore.giants.scale.getValue());
         }
     }

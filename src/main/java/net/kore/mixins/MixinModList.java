@@ -20,7 +20,7 @@ public class MixinModList {
     @Inject(method = "<init>(Ljava/util/List;)V", at = @At("RETURN"), cancellable = true, remap = false)
     public void constructor(List<ModContainer> containerList, CallbackInfo ci)
     {
-        if(Kore.modHider.isToggled()) {
+        if(Kore.modHider == null || Kore.modHider.isToggled()) {
             modTags.clear();
 
             for (ModContainer mod : containerList)
