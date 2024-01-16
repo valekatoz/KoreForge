@@ -10,9 +10,10 @@ plugins {
     id("net.kyori.blossom") version "1.3.1"
 }
 
-val version: String by project
 val mod_name: String by project
 val mod_id: String by project
+val version: String by project
+val version_number: String by project
 val archiveBaseName: String by project
 
 // Toolchains:
@@ -21,9 +22,10 @@ java {
 }
 
 blossom {
-    replaceToken("@VER@", version)
     replaceToken("@NAME@", mod_name)
     replaceToken("@ID@", mod_id)
+    replaceToken("@VER@", version)
+    replaceToken("@VER_NUM@", version_number)
 }
 
 
@@ -62,6 +64,7 @@ repositories {
     maven("https://repo.sk1er.club/repository/maven-releases/")
     maven("https://jitpack.io")
     maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
+    maven("https://repo.nea.moe/releases")
 }
 
 val shadowImpl: Configuration by configurations.creating {
@@ -77,9 +80,10 @@ dependencies {
     mappings("de.oceanlabs.mcp:mcp_stable:22-1.8.9")
     forge("net.minecraftforge:forge:1.8.9-11.15.1.2318-1.8.9")
     modRuntimeOnly("me.djtheredstoner:DevAuth-forge-legacy:1.1.2")
+    shadowImpl("moe.nea:libautoupdate:0.1.0")
     shadowImpl("org.reflections:reflections:0.10.2")
     shadowImpl("gg.essential:loader-launchwrapper:1.2.1")
-    implementation(files("libs/essential.jar"))
+    implementation(files("assets/libs/essential.jar"))
     compileOnly(libs.mixin)
 }
 

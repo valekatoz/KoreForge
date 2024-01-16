@@ -29,6 +29,7 @@ public class Kore {
     public static final String MOD_ID = "@ID@";
     public static final String MOD_NAME = "@NAME@";
     public static final String VERSION = "@VER@";
+    public static final String VERSION_NUMBER = "@VER_NUM@";
 
     // Managers
     public static LicenseManager licenseManager;
