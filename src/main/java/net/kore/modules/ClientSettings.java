@@ -8,6 +8,7 @@ public class ClientSettings extends Module {
     public ModeSetting hideModules;
     public BooleanSetting debug;
     public BooleanSetting richPresence;
+    public BooleanSetting autoUpdate;
 
     public ClientSettings() {
         super("Client Settings", Category.SETTINGS);
@@ -15,7 +16,8 @@ public class ClientSettings extends Module {
         this.hideModules = new ModeSetting("Hidden modules", "None", "None", "Detected", "Premium", "Premium + Detected");
         this.debug = new BooleanSetting("Developer Mode", false);
         this.richPresence = new BooleanSetting("Rich Presence", true);
-        this.addSettings(hideModules, debug, richPresence);
+        this.autoUpdate = new BooleanSetting("Auto Update", true);
+        this.addSettings(hideModules, debug, richPresence, autoUpdate);
     }
 
     @Override
