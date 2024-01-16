@@ -1,21 +1,44 @@
 package net.kore.modules;
 
-import moe.nea.libautoupdate.CurrentVersion;
-import moe.nea.libautoupdate.UpdateSource;
-import moe.nea.libautoupdate.UpdateTarget;
+import com.google.common.net.InetAddresses;
 import net.kore.Kore;
 import net.kore.settings.BooleanSetting;
 import net.kore.settings.ModeSetting;
-import moe.nea.libautoupdate.UpdateContext;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import net.kore.utils.api.ServerUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+
+import moe.nea.libautoupdate.UpdateContext;
+import moe.nea.libautoupdate.CurrentVersion;
+import moe.nea.libautoupdate.UpdateSource;
+import moe.nea.libautoupdate.UpdateTarget;
+import com.jagrosh.discordipc.entities.DiscordBuild;
+import com.jagrosh.discordipc.IPCClient;
+import com.jagrosh.discordipc.IPCListener;
+import com.jagrosh.discordipc.entities.RichPresence;
+
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
 import java.util.Base64;
 import java.util.concurrent.CompletableFuture;
+import java.util.Random;
 
 public class ClientSettings extends Module {
     public ModeSetting hideModules;
     public BooleanSetting debug;
     public BooleanSetting richPresence;
     public BooleanSetting autoUpdate;
+
+    // Rich Presence
+
+    public static IPCClient ipcClient = new IPCClient(1196540533611450588L);
+    private static boolean hasConnected;
+    private static RichPresence richPresenceData;
 
     public ClientSettings() {
         super("Client Settings", Category.SETTINGS);
@@ -25,6 +48,8 @@ public class ClientSettings extends Module {
         this.richPresence = new BooleanSetting("Rich Presence", true);
         this.autoUpdate = new BooleanSetting("Auto Update", true);
         this.addSettings(hideModules, debug, richPresence, autoUpdate);
+
+        // Auto Updater
 
         if(this.autoUpdate.isEnabled()) {
             String stream = "upstream";
@@ -51,6 +76,60 @@ public class ClientSettings extends Module {
                     .join();
 
             updateContext.cleanup();
+        }
+    }
+
+    @SubscribeEvent
+    public void onTick(TickEvent.ClientTickEvent event) {
+        if(!hasConnected && this.richPresence.isEnabled()) {
+            setupIPC();
+        } else if(hasConnected && !this.richPresence.isEnabled()) {
+            disableRichPresence();
+        }
+    }
+
+    public void disableRichPresence() {
+        try {
+            ipcClient.close();
+            hasConnected = false;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setupIPC() {
+        if (Minecraft.isRunningOnMac) {
+            return;
+        }
+
+        try {
+            ipcClient.setListener(new IPCListener() {
+                @Override
+                public void onReady(final IPCClient client) {
+                    final RichPresence.Builder builder = new RichPresence.Builder();
+
+                    if(Kore.licenseManager.isPremium()) {
+                        builder.setDetails("Premium Mode");
+                        builder.setState("Enjoying Premium Features");
+                    } else {
+                        builder.setDetails("Free Mode");
+                        builder.setState("Enjoying Free Features");
+                    }
+                    builder.setLargeImage(ServerUtils.logo);
+                    builder.setStartTimestamp(System.currentTimeMillis());
+
+                    richPresenceData = builder.build();
+                    client.sendRichPresence(richPresenceData);
+
+                    hasConnected = true;
+                }
+            });
+
+            ipcClient.connect(new DiscordBuild[0]);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
