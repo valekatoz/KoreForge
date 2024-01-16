@@ -6,6 +6,7 @@ import net.kore.events.BlockChangeEvent;
 import net.kore.events.JoinGameEvent;
 import net.kore.events.PacketReceivedEvent;
 import net.kore.modules.Module;
+import net.kore.settings.BooleanSetting;
 import net.kore.settings.ModeSetting;
 import net.kore.settings.NumberSetting;
 import net.kore.utils.MilliTimer;
@@ -28,6 +29,7 @@ public class GhostBlocks extends Module {
     public NumberSetting delay;
     public ModeSetting mode;
     public ModeSetting key;
+    public BooleanSetting reset;
     public int activeKey;
     private boolean wasPressed;
     private MilliTimer timer;
@@ -42,8 +44,9 @@ public class GhostBlocks extends Module {
         this.delay = new NumberSetting("Delay (Seconds)", 3.0, 1.0, 15.0, 1.0);
         this.mode = new ModeSetting("Speed", "Fast", new String[]{"Slow", "Fast"});
         this.key = new ModeSetting("Key", "LCONTROL", new String[]{"LCONTROL", "G"});
+        this.reset = new BooleanSetting("Restore ghost blocks when touching one", false);
         this.timer = new MilliTimer();
-        this.addSettings(this.mode, this.range, this.delay, this.key);
+        this.addSettings(this.mode, this.range, this.delay, this.key, this.reset);
     }
 
     @Override
@@ -90,17 +93,6 @@ public class GhostBlocks extends Module {
             GhostBlocks.ghostBlocks.add(obj);
         }
         this.wasPressed = Keyboard.isKeyDown(activeKey);
-    }
-
-    @SubscribeEvent(receiveCanceled = true)
-    public void onPacket(final PacketReceivedEvent event) {
-        if (event.packet instanceof S08PacketPlayerPosLook) {
-            GhostBlocks.eventQueue.entrySet().removeIf(entry -> {
-                Kore.mc.theWorld.setBlockState((entry.getValue()).pos, (entry.getValue()).state);
-                GhostBlocks.ghostBlocks.remove((entry.getValue()).pos);
-                return true;
-            });
-        }
     }
 
     @SubscribeEvent

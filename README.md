@@ -1,4 +1,4 @@
-# Kore (2.1.3-beta)
+# Kore (2.1.4-beta)
 [![Discord](https://img.shields.io/discord/1196891678284460053?style=for-the-badge&logo=discord&label=discord&color=9089DA)](https://discord.gg/H4x6eFp9KR)
 [![GitHub Repo stars](https://img.shields.io/github/stars/valekatoz/Kore?style=for-the-badge&logo=polestar&logoColor=FFA500&color=FFFF66)](https://github.com/valekatoz/Kore)
 [![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/valekatoz/Kore/latest/total?style=for-the-badge&logo=github&label=downloads&color=32CD32)](https://github.com/valekatoz/Kore/releases)
@@ -9,7 +9,7 @@
 Kore is a minecraft forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and repetitive tasks while keeping you entertained with cool features. 
 You can access the mod by using the default keybind (right shift).
 
-<u>If you can't compile this yourself and wish to have the premium version contact me on discord "valekatoz".</u>
+**<u>If you can't compile this yourself and wish to have the premium version contact me on discord "valekatoz".</u>**
 
 ### Note
 
