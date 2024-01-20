@@ -12,7 +12,7 @@ public class LicenseManager {
     private boolean hasConnected = false;
     private boolean isPremium = false;
     public LicenseManager() {
-        if(Boolean.parseBoolean(Kore.licensed) || Kore.mc.getSession().getPlayerID() != null && this.checkLicense(Kore.mc.getSession().getPlayerID())) {
+        if(!Boolean.parseBoolean(Kore.licensed) || Kore.mc.getSession().getPlayerID() != null && this.checkLicense(Kore.mc.getSession().getPlayerID())) {
             isPremium = true;
         }
     }
