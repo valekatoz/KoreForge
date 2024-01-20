@@ -107,7 +107,11 @@ public class Gui extends Module {
     public void onRender(final RenderGameOverlayEvent.Post event) {
         if (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS) {
             if (this.waterMark.isEnabled()) {
-                Fonts.getSecondary().drawSmoothString("ore", Fonts.getSecondary().drawSmoothString("K", 5.0, 5.0f, Color.white.darker().getRGB()) + 1.0f, 5.0f, getColor().getRGB());
+                if(Boolean.parseBoolean(Kore.licensed)) {
+                    Fonts.getSecondary().drawSmoothString("ore", Fonts.getSecondary().drawSmoothString("K", 5.0, 5.0f, Color.white.darker().getRGB()) + 1.0f, 5.0f,Kore.themeManager.getSecondaryColor(0).getRGB());
+                } else {
+                    Fonts.getSecondary().drawSmoothString("(Unlicensed)", Fonts.getSecondary().drawSmoothString("ore", Fonts.getSecondary().drawSmoothString("K", 5.0, 5.0f, Color.white.darker().getRGB()) + 1.0f, 5.0f,Kore.themeManager.getSecondaryColor(0).getRGB()) + 3.0f, 5.0f,Color.white.darker().getRGB());
+                }
             }
             if (this.arrayList.isEnabled()) {
                 GL11.glPushMatrix();

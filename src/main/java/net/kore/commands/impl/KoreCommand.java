@@ -15,7 +15,7 @@ public class KoreCommand extends Command {
     public void execute(String[] args) throws Exception {
         if (args.length > 2)
         {
-            Kore.sendMessageWithPrefix(".kore <help/dev>");
+            Kore.sendMessageWithPrefix(".kore <help/dev/disconnect>");
             return;
         }
 
@@ -26,15 +26,18 @@ public class KoreCommand extends Command {
             Kore.notificationManager.showNotification("This is a notification", 2000, Notification.NotificationType.INFO);
             Kore.sendMessageWithPrefix("(&cDev&f) Notification executed");
         } else if(args.length > 1 && args[1].equals("disconnect")) {
-            Kore.sendMessageWithPrefix("(&cDev&f) You successfully disconnected from Kore");
-            Kore.licenseManager.disconnect();
+            if(Kore.licenseManager.disconnect()) {
+                Kore.sendMessageWithPrefix("(&cDev&f) You successfully disconnected from Kore");
+            } else {
+                Kore.sendMessageWithPrefix("(&cDev&f) You are in the unlicensed version.");
+            }
         } else {
-
+            Kore.sendMessageWithPrefix("(&cDiscord&f) -> https://discord.com/invite/H4x6eFp9KR");
         }
     }
 
     @Override
     public String getDescription() {
-        return ".kore <help/dev>";
+        return ".kore <help/dev/disconnect>";
     }
 }

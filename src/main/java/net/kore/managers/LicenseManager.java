@@ -12,7 +12,7 @@ public class LicenseManager {
     private boolean hasConnected = false;
     private boolean isPremium = false;
     public LicenseManager() {
-        if(Kore.mc.getSession().getPlayerID() != null && this.checkLicense(Kore.mc.getSession().getPlayerID())) {
+        if(Boolean.parseBoolean(Kore.licensed) || Kore.mc.getSession().getPlayerID() != null && this.checkLicense(Kore.mc.getSession().getPlayerID())) {
             isPremium = true;
         }
     }
@@ -29,33 +29,42 @@ public class LicenseManager {
         this.hasConnected = value;
     }
 
-    public void disconnect() {
-        this.isPremium = false;
+    public boolean disconnect() {
+        if(Boolean.parseBoolean(Kore.licensed)) {
+            this.isPremium = false;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean checkLicense(String uuid) {
-        try {
-            URL url = new URL("https://kore.valekatoz.com/api/checkLicense.php?key="+ Base64.getEncoder().encodeToString(uuid.getBytes()));
+        if(Boolean.parseBoolean(Kore.licensed)) {
+            try {
+                URL url = new URL("https://kore.valekatoz.com/api/checkLicense.php?key="+ Base64.getEncoder().encodeToString(uuid.getBytes()));
 
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestProperty("User-Agent", "Kore/"+ Kore.VERSION); // custom UserAgent to skip cloudflare managed challenge
-            connection.setRequestMethod("GET");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestProperty("User-Agent", "Kore/"+ Kore.VERSION); // custom UserAgent to skip cloudflare managed challenge
+                connection.setRequestMethod("GET");
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
 
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+
+                connection.disconnect();
+
+                return parseJsonResponse(response.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
             }
-            reader.close();
-
-            connection.disconnect();
-
-            return parseJsonResponse(response.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        } else {
+            return true;
         }
     }
 

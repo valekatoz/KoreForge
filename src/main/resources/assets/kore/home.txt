@@ -1,11 +1,15 @@
-(Failed to fetch online home)
+(Local version of the home)
 
-This is a development build for Kore
+Message Of The Day:
+- Please star my repo on github
 
 Informations:
-- Github: github.com/valekatoz/Kore
+- Github: github.com/valekatoz
 - Discord: valekatoz
+
+Premium:
+- Join the discord server
+- discord.com/invite/H4x6eFp9KR
 
 Developers:
 - valekatoz
-- Kyrotechnic

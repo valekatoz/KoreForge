@@ -30,6 +30,7 @@ public class Kore {
     public static final String MOD_NAME = "@NAME@";
     public static final String VERSION = "@VER@";
     public static final String VERSION_NUMBER = "@VER_NUM@";
+    public static final String licensed = "@LICENSED@";
 
     // Managers
     public static LicenseManager licenseManager;
@@ -134,10 +135,14 @@ public class Kore {
         if (!licenseManager.hasConnected() && event.entity instanceof net.minecraft.client.entity.EntityPlayerSP) {
             licenseManager.setConnected(true);
 
-            if(licenseManager.isPremium()) {
-                sendMessageWithPrefix("You successfully authenticated to Kore (Premium)");
+            if(Boolean.parseBoolean(Kore.licensed)) {
+                if(licenseManager.isPremium()) {
+                    sendMessageWithPrefix("You successfully authenticated to Kore (Premium)");
+                } else {
+                    sendMessageWithPrefix("Looks like you are not premium. You should consider upgrading to premium for the best features.");
+                }
             } else {
-                sendMessageWithPrefix("Looks like you are not premium. You should consider upgrading to premium for the best features.");
+                sendMessageWithPrefix("You are in the unlicensed version");
             }
         }
     }

@@ -13,6 +13,7 @@ plugins {
 val mod_name: String by project
 val mod_id: String by project
 val version: String by project
+val licensed: String by project
 val version_number: String by project
 val archiveBaseName: String by project
 
@@ -26,6 +27,7 @@ blossom {
     replaceToken("@ID@", mod_id)
     replaceToken("@VER@", version)
     replaceToken("@VER_NUM@", version_number)
+    replaceToken("@LICENSED@", licensed)
 }
 
 

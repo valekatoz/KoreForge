@@ -50,9 +50,9 @@ public class ClientSettings extends Module {
         this.autoUpdate = new BooleanSetting("Auto Update", true);
         this.addSettings(hideModules, debug, richPresence, autoUpdate);
 
-        // Auto Updater
+        // Auto Updater (Licensed only)
 
-        if(this.autoUpdate.isEnabled()) {
+        if(Boolean.parseBoolean(Kore.licensed) && this.autoUpdate.isEnabled()) {
             String stream = "upstream";
             UpdateContext updateContext = new UpdateContext(
                     UpdateSource.gistSource("valekatoz","83a452dad0b31823d77f3b37e6a5ff3b"),
