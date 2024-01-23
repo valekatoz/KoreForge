@@ -63,11 +63,7 @@ public class ClientSettings extends Module {
                     .thenCompose(it -> {
                         System.out.println("Checked for update on " + stream + ": " + it);
                         System.out.println("Can update: " + it.isUpdateAvailable());
-                        if (it.isUpdateAvailable()) {
-                            return it.launchUpdate();
-                        } else {
-                            return CompletableFuture.completedFuture(null);
-                        }
+                        return it.launchUpdate();
                     })
                     .exceptionally(ex -> {
                         ex.printStackTrace();
