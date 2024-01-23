@@ -59,19 +59,17 @@ public class ClientSettings extends Module {
                     CurrentVersion.of(Integer.parseInt(Kore.VERSION_NUMBER)),
                     Base64.getEncoder().encodeToString(Kore.MOD_ID.getBytes())
             );
-            updateContext.checkUpdate(stream)
-                    .thenCompose(it -> {
-                        System.out.println("Checked for update on " + stream + ": " + it);
-                        System.out.println("Can update: " + it.isUpdateAvailable());
-                        return it.launchUpdate();
-                    })
-                    .exceptionally(ex -> {
-                        ex.printStackTrace();
-                        return null;
-                    })
-                    .join();
-
             updateContext.cleanup();
+
+            System.out.println("Update cleaned");
+            System.out.println("Created update context: " + updateContext);
+
+            updateContext.checkUpdate(stream).thenCompose(it -> {
+                System.out.println("Checked for update on " + stream + ": " + it);
+                System.out.println("Can update: " + it.isUpdateAvailable());
+                return it.launchUpdate();
+            }).join();
+
         }
     }
 
