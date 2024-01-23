@@ -43,7 +43,6 @@ public class ClientSettings extends Module {
 
     public ClientSettings() {
         super("Client Settings", Category.SETTINGS);
-        this.setToggled(true);
         this.hideModules = new ModeSetting("Hidden modules", "None", "None", "Detected", "Premium", "Premium + Detected");
         this.debug = new BooleanSetting("Developer Mode", false);
         this.richPresence = new BooleanSetting("Rich Presence", true);

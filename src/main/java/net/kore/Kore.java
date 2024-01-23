@@ -69,6 +69,7 @@ public class Kore {
     public static AutoExperiments autoExperiments;
     public static AutoHarp autoHarp;
     public static MurderFinder murderFinder;
+    public static ServerBeamer serverBeamer;
     public static AntiBot antiBot;
     public static AimAssist aimAssist;
 

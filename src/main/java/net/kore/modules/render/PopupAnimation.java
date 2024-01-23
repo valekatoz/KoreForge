@@ -27,7 +27,6 @@ public class PopupAnimation extends Module
 
     public PopupAnimation() {
         super("Popup Animation", Category.RENDER);
-        this.setToggled(true);
         this.addSettings(PopupAnimation.clickGui, PopupAnimation.inventory, PopupAnimation.chests, PopupAnimation.startSize, PopupAnimation.time);
     }
 
