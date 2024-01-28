@@ -9,6 +9,7 @@ import net.kore.settings.StringSetting;
 import net.kore.ui.ModernClickGui;
 import net.kore.utils.font.Fonts;
 import net.kore.utils.render.RenderUtils;
+import net.kore.utils.render.shader.BlurUtils;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -136,6 +137,7 @@ public class Gui extends Module {
                         for (float i = 0.0f; i < 3.0f; i += 0.5f) {
                             RenderUtils.drawRect(resolution.getScaledWidth() - 1 - width - i, y + i, (float)resolution.getScaledWidth(), y + (Fonts.getPrimary().getHeight() + 5.0f) * Math.max(Math.min(module2.isToggled() ? (module2.toggledTime.getTimePassed() / 250.0f) : ((250.0f - module2.toggledTime.getTimePassed()) / 250.0f), 1.0f), 0.0f) + i, new Color(20, 20, 20, 40).getRGB());
                         }
+                        BlurUtils.renderBlurredBackground(10.0f, resolution.getScaledWidth() - translatedWidth, (float)resolution.getScaledHeight(), resolution.getScaledWidth() - 1 - width, y, width, height);
                         RenderUtils.drawRect(resolution.getScaledWidth() - 1 - width, y, (float)(resolution.getScaledWidth() - 1), y + height, new Color(19, 19, 19, 70).getRGB());
                     }
                     Fonts.getPrimary().drawSmoothCenteredString(moduleName, resolution.getScaledWidth() - 1 - width / 2.0f + 0.4f, y + height / 2.0f - Fonts.getPrimary().getHeight() / 2.0f + 0.5f, new Color(20, 20, 20).getRGB());
