@@ -108,7 +108,7 @@ public class Kore {
             if (module.getKeycode() == key)
             {
                 module.toggle();
-                if (!clickGui.disableNotifs.isEnabled())
+                if (!clickGui.disableNotifs.isEnabled() && !module.getName().equals("Gui"))
                     notificationManager.showNotification((module.isToggled() ? "Enabled" : "Disabled") + " " + module.getName(), 2000, Notification.NotificationType.INFO);
             }
         }

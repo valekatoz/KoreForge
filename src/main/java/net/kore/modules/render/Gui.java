@@ -52,7 +52,7 @@ public class Gui extends Module {
 
     public Gui() {
         super("Gui", Keyboard.KEY_RSHIFT, Module.Category.RENDER);
-        this.colorMode = new ModeSetting("Theme", "Astolfo", new String[] { "Rainbow", "Gradient", "Astolfo", "Vape", "Mint", "Devil"})
+        this.colorMode = new ModeSetting("Theme", "Katoz", new String[] { "Katoz", "Gradient", "Rainbow", "Vape", "Mint", "Devil"})
         {
             @Override
             public void cycle(int key)
@@ -71,10 +71,10 @@ public class Gui extends Module {
         this.redShift2 = new NumberSetting("Red 2 ", 255.0, 0.0, 255.0, 1.0, aBoolean -> !this.colorMode.is("Gradient"));
         this.greenShift2 = new NumberSetting("Green 2 ", 175.0, 0.0, 255.0, 1.0, aBoolean -> !this.colorMode.is("Gradient"));
         this.blueShift2 = new NumberSetting("Blue 2 ", 255.0, 0.0, 255.0, 1.0, aBoolean -> !this.colorMode.is("Gradient"));
-        this.shiftSpeed = new NumberSetting("Shift Speed ", 1.0, 0.1, 5.0, 0.1, aBoolean -> !this.colorMode.is("Gradient") && !this.colorMode.is("Pulse") && !this.colorMode.is("Astolfo"));
+        this.shiftSpeed = new NumberSetting("Shift Speed ", 1.0, 0.1, 5.0, 0.1, aBoolean -> !this.colorMode.is("Gradient") && !this.colorMode.is("Katoz") && !this.colorMode.is("Pulse"));
         this.rgbSpeed = new NumberSetting("Rainbow Speed", 2.5, 0.1, 5.0, 0.1, aBoolean -> !this.colorMode.is("Rainbow"));
-        this.blur = new ModeSetting("Blur strength", "Low", new String[] { "None", "Low", "High" });
-        this.scaleGui = new BooleanSetting("Scale gui", false);
+        this.blur = new ModeSetting("Blur strength", "None", new String[] { "None", "Low", "High" });
+        this.scaleGui = new BooleanSetting("Scale gui (soon)", false);
         this.arrayList = new BooleanSetting("ArrayList", true);
         this.disableNotifs = new BooleanSetting("Disable notifications", false);
         this.arrayBlur = new BooleanSetting("Array background", true);

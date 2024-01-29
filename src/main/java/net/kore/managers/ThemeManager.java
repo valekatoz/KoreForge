@@ -2,8 +2,8 @@ package net.kore.managers;
 
 import net.kore.Kore;
 import net.kore.themes.Theme;
-import net.kore.themes.impl.Astolfo;
 import net.kore.themes.impl.Gradient;
+import net.kore.themes.impl.Katoz;
 import net.kore.themes.impl.Rainbow;
 
 import java.awt.*;
@@ -33,12 +33,12 @@ public class ThemeManager {
 
     public ThemeManager()
     {
-        themes.add(activeTheme = new Theme("Vape", new Color(50, 50, 50), new Color(120, 55, 150)));
+        themes.add(new Theme("Vape", new Color(50, 50, 50), new Color(120, 55, 150)));
         themes.add(new Theme("Mint", new Color(5, 135, 65), new Color(158, 227, 191)));
         themes.add(new Theme("Devil", new Color(210, 39, 48), new Color(79, 13, 26)));
-        themes.add(new Astolfo());
         themes.add(new Gradient());
         themes.add(new Rainbow());
+        themes.add(activeTheme = new Katoz());
 
         String nameSelected = Kore.clickGui.colorMode.getSelected();
 

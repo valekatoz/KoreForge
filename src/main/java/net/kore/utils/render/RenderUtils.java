@@ -249,6 +249,14 @@ public class RenderUtils
         }
     }
 
+    public static void disableDepth(final boolean start) {
+        if (start) {
+            GlStateManager.disableDepth();
+        } else {
+            GlStateManager.enableDepth();
+        }
+    }
+
     public static void circle(final float x, final float y, final float radius, final int fill) {
         arc(x, y, 0.0f, 360.0f, radius, fill);
     }

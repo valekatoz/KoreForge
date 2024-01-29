@@ -2,15 +2,18 @@ package net.kore.ui;
 
 import net.kore.Kore;
 import net.kore.managers.WindowManager;
+import net.kore.modules.render.PopupAnimation;
 import net.kore.ui.windows.ModuleWindow;
 import net.kore.ui.windows.Window;
 import net.kore.utils.StencilUtils;
 import net.kore.utils.render.GLUtils;
 import net.kore.utils.render.RenderUtils;
 import net.kore.utils.font.Fonts;
+import net.kore.utils.render.shader.BlurUtils;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
@@ -42,6 +45,21 @@ public class ModernClickGui extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        final ScaledResolution resolution = new ScaledResolution(this.mc);
+
+        switch(Kore.clickGui.blur.getSelected()) {
+            case "Low":
+                BlurUtils.renderBlurredBackground(7, (float)resolution.getScaledWidth(), (float)resolution.getScaledHeight(), 0.0f, 0.0f, (float)resolution.getScaledWidth(), (float)resolution.getScaledHeight());
+                break;
+            case "High":
+                BlurUtils.renderBlurredBackground(15, (float)resolution.getScaledWidth(), (float)resolution.getScaledHeight(), 0.0f, 0.0f, (float)resolution.getScaledWidth(), (float)resolution.getScaledHeight());
+                break;
+        }
+
+        if (PopupAnimation.shouldScale((GuiScreen)this)) {
+            PopupAnimation.doScaling();
+        }
+
         int categoryOffset = 25;
 
         GLUtils.startScale((float)(getX() + (getX() + (double)getWidth())) / 2.0f, (float)(getY() + (getY() + (double)getHeight())) / 2.0f, 1.0f);

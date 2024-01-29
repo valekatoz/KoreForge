@@ -43,7 +43,7 @@ public class GhostBlocks extends Module {
         this.range = new NumberSetting("Range", 10.0, 1.0, 100.0, 1.0);
         this.delay = new NumberSetting("Delay (Seconds)", 3.0, 1.0, 15.0, 1.0);
         this.mode = new ModeSetting("Speed", "Fast", new String[]{"Slow", "Fast"});
-        this.key = new ModeSetting("Key", "LCONTROL", new String[]{"LCONTROL", "G"});
+        this.key = new ModeSetting("Key", "G", new String[]{"LCONTROL", "G"});
         this.reset = new BooleanSetting("Restore ghost blocks when touching one", false);
         this.timer = new MilliTimer();
         this.addSettings(this.mode, this.range, this.delay, this.key);
