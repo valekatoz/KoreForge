@@ -51,7 +51,7 @@ public class ClientSettings extends Module {
 
         // Auto Updater (Licensed only)
 
-        if(Boolean.parseBoolean(Kore.licensed) && !Kore.VERSION.contains("private") && this.autoUpdate.isEnabled()) {
+        if(Boolean.parseBoolean(Kore.licensed) && !Kore.VERSION.contains("custom") && this.autoUpdate.isEnabled()) {
             String stream = "upstream";
             UpdateContext updateContext = new UpdateContext(
                     UpdateSource.gistSource("valekatoz","83a452dad0b31823d77f3b37e6a5ff3b"),
