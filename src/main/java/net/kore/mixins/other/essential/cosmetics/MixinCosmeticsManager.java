@@ -11,6 +11,8 @@ import gg.essential.network.connectionmanager.cosmetics.CosmeticsManager;
 import gg.essential.network.cosmetics.Cosmetic;
 import gg.essential.util.UUIDUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.json.JSONObject;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,7 +21,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,8 +31,16 @@ import java.util.stream.Collectors;
 public abstract class MixinCosmeticsManager {
     public Map<CosmeticSlot, String> map = new HashMap<>();
 
+    private boolean toggled;
+
+    @Shadow
+    private @NotNull State<Set<String>> unlockedCosmetics;
+
     @Shadow
     public abstract @NotNull CosmeticsData getCosmeticsData();
+
+    @Shadow
+    public abstract @Nullable ImmutableMap<CosmeticSlot, String> getEquippedCosmetics(UUID playerId);
 
     @Shadow
     public abstract void setEquippedCosmetics(@NotNull UUID playerId, @NotNull Map<CosmeticSlot, String> equippedCosmetics);
@@ -42,39 +54,59 @@ public abstract class MixinCosmeticsManager {
      */
     @Overwrite
     public @NotNull State<Set<String>> getUnlockedCosmetics() {
-        return StateKt.stateOf(getCosmeticsData().getCosmetics().get().stream().map(Cosmetic::getId).collect(Collectors.toSet()));
+        if(toggled) {
+            return StateKt.stateOf(getCosmeticsData().getCosmetics().get().stream().map(Cosmetic::getId).collect(Collectors.toSet()));
+        } else {
+            return this.unlockedCosmetics;
+        }
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
     public void CosmeticManager(ConnectionManager connectionManager, File baseDir, CallbackInfo ci) {
-        //load config
         try {
             System.out.println("[Kore] Loading config");
-            Scanner sc = new Scanner(new File(System.getenv("LOCALAPPDATA"), "cosmetics.txt"));
+            File configFile = new File(System.getenv("LOCALAPPDATA"), "koreCosmetics.json");
 
-            while (sc.hasNextLine()) {
-                String[] line = sc.nextLine().split("=");
-                map.put(CosmeticSlot.Companion.of(line[0]), line[1]);
+            if (!configFile.exists()) {
+                JSONObject defaultConfig = new JSONObject();
+                defaultConfig.put("enabled", true);
+                defaultConfig.put("cosmetics", new JSONObject());
+                Files.write(configFile.toPath(), Collections.singleton(defaultConfig.toString()));
             }
 
-            if (map.isEmpty()) return;
-            System.out.println("[Kore] Config loaded");
-        } catch (Exception e) {
-            e.printStackTrace();
+            JSONObject json = new JSONObject(new String(Files.readAllBytes(configFile.toPath())));
+
+            toggled = json.optBoolean("enabled", true);
+
+            if(toggled) {
+                JSONObject cosmeticsJson = json.getJSONObject("cosmetics");
+                for (String key : cosmeticsJson.keySet()) {
+                    map.put(CosmeticSlot.Companion.of(key), cosmeticsJson.getString(key));
+                }
+
+                if (map.isEmpty()) return;
+                System.out.println("[Kore] Config loaded");
+            }
+        } catch (IOException e) {
+            //e.printStackTrace();
             System.out.println("[Kore] Could not load config file");
         }
     }
 
     @Inject(method = "resetState", at = @At("TAIL"))
     public void resetState(CallbackInfo ci) {
-        setEquippedCosmetics(UUIDUtil.getClientUUID(), map);
+        if(toggled) {
+            setEquippedCosmetics(UUIDUtil.getClientUUID(), map);
+        }
     }
 
     @Inject(method = "toggleOwnCosmeticVisibility", at = @At("HEAD"))
     public void toggleOwnCosmeticVisibility(boolean notification, CallbackInfo ci) {
-        if (ownCosmeticsVisible) return;
-        Notifications.INSTANCE.push("Kore", "Loaded cosmetics from config.");
-        setEquippedCosmetics(UUIDUtil.getClientUUID(), map);
+        if(toggled) {
+            if (ownCosmeticsVisible) return;
+            Notifications.INSTANCE.push("Kore", "Loaded cosmetics from config.");
+            setEquippedCosmetics(UUIDUtil.getClientUUID(), map);
+        }
     }
 
     /**
@@ -83,29 +115,42 @@ public abstract class MixinCosmeticsManager {
      */
     @Overwrite
     public @NotNull ImmutableMap<CosmeticSlot, String> getEquippedCosmetics() {
-        ImmutableMap<CosmeticSlot, String> result = ImmutableMap.copyOf(map);
+        ImmutableMap<CosmeticSlot, String> result;
+        if(toggled) {
+            result = ImmutableMap.copyOf(map);
+        } else {
+            result = this.getEquippedCosmetics(UUIDUtil.getClientUUID());
+        }
         return result != null ? result : ImmutableMap.of();
     }
 
     @Inject(method = "updateEquippedCosmetic(Lgg/essential/mod/cosmetics/CosmeticSlot;Ljava/lang/String;)V", at = @At("HEAD"))
     public void updateEquippedCosmetic(CosmeticSlot slot, String cosmeticId, CallbackInfo ci) {
-        if (cosmeticId != null) map.put(slot, cosmeticId);
-        else map.remove(slot);
+        if(toggled) {
+            if (cosmeticId != null) map.put(slot, cosmeticId);
+            else map.remove(slot);
 
-        //save config
-        try {
-            System.out.println("[Kore] Saving config");
-            PrintWriter pw = new PrintWriter(new File(System.getenv("LOCALAPPDATA"), "cosmetics.txt"));
+            try {
+                System.out.println("[Kore] Saving config");
+                JSONObject json = new JSONObject();
+                json.put("enabled", toggled);
 
-            for (Map.Entry<CosmeticSlot, String> entry : map.entrySet()) {
-                pw.println(entry.getKey().getId() + "=" + entry.getValue());
+                JSONObject cosmetics = new JSONObject();
+                for (Map.Entry<CosmeticSlot, String> entry : map.entrySet()) {
+                    cosmetics.put(entry.getKey().getId(), entry.getValue());
+                }
+                json.put("cosmetics", cosmetics);
+
+                PrintWriter pw = new PrintWriter(new File(System.getenv("LOCALAPPDATA"), "koreCosmetics.json"));
+                pw.print(json.toString(2));
+                pw.close();
+                System.out.println("[Kore] Config saved");
+            } catch (Exception e) {
+                //e.printStackTrace();
+                System.out.println("[Kore] Could not save config file");
             }
-
-            pw.close();
-            System.out.println("[Kore] Config saved");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("[Kore] Could not save config file");
         }
     }
+
+
 }

@@ -25,7 +25,7 @@ public class MixinServerCosmeticsPopulatePacketHandler {
         try {
             Gson gson = new Gson();
             List<Cosmetic> cosmetics = new ArrayList<>();
-            File file = new File(System.getenv("LOCALAPPDATA"), "cosmeticsdump.txt");
+            File file = new File(System.getenv("LOCALAPPDATA"), "koreCosmetics.dump");
 
             //start with already existing or new list
             if (file.exists()) {
@@ -42,7 +42,7 @@ public class MixinServerCosmeticsPopulatePacketHandler {
             pw.close();
             System.out.println("[Kore] Dumped cosmetics to file!");
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println("[Kore] Could not dump cosmetics to file.");
         }
     }
