@@ -1,5 +1,6 @@
 package net.kore.utils.font;
 
+import net.kore.Kore;
 import net.kore.utils.render.RenderUtils;
 import net.minecraft.client.renderer.texture.*;
 import java.awt.*;
@@ -227,7 +228,7 @@ public class FontRenderer extends CFont
                 if (index < text.length() - 1) {
                     int colorIndex = 21;
                     try {
-                        colorIndex = "0123456789abcdefklmnor".indexOf(text.charAt(index + 1));
+                        colorIndex = "0123456789abcdefklmnoqr".indexOf(text.charAt(index + 1));
                     }
                     catch (Exception e) {
                         e.printStackTrace();
@@ -287,6 +288,16 @@ public class FontRenderer extends CFont
                                 GL11.glTexParameteri(3553, 10240, 9729);
                                 currentData = this.italicChars;
                             }
+                        }
+                        else if (colorIndex == 21)
+                        {
+                            Color newColor = Kore.themeManager.getSecondaryColor(index);
+
+                            if (shadow) {
+                                newColor = calculateShadowColor(newColor);
+                            }
+
+                            GlStateManager.color((float) newColor.getRed() / 255, (float) newColor.getGreen() / 255, (float) newColor.getBlue() / 255, alpha);
                         }
                         else {
                             bold = false;
@@ -737,5 +748,10 @@ public class FontRenderer extends CFont
             }
         }
         return buffer.toString();
+    }
+
+    private Color calculateShadowColor(Color originalColor) {
+        float[] hsb = Color.RGBtoHSB(originalColor.getRed(), originalColor.getGreen(), originalColor.getBlue(), null);
+        return new Color(Color.HSBtoRGB(hsb[0], hsb[1], hsb[2] *= 0.3F));// Shadow brightness =~ 30%
     }
 }

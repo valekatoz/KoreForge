@@ -158,7 +158,7 @@ public class Kore {
     public static void sendMessageWithPrefix(Object object) {
         if (Kore.mc.thePlayer != null)
         {
-            Kore.mc.thePlayer.addChatMessage(new ChatComponentText(Kore.fancy + "7[" + Kore.fancy + "q" + Kore.MOD_NAME + Kore.fancy + "7] " + Kore.fancy + "f" + object.toString().replaceAll("&", Kore.fancy + "")));
+            Kore.mc.thePlayer.addChatMessage(new ChatComponentText(Kore.fancy + "7[" + Kore.fancy + "q" + Kore.MOD_NAME + Kore.fancy + "r" + Kore.fancy + "7] " + Kore.fancy + "f" + object.toString().replaceAll("&", Kore.fancy + "")));
         }
     }
 }

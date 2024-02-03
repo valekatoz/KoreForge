@@ -43,13 +43,13 @@ public class Interfaces extends Module
         super("Interfaces", Category.RENDER);
         this.setToggled(true);
         this.customScoreboard = new BooleanSetting("Custom Scoreboard", true);
-        this.customFont = new BooleanSetting("Custom Font", true) {
+        this.customFont = new BooleanSetting("Scoreboard Font", true) {
             @Override
             public boolean isHidden() {
                 return !Interfaces.this.customScoreboard.isEnabled();
             }
         };
-        this.outline = new BooleanSetting("Outline", false) {
+        this.outline = new BooleanSetting("Scoreboard Outline", false) {
             @Override
             public boolean isHidden() {
                 return !Interfaces.this.customScoreboard.isEnabled();
@@ -62,8 +62,8 @@ public class Interfaces extends Module
             }
         };
         this.customButtons = new BooleanSetting("Custom Buttons", true);
-        this.customChat = new BooleanSetting("Custom chat", true);
-        this.customChatFont = new BooleanSetting("Custom chat font", true, aBoolean -> !this.customChat.isEnabled());
+        this.customChat = new BooleanSetting("Custom Chat", true);
+        this.customChatFont = new BooleanSetting("Chat Font", true, aBoolean -> !this.customChat.isEnabled());
         this.blurStrength = new ModeSetting("Blur Strength", "Low", new String[] { "None", "Low", "High" }) {
             @Override
             public boolean isHidden() {
