@@ -1,4 +1,4 @@
-# Kore (2.2.0-stable)
+# Kore (v2.2.2)
 
 [![Discord](https://img.shields.io/discord/1196891678284460053?style=for-the-badge&logo=discord&label=discord&color=9089DA)](https://discord.gg/H4x6eFp9KR)
 [![GitHub Repo stars](https://img.shields.io/github/stars/valekatoz/Kore?style=for-the-badge&label=stargazers&logo=esea&logoColor=FFA500&color=FFFF66)](https://github.com/valekatoz/Kore)
@@ -28,11 +28,12 @@ Please star ⭐ this repo if you found this useful.
   - Giant Models
   - Chinese Hat
   - Animations
+  - Trail
 - Protections
   - Mod Hider
   - Nick Hider
   - Staff Analyzer
-  - Proxy (WorkInProgress)
+  - Proxy (Broken)
 - Player
   - Fast Break
   - Fast Place
@@ -42,11 +43,11 @@ Please star ⭐ this repo if you found this useful.
   - AimAssist
   - AntiBot
 - Skyblock
+  - Ghost Blocks
   - **Purse Spoofer** (Premium)
   - Auto Experiments (Premium)
   - Auto Harp
 - Misc
-  - Ghost Blocks
   - Murder Finder
   - Server Beamer
 - Client
@@ -61,6 +62,7 @@ Please star ⭐ this repo if you found this useful.
 
 ## Showcase
 
+(Need to update)<br>
 [![Watch the showcase](https://i.imgur.com/jP8TNcM.png)](https://www.veed.io/view/524a93c1-c681-40e2-8a2e-be6b40ffe39e)
 
 ## Credits

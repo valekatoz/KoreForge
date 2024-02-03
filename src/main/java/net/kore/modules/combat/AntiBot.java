@@ -1,7 +1,7 @@
 package net.kore.modules.combat;
 
 import net.kore.Kore;
-import net.kore.events.JoinGameEvent;
+import net.kore.events.WorldJoinEvent;
 import net.kore.modules.Module;
 import net.kore.settings.BooleanSetting;
 import net.kore.settings.ModeSetting;
@@ -54,7 +54,7 @@ public class AntiBot extends Module
     }
 
     @SubscribeEvent
-    public void onWorldJoin(final JoinGameEvent event) {
+    public void onWorldJoin(final WorldJoinEvent event) {
         entityData.clear();
     }
 

@@ -1,7 +1,10 @@
 package net.kore.mixins.player;
 
+import net.kore.events.PlayerUpdateEvent;
 import net.kore.managers.CommandManager;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,4 +18,12 @@ public class MixinEntityPlayerSP {
             ci.cancel();
         }
     }
+
+    @Inject(method = { "onUpdate" }, at = { @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;isRiding()Z") }, cancellable = true)
+    private void onUpdate(final CallbackInfo ci) {
+        if (MinecraftForge.EVENT_BUS.post((Event)new PlayerUpdateEvent())) {
+            ci.cancel();
+        }
+    }
+
 }

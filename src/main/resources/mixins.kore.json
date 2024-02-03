@@ -5,6 +5,7 @@
   "mixins": [
     "MixinMinecraft",
     "MixinModList",
+    "MixinChunk",
     "player.MixinEntityPlayerSP",
     "player.MixinPlayerController",
     "player.PlayerSPAccessor",

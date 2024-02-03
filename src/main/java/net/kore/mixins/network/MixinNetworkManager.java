@@ -6,7 +6,7 @@ import io.netty.channel.*;
 import io.netty.channel.oio.OioEventLoopGroup;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import net.kore.Kore;
-import net.kore.events.JoinGameEvent;
+import net.kore.events.WorldJoinEvent;
 import net.kore.events.PacketReceivedEvent;
 import net.kore.events.PacketSentEvent;
 import net.minecraft.network.EnumPacketDirection;
@@ -80,7 +80,7 @@ public abstract class MixinNetworkManager {
     @Inject(method = { "channelRead0" }, at = { @At("HEAD") }, cancellable = true)
     private void onChannelReadHead(final ChannelHandlerContext context, final Packet<?> packet, final CallbackInfo callbackInfo) {
         if (packet instanceof S01PacketJoinGame) {
-            MinecraftForge.EVENT_BUS.post(new JoinGameEvent());
+            MinecraftForge.EVENT_BUS.post(new WorldJoinEvent());
         }
         if (MinecraftForge.EVENT_BUS.post(new PacketReceivedEvent(packet))) {
             callbackInfo.cancel();

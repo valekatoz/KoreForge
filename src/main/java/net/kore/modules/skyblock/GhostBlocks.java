@@ -1,10 +1,9 @@
-package net.kore.modules.misc;
+package net.kore.modules.skyblock;
 
 import com.mojang.authlib.properties.Property;
 import net.kore.Kore;
 import net.kore.events.BlockChangeEvent;
-import net.kore.events.JoinGameEvent;
-import net.kore.events.PacketReceivedEvent;
+import net.kore.events.WorldJoinEvent;
 import net.kore.modules.Module;
 import net.kore.settings.BooleanSetting;
 import net.kore.settings.ModeSetting;
@@ -13,7 +12,6 @@ import net.kore.utils.MilliTimer;
 import net.kore.utils.SkyblockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
@@ -39,7 +37,7 @@ public class GhostBlocks extends Module {
     private int ticks;
 
     public GhostBlocks() {
-        super("Ghost Blocks", 0, Category.MISC);
+        super("Ghost Blocks", 0, Category.SKYBLOCK);
         this.range = new NumberSetting("Range", 10.0, 1.0, 100.0, 1.0);
         this.delay = new NumberSetting("Delay (Seconds)", 3.0, 1.0, 15.0, 1.0);
         this.mode = new ModeSetting("Speed", "Fast", new String[]{"Slow", "Fast"});
@@ -96,7 +94,7 @@ public class GhostBlocks extends Module {
     }
 
     @SubscribeEvent
-    public void onWorldJoin(final JoinGameEvent event) {
+    public void onWorldJoin(final WorldJoinEvent event) {
         GhostBlocks.eventQueue.clear();
         GhostBlocks.ghostBlocks.clear();
     }
