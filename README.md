@@ -48,6 +48,7 @@ Please star ⭐ this repo if you found this useful.
   - Auto Experiments (Premium)
   - Auto Harp
 - Misc
+  - Build Guesser
   - Murder Finder
   - Server Beamer
 - Client
