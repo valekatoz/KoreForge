@@ -90,7 +90,7 @@ public class InventoryHud extends DraggableComponent
         BlurUtils.renderBlurredBackground((float)blur, (float)resolution.getScaledWidth(), (float)resolution.getScaledHeight(), 0.0f, 0.0f, (float)scaledResolution.getScaledWidth(), (float)scaledResolution.getScaledHeight());
         StencilUtils.uninitStencil();
         this.drawBorderedRoundedRect((float)x, (float)y + Fonts.getPrimary().getHeight() - 4.0f, 182.0f, (float)(80 - (Fonts.getPrimary().getHeight() - 4)), 5.0f, 2.5f);
-        Fonts.getSecondary().drawSmoothCenteredString("Inventory", (float)x + 90.0f, (float)y + Fonts.getPrimary().getHeight(), Color.white.getRGB());
+        Fonts.getPrimary().drawSmoothCenteredString("Inventory", (float)x + 90.0f, (float)y + Fonts.getPrimary().getHeight(), Color.white.getRGB());
         GlStateManager.enableRescaleNormal();
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
@@ -110,9 +110,10 @@ public class InventoryHud extends DraggableComponent
         GlStateManager.disableRescaleNormal();
         GlStateManager.disableBlend();
         GL11.glPopMatrix();
-        final InventoryDisplay display = Kore.inventoryDisplay;
-        display.x.set(this.x);
-        display.y.set(this.y);
+
+        Kore.inventoryDisplay.x.set(this.x);
+        Kore.inventoryDisplay.y.set(this.y);
+
         return new HudVec(x + this.width, y + this.height);
     }
 

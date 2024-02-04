@@ -5,6 +5,7 @@ import net.kore.modules.ClientSettings;
 import net.kore.modules.Module;
 import net.kore.modules.combat.*;
 import net.kore.modules.misc.*;
+import net.kore.modules.movement.InvMove;
 import net.kore.modules.skyblock.*;
 import net.kore.modules.player.*;
 import net.kore.modules.protection.*;
@@ -43,35 +44,52 @@ public class Kore {
     public static Minecraft mc;
     public static char fancy = (char) 167;
 
-    // (Important) Modules
+    // Modules
+
+    // System
     public static Gui clickGui;
     public static ClientSettings clientSettings;
 
-    // Modules
-    public static PopupAnimation popupAnimation;
+    // Render
+    public static Animations animations;
+    public static ChinaHat chinaHat;
+    public static Giants giants;
     public static Interfaces interfaces;
     public static InventoryDisplay inventoryDisplay;
-    public static Animations animations;
-    public static Giants giants;
-    public static ChinaHat chinaHat;
-    public static PlayerEsp playerEsp;
-    public static PurseSpoofer purseSpoofer;
     public static Nametags nametags;
+    public static PlayerEsp playerEsp;
+    public static PopupAnimation popupAnimation;
+    public static Trail trail;
+
+    // Combat
+    public static AntiBot antiBot;
+    public static AimAssist aimAssist;
+
+    // Player
+    public static FreeCam freeCam;
+    public static FastPlace fastPlace;
+    public static FastBreak fastBreak;
+
+    // Movement
+    public static InvMove invMove;
+
+
+    // Skyblock
+    public static AutoExperiments autoExperiments;
+    public static AutoHarp autoHarp;
+    public static GhostBlocks ghostBlock;
+    public static PurseSpoofer purseSpoofer;
+
+    // Misc
+    public static MurderFinder murderFinder;
+    public static ServerBeamer serverBeamer;
+    public static BuildGuesser buildGuesser;
+
+    // Protections
     public static ModHider modHider;
     public static NickHider nickHider;
     public static StaffAnalyser staffAnalyser;
     public static Proxy proxy;
-    public static FreeCam freeCam;
-    public static FastPlace fastPlace;
-    public static FastBreak fastBreak;
-    public static GuiMove guiMove;
-    public static GhostBlocks ghostBlock;
-    public static AutoExperiments autoExperiments;
-    public static AutoHarp autoHarp;
-    public static MurderFinder murderFinder;
-    public static ServerBeamer serverBeamer;
-    public static AntiBot antiBot;
-    public static AimAssist aimAssist;
 
     public static void start()
     {

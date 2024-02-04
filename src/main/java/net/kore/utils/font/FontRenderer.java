@@ -197,11 +197,19 @@ public class FontRenderer extends CFont
         return (float)x / 2.0f;
     }
 
-    public float drawSmoothString(final String text, double x, double y, final int color, final boolean shadow) {
+    public float drawSmoothString(String text, double x, double y, final int color, final boolean shadow) {
         --x;
+
         if (text == null) {
             return 0.0f;
         }
+
+        if(Kore.mc != null && Kore.mc.getSession() != null && Kore.nickHider != null) {
+            if (Kore.nickHider.isToggled() && text.contains(Kore.mc.getSession().getUsername()) && !Kore.mc.getSession().getUsername().equals(Kore.nickHider.nick.getValue())) {
+                text = text.replaceAll(Kore.mc.getSession().getUsername(), Kore.nickHider.nick.getValue());
+            }
+        }
+
         CFont.CharData[] currentData = this.charData;
         final float alpha = (color >> 24 & 0xFF) / 255.0f;
         final boolean randomCase = false;
@@ -535,7 +543,7 @@ public class FontRenderer extends CFont
         for (int index = 0; index < text.length(); ++index) {
             final char character = text.charAt(index);
             if (character == fancy) {
-                final int colorIndex = "0123456789abcdefklmnor".indexOf(character);
+                final int colorIndex = "0123456789abcdefklmnorq".indexOf(character);
                 ++index;
             }
             else if (character < currentData.length) {

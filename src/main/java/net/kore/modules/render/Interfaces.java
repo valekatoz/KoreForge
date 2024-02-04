@@ -55,7 +55,7 @@ public class Interfaces extends Module
                 return !Interfaces.this.customScoreboard.isEnabled();
             }
         };
-        this.hideLobby = new BooleanSetting("Hide lobby", true) {
+        this.hideLobby = new BooleanSetting("Hide Lobby", false) {
             @Override
             public boolean isHidden() {
                 return !Interfaces.this.customScoreboard.isEnabled();

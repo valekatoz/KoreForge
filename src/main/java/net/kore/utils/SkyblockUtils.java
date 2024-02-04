@@ -5,6 +5,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.kore.Kore;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.item.ItemSkull;
@@ -16,6 +17,7 @@ import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -189,6 +191,23 @@ public class SkyblockUtils {
 
     public static boolean isTerminal(final String name) {
         return name.contains("Correct all the panes!") || name.contains("Navigate the maze!") || name.contains("Click in order!") || name.contains("What starts with:") || name.contains("Select all the") || name.contains("Change all to same color!") || name.contains("Click the button on time!");
+    }
+
+    public static void rightClick() {
+        try {
+            Method rightClickMouse = null;
+            try {
+                rightClickMouse = Minecraft.class.getDeclaredMethod("rightClickMouse", (Class<?>[])new Class[0]);
+            }
+            catch (NoSuchMethodException e2) {
+                rightClickMouse = Minecraft.class.getDeclaredMethod("rightClickMouse", (Class<?>[])new Class[0]);
+            }
+            rightClickMouse.setAccessible(true);
+            rightClickMouse.invoke(Minecraft.getMinecraft(), new Object[0]);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

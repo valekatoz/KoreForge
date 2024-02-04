@@ -182,8 +182,9 @@ public class Module {
         RENDER("Render"),
         COMBAT("Combat"),
         PLAYER("Player"),
-        MISC("Misc"),
+        MOVEMENT("Movement"),
         SKYBLOCK("Skyblock"),
+        MISC("Misc"),
         PROTECTIONS("Protections"),
         SETTINGS("Settings");
 
