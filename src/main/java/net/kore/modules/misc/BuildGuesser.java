@@ -95,7 +95,7 @@ public class BuildGuesser extends Module
                     tip = ChatFormatting.stripFormatting(event.message.getFormattedText()).replaceFirst("The theme is ", "");
                     matchingWords = this.getMatchingWords();
                     if (matchingWords.size() == 1) {
-                        Kore.notificationManager.showNotification("Found 1 matching word! Sending: §f" + matchingWords.get(0), 2000, Notification.NotificationType.INFO);
+                        Kore.notificationManager.showNotification("Found 1 matching word: &f" + matchingWords.get(0), 2000, Notification.NotificationType.INFO);
                         if (this.guesses != null) {
                             this.guesses.stop();
                             this.guesses = null;
