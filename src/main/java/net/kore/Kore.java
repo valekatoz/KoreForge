@@ -5,7 +5,7 @@ import net.kore.modules.ClientSettings;
 import net.kore.modules.Module;
 import net.kore.modules.combat.*;
 import net.kore.modules.misc.*;
-import net.kore.modules.movement.InvMove;
+import net.kore.modules.movement.InventoryMove;
 import net.kore.modules.skyblock.*;
 import net.kore.modules.player.*;
 import net.kore.modules.protection.*;
@@ -66,12 +66,13 @@ public class Kore {
     public static AimAssist aimAssist;
 
     // Player
+    public static AutoTool autoTool;
     public static FreeCam freeCam;
     public static FastPlace fastPlace;
     public static FastBreak fastBreak;
 
     // Movement
-    public static InvMove invMove;
+    public static InventoryMove inventoryMove;
 
 
     // Skyblock

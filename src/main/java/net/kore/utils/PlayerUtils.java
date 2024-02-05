@@ -2,6 +2,7 @@ package net.kore.utils;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.kore.Kore;
+import net.kore.mixins.PlayerControllerAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.client.Minecraft;
@@ -243,5 +244,13 @@ public class PlayerUtils
         final Vec3 vec4 = getVectorForRotation(yaw, pitch);
         final Vec3 vec5 = vec3.addVector(vec4.xCoord * distance, vec4.yCoord * distance, vec4.zCoord * distance);
         return Kore.mc.theWorld.rayTraceBlocks(vec3, vec5, false, true, true);
+    }
+
+    public static void syncHeldItem() {
+        final int slot = Kore.mc.thePlayer.inventory.currentItem;
+        if (slot != ((PlayerControllerAccessor)Kore.mc.playerController).getCurrentPlayerItem()) {
+            ((PlayerControllerAccessor)Kore.mc.playerController).setCurrentPlayerItem(slot);
+            PacketUtils.sendPacketNoEvent((Packet<?>)new C09PacketHeldItemChange(slot));
+        }
     }
 }

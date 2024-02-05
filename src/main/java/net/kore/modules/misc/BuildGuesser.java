@@ -45,8 +45,8 @@ public class BuildGuesser extends Module
         this.y = new NumberSetting("guesserY", 0.0, -100000.0, 100000.0, 1.0E-5, a -> true);
         this.blurStrength = new ModeSetting("Blur Strength", "Low", new String[] { "None", "Low", "High" });
         this.displayedGuesses = new NumberSetting("Displayed guesses", 10.0, 5, 50.0, 1.0);
-        this.autoGuess = new BooleanSetting("Auto Guess", true);
-        this.autoJoin = new BooleanSetting("Auto Join", true);
+        this.autoGuess = new BooleanSetting("Auto Guess", false);
+        this.autoJoin = new BooleanSetting("Auto Join", false);
         this.addSettings(defaultPosition, this.x, this.y, this.blurStrength, this.displayedGuesses, this.autoGuess, this.autoJoin);
 
         this.wordList = new ArrayList<String>();

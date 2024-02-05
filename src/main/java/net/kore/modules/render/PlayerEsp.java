@@ -27,7 +27,7 @@ public class PlayerEsp extends Module
     private EntityPlayer lastRendered;
 
     public PlayerEsp() {
-        super("PlayerESP", Category.RENDER);
+        super("Player ESP", Category.RENDER);
         this.mode = new ModeSetting("Mode", "2D", new String[] { "Outline", "2D", "Chams", "Box", "Tracers" });
         this.opacity = new NumberSetting("Opacity", 255.0, 0.0, 255.0, 1.0) {
             @Override

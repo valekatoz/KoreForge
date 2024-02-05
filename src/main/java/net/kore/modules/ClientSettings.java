@@ -38,6 +38,7 @@ public class ClientSettings extends Module {
 
     public static IPCClient ipcClient = new IPCClient(1196540533611450588L);
     private static boolean hasConnected;
+    private static boolean shouldConnect = true;
     private static RichPresence richPresenceData;
 
     // Cosmetics Unlocker
@@ -82,7 +83,7 @@ public class ClientSettings extends Module {
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
-        if(!hasConnected && this.richPresence.isEnabled()) {
+        if(!hasConnected && this.richPresence.isEnabled() && shouldConnect) {
             setupIPC();
         } else if(hasConnected && !this.richPresence.isEnabled()) {
             disableRichPresence();
@@ -143,6 +144,7 @@ public class ClientSettings extends Module {
             ipcClient.connect(new DiscordBuild[0]);
         }
         catch (Exception e) {
+            shouldConnect = false;
             e.printStackTrace();
         }
     }

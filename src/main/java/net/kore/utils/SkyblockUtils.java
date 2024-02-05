@@ -7,6 +7,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import net.kore.Kore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.item.ItemSkull;
 import net.minecraft.item.ItemStack;
@@ -15,6 +16,8 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.scoreboard.*;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Method;
@@ -62,6 +65,47 @@ public class SkyblockUtils {
 
             return null;
         }
+    }
+
+    public static boolean inDungeon;
+    public static boolean isInOtherGame;
+    public static boolean onSkyblock;
+
+    @SubscribeEvent
+    public void onTick(final TickEvent.ClientTickEvent event) {
+        if (Kore.mc.theWorld != null && event.phase == TickEvent.Phase.START) {
+            SkyblockUtils.inDungeon = (hasLine("Cleared:") || hasLine("Start"));
+            SkyblockUtils.isInOtherGame = isInOtherGame();
+            SkyblockUtils.onSkyblock = isOnSkyBlock();
+        }
+    }
+
+    public static boolean hasLine(final String line) {
+        if (Kore.mc.thePlayer != null && Kore.mc.thePlayer.getWorldScoreboard() != null && Kore.mc.thePlayer.getWorldScoreboard().getObjectiveInDisplaySlot(1) != null) {
+            final Scoreboard sb = Minecraft.getMinecraft().thePlayer.getWorldScoreboard();
+            final List<Score> list = new ArrayList<Score>(sb.getSortedScores(sb.getObjectiveInDisplaySlot(1)));
+            for (final Score score : list) {
+                final ScorePlayerTeam team = sb.getPlayersTeam(score.getPlayerName());
+                if (team != null) {
+                    final String s = ChatFormatting.stripFormatting(team.getColorPrefix() + score.getPlayerName() + team.getColorSuffix());
+                    final StringBuilder builder = new StringBuilder();
+                    for (final char c : s.toCharArray()) {
+                        if (c < '\u0100') {
+                            builder.append(c);
+                        }
+                    }
+                    if (builder.toString().toLowerCase().contains(line.toLowerCase())) {
+                        return true;
+                    }
+                    continue;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean isMiniboss(final Entity entity) {
+        return entity.getName().equals("Shadow Assassin") || entity.getName().equals("Lost Adventurer") || entity.getName().equals("Diamond Guy");
     }
 
     public static boolean isOnHypixel()
@@ -191,6 +235,23 @@ public class SkyblockUtils {
 
     public static boolean isTerminal(final String name) {
         return name.contains("Correct all the panes!") || name.contains("Navigate the maze!") || name.contains("Click in order!") || name.contains("What starts with:") || name.contains("Select all the") || name.contains("Change all to same color!") || name.contains("Click the button on time!");
+    }
+
+    public static void click() {
+        try {
+            Method clickMouse;
+            try {
+                clickMouse = Minecraft.class.getDeclaredMethod("clickMouse", (Class<?>[])new Class[0]);
+            }
+            catch (NoSuchMethodException e2) {
+                clickMouse = Minecraft.class.getDeclaredMethod("clickMouse", (Class<?>[])new Class[0]);
+            }
+            clickMouse.setAccessible(true);
+            clickMouse.invoke(Minecraft.getMinecraft(), new Object[0]);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void rightClick() {
