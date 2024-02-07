@@ -56,29 +56,6 @@ public class ClientSettings extends Module {
         unlockerToggle = unlockerToggle();
 
         this.addSettings(hideModules, debug, autoUpdate, richPresence, cosmeticsUnlocker);
-
-        // Auto Updater (Licensed only)
-
-        if(Boolean.parseBoolean(Kore.licensed) && this.autoUpdate.isEnabled()) {
-            String stream = "upstream";
-            UpdateContext updateContext = new UpdateContext(
-                    UpdateSource.gistSource("valekatoz","83a452dad0b31823d77f3b37e6a5ff3b"),
-                    UpdateTarget.deleteAndSaveInTheSameFolder(Kore.class),
-                    CurrentVersion.of(Integer.parseInt(Kore.VERSION_NUMBER)),
-                    Base64.getEncoder().encodeToString(Kore.MOD_ID.getBytes())
-            );
-            updateContext.cleanup();
-
-            System.out.println("Update cleaned");
-            System.out.println("Created update context: " + updateContext);
-
-            updateContext.checkUpdate(stream).thenCompose(it -> {
-                System.out.println("Checked for update on " + stream + ": " + it);
-                System.out.println("Can update: " + it.isUpdateAvailable());
-                return it.launchUpdate();
-            }).join();
-
-        }
     }
 
     @SubscribeEvent

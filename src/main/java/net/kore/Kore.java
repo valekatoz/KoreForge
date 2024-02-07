@@ -35,6 +35,7 @@ public class Kore {
 
     // Managers
     public static LicenseManager licenseManager;
+    public static UpdateManager updateManager;
     public static ModuleManager moduleManager;
     public static ConfigManager configManager;
     public static ThemeManager themeManager;
@@ -118,6 +119,8 @@ public class Kore {
         }
 
         BlurUtils.registerListener();
+
+        updateManager = new UpdateManager();
     }
 
     public static void handleKey(int key)
@@ -152,17 +155,30 @@ public class Kore {
 
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-        if (!licenseManager.hasConnected() && event.entity instanceof net.minecraft.client.entity.EntityPlayerSP) {
-            licenseManager.setConnected(true);
+        if(event.entity instanceof net.minecraft.client.entity.EntityPlayerSP) {
+            if (!licenseManager.hasConnected()) {
+                licenseManager.setConnected(true);
 
-            if(Boolean.parseBoolean(Kore.licensed)) {
-                if(licenseManager.isPremium()) {
-                    sendMessageWithPrefix("You successfully authenticated to Kore (Premium)");
+                if(Boolean.parseBoolean(Kore.licensed)) {
+                    if(licenseManager.isPremium()) {
+                        sendMessageWithPrefix("You successfully authenticated to Kore (Premium)");
+                    } else {
+                        sendMessageWithPrefix("Looks like you are not premium. You should consider upgrading to premium for the best features.");
+                    }
                 } else {
-                    sendMessageWithPrefix("Looks like you are not premium. You should consider upgrading to premium for the best features.");
+                    sendMessageWithPrefix("You are in the unlicensed version");
                 }
-            } else {
-                sendMessageWithPrefix("You are in the unlicensed version");
+            }
+
+            if(Kore.clientSettings.autoUpdate.isEnabled() && !updateManager.hasChecked()) {
+                updateManager.setChecked(true);
+
+                if (Boolean.parseBoolean(Kore.licensed)) {
+                    if(updateManager.checkUpdate()) {
+                        sendMessageWithPrefix("An update is available, restart your game to update.");
+                        updateManager.update();
+                    }
+                }
             }
         }
     }

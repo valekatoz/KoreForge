@@ -15,22 +15,27 @@ public class KoreCommand extends Command {
     public void execute(String[] args) throws Exception {
         if (args.length > 2)
         {
-            Kore.sendMessageWithPrefix(".kore <help/dev/disconnect>");
+            Kore.sendMessageWithPrefix(".kore <help/check/disconnect>");
             return;
         }
 
         if(args.length > 1 && args[1].equals("help")) {
             CommandManager.printHelp();
-        } else if(args.length > 1 && args[1].equals("dev")) {
-            // Dev test command
-            Kore.notificationManager.showNotification("This is a notification", 2000, Notification.NotificationType.INFO);
-            Kore.sendMessageWithPrefix("(&cDev&f) Notification executed");
+
+        } else if(args.length > 1 && args[1].equals("check")) {
+            if(Kore.updateManager.checkUpdate()) {
+                Kore.sendMessageWithPrefix("(&cUpdater&f) You are not running the latest version");
+            } else {
+                Kore.sendMessageWithPrefix("(&cUpdater&f) You are running the latest version");
+            }
+
         } else if(args.length > 1 && args[1].equals("disconnect")) {
             if(Kore.licenseManager.disconnect()) {
-                Kore.sendMessageWithPrefix("(&cDev&f) You successfully disconnected from Kore");
+                Kore.sendMessageWithPrefix("(&cLicense&f) You successfully disconnected from Kore");
             } else {
-                Kore.sendMessageWithPrefix("(&cDev&f) You are in the unlicensed version.");
+                Kore.sendMessageWithPrefix("(&cLicense&f) You are in the unlicensed version.");
             }
+
         } else {
             Kore.sendMessageWithPrefix("(&cDiscord&f) -> https://discord.com/invite/H4x6eFp9KR");
         }
@@ -38,6 +43,6 @@ public class KoreCommand extends Command {
 
     @Override
     public String getDescription() {
-        return ".kore <help/dev/disconnect>";
+        return ".kore <help/update/disconnect>";
     }
 }
