@@ -66,8 +66,7 @@ Please star ⭐ this repo if you found this useful.
 
 ## Showcase
 
-(Need to update)<br>
-[![Watch the showcase](https://i.imgur.com/jP8TNcM.png)](https://www.veed.io/view/524a93c1-c681-40e2-8a2e-be6b40ffe39e)
+[![Watch the showcase](https://imgur.com/cIdoL0n.png)](https://streamable.com/rzf440)
 
 ## Credits
 
