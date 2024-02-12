@@ -26,6 +26,12 @@ public class AutoClicker extends Module
         this.addSettings(AutoClicker.minCps, AutoClicker.maxCps, AutoClicker.mode);
     }
 
+    @Override
+    public void assign()
+    {
+        Kore.autoClicker = this;
+    }
+
     @SubscribeEvent
     public void onTick(final RenderWorldLastEvent event) {
         if (this.isToggled() && Kore.mc.thePlayer != null && this.isPressed() && !Kore.mc.thePlayer.isUsingItem() && Kore.mc.currentScreen == null && this.timer.hasTimePassed((long)(1000.0 / this.nextDelay))) {
