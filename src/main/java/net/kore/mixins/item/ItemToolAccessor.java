@@ -7,6 +7,6 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin({ ItemTool.class })
 public interface ItemToolAccessor
 {
-    @Accessor("toolClass")
+    @Accessor(value = "toolClass", remap = false)
     String getToolClass();
 }

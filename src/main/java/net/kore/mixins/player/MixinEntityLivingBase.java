@@ -36,8 +36,6 @@ public abstract class MixinEntityLivingBase extends MixinEntity
     @Shadow
     protected double newPosX;
     @Shadow
-    public float field_70769_ao;
-    @Shadow
     public float renderYawOffset;
     @Shadow
     protected float onGroundSpeedFactor;
@@ -49,8 +47,6 @@ public abstract class MixinEntityLivingBase extends MixinEntity
     public float limbSwing;
     @Shadow
     protected float prevOnGroundSpeedFactor;
-    @Shadow
-    public float field_70770_ap;
 
     @Shadow
     protected abstract float getJumpUpwardsMotion();
