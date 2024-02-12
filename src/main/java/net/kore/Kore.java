@@ -5,7 +5,7 @@ import net.kore.modules.ClientSettings;
 import net.kore.modules.Module;
 import net.kore.modules.combat.*;
 import net.kore.modules.misc.*;
-import net.kore.modules.movement.*;
+import net.kore.modules.movement.InventoryMove;
 import net.kore.modules.skyblock.*;
 import net.kore.modules.player.*;
 import net.kore.modules.protection.*;
@@ -58,32 +58,23 @@ public class Kore {
     public static Interfaces interfaces;
     public static InventoryDisplay inventoryDisplay;
     public static Nametags nametags;
-    public static ChestESP chestEsp;
-    public static PlayerESP playerEsp;
+    public static PlayerEsp playerEsp;
     public static PopupAnimation popupAnimation;
     public static Trail trail;
 
     // Combat
     public static AntiBot antiBot;
     public static AimAssist aimAssist;
-    public static AutoClicker autoClicker;
-    public static Criticals criticals;
-    public static KillAura killAura;
-    public static NoSlow noSlow;
 
     // Player
     public static AutoTool autoTool;
-    public static ChestStealer chestStealer;
     public static FreeCam freeCam;
     public static FastPlace fastPlace;
     public static FastBreak fastBreak;
 
     // Movement
-    public static Flight fly;
     public static InventoryMove inventoryMove;
-    public static Scaffold scaffold;
-    public static Speed speed;
-    public static Sprint sprint;
+
 
     // Skyblock
     public static AutoExperiments autoExperiments;

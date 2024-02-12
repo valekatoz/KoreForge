@@ -1,1 +1,10 @@
-Homepage
+Message Of The Day:
+- Please star my repo!
+
+Informations:
+- Github: github.com/valekatoz/Kore
+- Discord: valekatoz
+
+Developers:
+- valekatoz
+- Kyrotechnic

@@ -184,7 +184,7 @@ public class Module {
         PLAYER("Player"),
         MOVEMENT("Movement"),
         SKYBLOCK("Skyblock"),
-        MISC("Miscellaneous"),
+        MISC("Misc"),
         PROTECTIONS("Protections"),
         SETTINGS("Settings");
 

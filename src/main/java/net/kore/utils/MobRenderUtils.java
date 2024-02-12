@@ -1,4 +1,4 @@
-package net.kore.utils.render;
+package net.kore.utils;
 
 import net.minecraft.client.renderer.texture.*;
 import java.nio.*;

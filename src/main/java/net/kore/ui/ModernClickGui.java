@@ -67,7 +67,7 @@ public class ModernClickGui extends GuiScreen {
         RenderUtils.drawBorderedRoundedRect((float)getX(), (float)getY(), 85.0f, getHeight(), 3.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
         RenderUtils.drawBorderedRoundedRect((float)(getX() + 90.0), (float)getY(), getWidth() - 90.0f, 20.0f, 3.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
         RenderUtils.drawBorderedRoundedRect((float)(getX() + 90.0), (float)(getY() + 25.0), getWidth() - 90.0f, getHeight() - 25.0f, 3.0f, 2.0f, Kore.themeManager.getPrimaryColor().getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
-        Fonts.getSecondary().drawCenteredString("KoreClient", (float)(getX() + 42.5), (float)(getY() + 6.0), Color.WHITE.getRGB());
+        Fonts.getSecondary().drawCenteredString("Kore Client", (float)(getX() + 42.5), (float)(getY() + 6.0), Color.WHITE.getRGB());
         drawTopBar(mouseX, mouseY);
         for (Window window : this.windowManager.windows) {
             if(window.getName().equals("Settings")) {

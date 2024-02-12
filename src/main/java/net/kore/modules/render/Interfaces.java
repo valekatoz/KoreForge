@@ -40,7 +40,7 @@ public class Interfaces extends Module
     public BooleanSetting roundedButton = new BooleanSetting("Round Button", true, aBoolean -> !customButtons.isEnabled());
 
     public Interfaces() {
-        super("Custom Interfaces", Category.RENDER);
+        super("Interfaces", Category.RENDER);
         this.setToggled(true);
         this.customScoreboard = new BooleanSetting("Custom Scoreboard", true);
         this.customFont = new BooleanSetting("Scoreboard Font", true) {
