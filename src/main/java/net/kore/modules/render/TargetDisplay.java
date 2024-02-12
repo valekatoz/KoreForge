@@ -31,6 +31,7 @@ public class TargetDisplay extends Module
         this.targetESP = new BooleanSetting("Target ESP", true);
         this.x = new NumberSetting("targetX", 0.0, -100000.0, 100000.0, 1.0E-5, a -> true);
         this.y = new NumberSetting("targetY", 0.0, -100000.0, 100000.0, 1.0E-5, a -> true);
+        this.setToggled(true);
         this.addSettings(this.targetESP, this.blurStrength, this.x, this.y);
     }
 

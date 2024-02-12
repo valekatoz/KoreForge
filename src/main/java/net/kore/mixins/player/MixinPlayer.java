@@ -31,7 +31,7 @@ public abstract class MixinPlayer extends MixinEntityLivingBase
     public int experienceLevel;
     @Shadow
     public int experienceTotal;
-    @Shadow (remap = false)
+    @Shadow
     public float eyeHeight;
     @Shadow
     protected float speedOnGround;
