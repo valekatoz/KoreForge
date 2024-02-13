@@ -1,4 +1,4 @@
-# Kore (v2.3.1)
+# Kore (v2.3.2)
 
 [![Discord](https://img.shields.io/discord/1196891678284460053?style=for-the-badge&logo=discord&label=discord&color=9089DA)](https://discord.gg/H4x6eFp9KR)
 [![GitHub Repo stars](https://img.shields.io/github/stars/valekatoz/Kore?style=for-the-badge&label=stargazers&logo=esea&logoColor=FFA500&color=FFFF66)](https://github.com/valekatoz/KoreForge)
@@ -30,15 +30,17 @@ You can access the mod by using the default keybind (right shift).
   - Auto Tool
   - Fast Break
   - Fast Place
+  - Velocity
   - FreeCam
 - Movement
   - Inventory Move
   - Safe Walk
 - Combat
   - Kill Aura
+  - Auto Clicker
   - Aim Assist
   - Anti Bot
-  - Auto Clicker
+  - NoSlow
 - Skyblock
   - Ghost Blocks
   - **Purse Spoofer** (Premium)

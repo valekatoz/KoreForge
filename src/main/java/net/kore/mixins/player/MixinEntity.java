@@ -35,6 +35,8 @@ public abstract class MixinEntity
     @Shadow
     public float rotationPitch;
     @Shadow
+    public boolean noClip;
+    @Shadow
     public boolean onGround;
     @Shadow
     public abstract boolean isSprinting();

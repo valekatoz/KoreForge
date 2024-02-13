@@ -14,11 +14,13 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.EnumAction;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.potion.Potion;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovementInput;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -28,6 +30,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = { EntityPlayerSP.class }, priority = 1)
@@ -52,9 +55,44 @@ public abstract class MixinEntityPlayerSP extends MixinPlayer {
     @Shadow
     private float lastReportedPitch;
     @Shadow
+    public MovementInput movementInput;
+    @Shadow
     public abstract boolean isSneaking();
     @Shadow
     protected abstract boolean isCurrentViewEntity();
+
+    @Redirect(method = { "onLivingUpdate" }, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;isUsingItem()Z"))
+    public boolean isUsingItem(final EntityPlayerSP instance) {
+        return !Kore.noSlow.isToggled() && (instance.isUsingItem());
+    }
+
+    @Inject(method = { "onLivingUpdate" }, at = { @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/AbstractClientPlayer;onLivingUpdate()V") }, cancellable = true)
+    public void onLivingUpdate(final CallbackInfo ci) {
+        if (Kore.noSlow.isToggled() && getHeldItem() != null) {
+            final EnumAction action = this.getHeldItem().getItem().getItemUseAction(this.getHeldItem());
+            if (action == EnumAction.BLOCK) {
+                final MovementInput movementInput = this.movementInput;
+                movementInput.moveForward *= (float)Kore.noSlow.swordSlowdown.getValue();
+                final MovementInput movementInput2 = this.movementInput;
+                movementInput2.moveStrafe *= (float)Kore.noSlow.swordSlowdown.getValue();
+            }
+            else if (action == EnumAction.BOW) {
+                final MovementInput movementInput3 = this.movementInput;
+                movementInput3.moveForward *= (float)Kore.noSlow.bowSlowdown.getValue();
+                final MovementInput movementInput4 = this.movementInput;
+                movementInput4.moveStrafe *= (float)Kore.noSlow.bowSlowdown.getValue();
+            }
+            else if (action != EnumAction.NONE) {
+                final MovementInput movementInput5 = this.movementInput;
+                movementInput5.moveForward *= (float)Kore.noSlow.eatingSlowdown.getValue();
+                final MovementInput movementInput6 = this.movementInput;
+                movementInput6.moveStrafe *= (float)Kore.noSlow.eatingSlowdown.getValue();
+            }
+        }
+        if (Kore.freeCam.isToggled()) {
+            this.noClip = true;
+        }
+    }
 
     @Inject(method = { "sendChatMessage" }, at = { @At("HEAD") }, cancellable = true)
     public void onSenChatMessage(final String message, final CallbackInfo ci) {

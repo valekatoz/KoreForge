@@ -78,6 +78,8 @@ public class Kore {
     public static ChestStealer chestStealer;
     public static FastPlace fastPlace;
     public static FastBreak fastBreak;
+    public static Velocity velocity;
+    public static NoSlow noSlow;
 
     // Movement
     public static InventoryMove inventoryMove;

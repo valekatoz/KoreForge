@@ -6,6 +6,7 @@
     "MixinMinecraft",
     "MinecraftAccessor",
     "MixinModList",
+    "MixinPlayHandler",
     "MixinChunk",
     "PlayerControllerAccessor",
     "gui.MixinGui",

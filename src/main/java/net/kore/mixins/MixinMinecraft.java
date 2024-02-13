@@ -1,9 +1,12 @@
 package net.kore.mixins;
 
 import net.kore.Kore;
+import net.kore.mixins.player.PlayerSPAccessor;
+import net.kore.modules.combat.KillAura;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import org.lwjgl.input.Keyboard;
@@ -12,6 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Minecraft.class)
 public class MixinMinecraft {
@@ -56,6 +60,17 @@ public class MixinMinecraft {
                 Kore.mc.thePlayer.swingItem();
                 Kore.mc.playerController.clickBlock(blockpos, Kore.mc.objectMouseOver.sideHit);
             }
+        }
+    }
+
+    @Inject(method = { "getRenderViewEntity" }, at = { @At("HEAD") })
+    public void getRenderViewEntity(final CallbackInfoReturnable<Entity> cir) {
+        if (!Kore.killAura.isToggled() || this.renderViewEntity == null || this.renderViewEntity != Kore.mc.thePlayer) {
+            return;
+        }
+        if (KillAura.target != null) {
+            ((EntityLivingBase)this.renderViewEntity).rotationYawHead = ((PlayerSPAccessor)this.renderViewEntity).getLastReportedYaw();
+            ((EntityLivingBase)this.renderViewEntity).renderYawOffset = ((PlayerSPAccessor)this.renderViewEntity).getLastReportedYaw();
         }
     }
 }

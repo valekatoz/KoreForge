@@ -1,6 +1,7 @@
 package net.kore.mixins.player;
 
 import com.google.common.collect.Maps;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.Potion;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,6 +24,9 @@ public abstract class MixinEntityLivingBase extends MixinEntity
     protected abstract void jump();
     @Shadow
     private Map<Integer, PotionEffect> activePotionsMap;
+
+    @Shadow
+    public abstract ItemStack getHeldItem();
     @Shadow
     public final float getHealth() {
         return this.dataWatcher.getWatchableObjectFloat(6);
