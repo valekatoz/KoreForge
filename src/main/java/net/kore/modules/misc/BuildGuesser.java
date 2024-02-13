@@ -11,7 +11,7 @@ import net.kore.settings.ModeSetting;
 import net.kore.settings.NumberSetting;
 import net.kore.ui.hud.DraggableComponent;
 import net.kore.ui.hud.impl.GuesserHud;
-import net.kore.utils.Notification;
+import net.kore.ui.notifications.Notification;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

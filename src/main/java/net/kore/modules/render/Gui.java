@@ -72,7 +72,7 @@ public class Gui extends Module {
         this.blueShift2 = new NumberSetting("Blue 2 ", 255.0, 0.0, 255.0, 1.0, aBoolean -> !this.colorMode.is("Gradient"));
         this.shiftSpeed = new NumberSetting("Shift Speed ", 1.0, 0.1, 5.0, 0.1, aBoolean -> !this.colorMode.is("Gradient") && !this.colorMode.is("Katoz") && !this.colorMode.is("Pulse"));
         this.rgbSpeed = new NumberSetting("Rainbow Speed", 2.5, 0.1, 5.0, 0.1, aBoolean -> !this.colorMode.is("Rainbow"));
-        this.blur = new ModeSetting("Blur strength", "None", new String[] { "None", "Low", "High" });
+        this.blur = new ModeSetting("Blur strength", "Low", new String[] { "None", "Low", "High" });
         this.scaleGui = new BooleanSetting("Scale gui (soon)", false);
         this.arrayList = new BooleanSetting("ArrayList", true);
         this.disableNotifs = new BooleanSetting("Disable notifications", false);
@@ -116,15 +116,15 @@ public class Gui extends Module {
             if (this.arrayList.isEnabled()) {
                 GL11.glPushMatrix();
                 final ScaledResolution resolution = new ScaledResolution(Kore.mc);
-                final List<Module> list = Kore.moduleManager.getModules().stream().filter(module -> (module.isToggled() || module.toggledTime.getTimePassed() <= 250L)).sorted(Comparator.comparingDouble(module -> Fonts.getPrimary().getStringWidth(module.getName() + " | " + module.suffix()))).collect(Collectors.toList());
+                final List<Module> list = Kore.moduleManager.getModules().stream().filter(module -> (module.isToggled() || module.toggledTime.getTimePassed() <= 250L)).sorted(Comparator.comparingDouble(module -> Fonts.getPrimary().getStringWidth(module.getName() + " | " + module.getSuffix()))).collect(Collectors.toList());
                 Collections.reverse(list);
                 float y = 2.0f;
                 int x = list.size();
                 for (final Module module2 : list) {
                     --x;
                     GL11.glPushMatrix();
-                    String moduleName = module2.getName() + " | " + module2.suffix();
-                    if (module2.suffix() == "")
+                    String moduleName = module2.getName() + " | " + module2.getSuffix();
+                    if (module2.getSuffix().isEmpty())
                     {
                         moduleName = module2.getName();
                     }

@@ -61,7 +61,7 @@ public abstract class MixinGuiNewChat extends MixinGui
 
     @Inject(method = { "drawChat" }, at = { @At("HEAD") }, cancellable = true)
     private void drawChat(final int updateCounter, final CallbackInfo ci) {
-        if (Kore.interfaces.customChat.isEnabled() && Kore.interfaces.isToggled()) {
+        if (Kore.modernInterfaces.customChat.isEnabled() && Kore.modernInterfaces.isToggled()) {
             if (this.mc.gameSettings.chatVisibility != EntityPlayer.EnumChatVisibility.HIDDEN) {
                 final ScaledResolution scaledresolution = new ScaledResolution(this.mc);
                 GL11.glPopMatrix();
@@ -71,7 +71,7 @@ public abstract class MixinGuiNewChat extends MixinGui
                 boolean isChatOpen = false;
                 int j = 0;
                 final int lineCount = this.drawnChatLines.size();
-                int fontHeight = Kore.interfaces.customChatFont.isEnabled() ? (Fonts.getPrimary().getHeight() + 3) : this.mc.fontRendererObj.FONT_HEIGHT;
+                int fontHeight = Kore.modernInterfaces.customChatFont.isEnabled() ? (Fonts.getPrimary().getHeight() + 3) : this.mc.fontRendererObj.FONT_HEIGHT;
                 if (lineCount > 0) {
                     if (this.getChatOpen()) {
                         isChatOpen = true;
@@ -100,7 +100,7 @@ public abstract class MixinGuiNewChat extends MixinGui
                     }
                     if (render) {
                         int blur = 0;
-                        final String selected = Kore.interfaces.blurStrength.getSelected();
+                        final String selected = Kore.modernInterfaces.blurStrength.getSelected();
                         switch (selected) {
                             case "Low": {
                                 blur = 7;
@@ -140,7 +140,7 @@ public abstract class MixinGuiNewChat extends MixinGui
                                 final int top = -i * fontHeight;
                                 final String text = chatline.getChatComponent().getFormattedText();
                                 GlStateManager.enableBlend();
-                                if (Kore.interfaces.customChatFont.isEnabled()) {
+                                if (Kore.modernInterfaces.customChatFont.isEnabled()) {
                                     Fonts.getPrimary().drawSmoothStringWithShadow(text, (float)left, (float)(top - (fontHeight - 2.3)), Color.white.getRGB());
                                 }
                                 else {
@@ -189,7 +189,7 @@ public abstract class MixinGuiNewChat extends MixinGui
         final float f = this.getChatScale();
         int j = p_146236_1_ / i - 3;
         int k = p_146236_2_ / i - 27;
-        if (Kore.interfaces.isToggled() && Kore.interfaces.customChat.isEnabled()) {
+        if (Kore.modernInterfaces.isToggled() && Kore.modernInterfaces.customChat.isEnabled()) {
             k -= 12;
         }
         j = MathHelper.floor_float(j / f);
@@ -205,7 +205,7 @@ public abstract class MixinGuiNewChat extends MixinGui
                 int j2 = 0;
                 for (final IChatComponent ichatcomponent : chatline.getChatComponent()) {
                     if (ichatcomponent instanceof ChatComponentText) {
-                        j2 += (int)((Kore.interfaces.customChatFont.isEnabled() && Kore.interfaces.isToggled() && Kore.interfaces.customChat.isEnabled()) ? Fonts.getPrimary().getStringWidth(GuiUtilRenderComponents.func_178909_a(((ChatComponentText)ichatcomponent).getChatComponentText_TextValue(), false)) : this.mc.fontRendererObj.getStringWidth(GuiUtilRenderComponents.func_178909_a(((ChatComponentText)ichatcomponent).getChatComponentText_TextValue(), false)));
+                        j2 += (int)((Kore.modernInterfaces.customChatFont.isEnabled() && Kore.modernInterfaces.isToggled() && Kore.modernInterfaces.customChat.isEnabled()) ? Fonts.getPrimary().getStringWidth(GuiUtilRenderComponents.func_178909_a(((ChatComponentText)ichatcomponent).getChatComponentText_TextValue(), false)) : this.mc.fontRendererObj.getStringWidth(GuiUtilRenderComponents.func_178909_a(((ChatComponentText)ichatcomponent).getChatComponentText_TextValue(), false)));
                         if (j2 > j) {
                             return ichatcomponent;
                         }
@@ -219,12 +219,12 @@ public abstract class MixinGuiNewChat extends MixinGui
     }
 
     private int getHeight() {
-        return (Kore.interfaces.customChatFont.isEnabled() && Kore.interfaces.customChat.isEnabled() && Kore.interfaces.isToggled()) ? (Fonts.getPrimary().getHeight() + 3) : this.mc.fontRendererObj.FONT_HEIGHT;
+        return (Kore.modernInterfaces.customChatFont.isEnabled() && Kore.modernInterfaces.customChat.isEnabled() && Kore.modernInterfaces.isToggled()) ? (Fonts.getPrimary().getHeight() + 3) : this.mc.fontRendererObj.FONT_HEIGHT;
     }
 
     @Redirect(method = { "setChatLine" }, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiUtilRenderComponents;splitText(Lnet/minecraft/util/IChatComponent;ILnet/minecraft/client/gui/FontRenderer;ZZ)Ljava/util/List;"))
     private List<IChatComponent> onFunc(final IChatComponent k, final int s1, final FontRenderer chatcomponenttext, final boolean l, final boolean chatcomponenttext2) {
-        return (Kore.interfaces.customChatFont.isEnabled() && Kore.interfaces.isToggled() && Kore.interfaces.customChat.isEnabled()) ? this.wrapToLen(k, s1, chatcomponenttext) : GuiUtilRenderComponents.splitText(k, s1, chatcomponenttext, l, chatcomponenttext2);
+        return (Kore.modernInterfaces.customChatFont.isEnabled() && Kore.modernInterfaces.isToggled() && Kore.modernInterfaces.customChat.isEnabled()) ? this.wrapToLen(k, s1, chatcomponenttext) : GuiUtilRenderComponents.splitText(k, s1, chatcomponenttext, l, chatcomponenttext2);
     }
 
     private List<IChatComponent> wrapToLen(final IChatComponent p_178908_0_, final int p_178908_1_, final FontRenderer p_178908_2_) {

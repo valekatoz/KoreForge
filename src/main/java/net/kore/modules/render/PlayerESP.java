@@ -7,7 +7,7 @@ import net.kore.modules.Module;
 import net.kore.modules.combat.AntiBot;
 import net.kore.settings.ModeSetting;
 import net.kore.settings.NumberSetting;
-import net.kore.utils.MobRenderUtils;
+import net.kore.utils.render.ChamsUtils;
 import net.kore.utils.OutlineUtils;
 import net.kore.utils.render.RenderUtils;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -20,19 +20,19 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.awt.*;
 
-public class PlayerEsp extends Module
+public class PlayerESP extends Module
 {
     public ModeSetting mode;
     public NumberSetting opacity;
     private EntityPlayer lastRendered;
 
-    public PlayerEsp() {
+    public PlayerESP() {
         super("Player ESP", Category.RENDER);
         this.mode = new ModeSetting("Mode", "2D", new String[] { "Outline", "2D", "Chams", "Box", "Tracers" });
         this.opacity = new NumberSetting("Opacity", 255.0, 0.0, 255.0, 1.0) {
             @Override
             public boolean isHidden() {
-                return !PlayerEsp.this.mode.is("Chams");
+                return !PlayerESP.this.mode.is("Chams");
             }
         };
         this.addSettings(this.mode, this.opacity);
@@ -41,7 +41,7 @@ public class PlayerEsp extends Module
     @Override
     public void assign()
     {
-        Kore.playerEsp = this;
+        Kore.playerESP = this;
     }
 
     @SubscribeEvent
@@ -86,14 +86,14 @@ public class PlayerEsp extends Module
         if (this.lastRendered != null) {
             this.lastRendered = null;
             RenderUtils.disableChams();
-            MobRenderUtils.unsetColor();
+            ChamsUtils.unsetColor();
         }
         if (!(event.entity instanceof EntityOtherPlayerMP) || !this.mode.getSelected().equals("Chams") || !this.isToggled()) {
             return;
         }
         final Color color = RenderUtils.applyOpacity(Kore.clickGui.getColor(), (int)this.opacity.getValue());
         RenderUtils.enableChams();
-        MobRenderUtils.setColor(color);
+        ChamsUtils.setColor(color);
         this.lastRendered = (EntityPlayer)event.entity;
     }
 
@@ -102,7 +102,7 @@ public class PlayerEsp extends Module
         if (event.entity == this.lastRendered) {
             this.lastRendered = null;
             RenderUtils.disableChams();
-            MobRenderUtils.unsetColor();
+            ChamsUtils.unsetColor();
         }
     }
 

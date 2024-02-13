@@ -2,6 +2,8 @@ package net.kore.utils;
 
 import net.kore.Kore;
 import net.kore.events.MoveEvent;
+import net.kore.modules.combat.KillAura;
+import net.kore.utils.rotation.RotationUtils;
 import net.minecraft.entity.Entity;
 
 public class MovementUtils
@@ -63,7 +65,7 @@ public class MovementUtils
     public static void setMotion(final MoveEvent em, final double speed) {
         double forward = Kore.mc.thePlayer.movementInput.moveForward;
         double strafe = Kore.mc.thePlayer.movementInput.moveStrafe;
-        float yaw = Kore.mc.thePlayer.rotationYaw;
+        float yaw = ((KillAura.target != null && Kore.killAura.movementFix.isEnabled())) ? RotationUtils.getRotations(KillAura.target).getYaw() : Kore.mc.thePlayer.rotationYaw;
         if (forward == 0.0 && strafe == 0.0) {
             Kore.mc.thePlayer.motionX = 0.0;
             Kore.mc.thePlayer.motionZ = 0.0;

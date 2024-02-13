@@ -20,7 +20,7 @@ public class NickHider extends Module {
     }
 
     @Override
-    public String suffix()
+    public String getSuffix()
     {
         return nick.getValue();
     }

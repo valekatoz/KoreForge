@@ -1,7 +1,7 @@
 package net.kore.managers;
 
 import net.kore.Kore;
-import net.kore.utils.Notification;
+import net.kore.ui.notifications.Notification;
 import net.kore.utils.font.Fonts;
 import net.kore.utils.render.RenderUtils;
 import net.minecraft.client.gui.ScaledResolution;

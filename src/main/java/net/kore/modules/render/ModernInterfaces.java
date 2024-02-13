@@ -25,7 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class Interfaces extends Module
+public class ModernInterfaces extends Module
 {
     public BooleanSetting customScoreboard;
     public BooleanSetting customFont;
@@ -39,26 +39,26 @@ public class Interfaces extends Module
     public ModeSetting lineLocation;
     public BooleanSetting roundedButton = new BooleanSetting("Round Button", true, aBoolean -> !customButtons.isEnabled());
 
-    public Interfaces() {
-        super("Interfaces", Category.RENDER);
+    public ModernInterfaces() {
+        super("Modern Interfaces", Category.RENDER);
         this.setToggled(true);
         this.customScoreboard = new BooleanSetting("Custom Scoreboard", true);
         this.customFont = new BooleanSetting("Scoreboard Font", true) {
             @Override
             public boolean isHidden() {
-                return !Interfaces.this.customScoreboard.isEnabled();
+                return !ModernInterfaces.this.customScoreboard.isEnabled();
             }
         };
         this.outline = new BooleanSetting("Scoreboard Outline", false) {
             @Override
             public boolean isHidden() {
-                return !Interfaces.this.customScoreboard.isEnabled();
+                return !ModernInterfaces.this.customScoreboard.isEnabled();
             }
         };
         this.hideLobby = new BooleanSetting("Hide Lobby", false) {
             @Override
             public boolean isHidden() {
-                return !Interfaces.this.customScoreboard.isEnabled();
+                return !ModernInterfaces.this.customScoreboard.isEnabled();
             }
         };
         this.customButtons = new BooleanSetting("Custom Buttons", true);
@@ -67,19 +67,19 @@ public class Interfaces extends Module
         this.blurStrength = new ModeSetting("Blur Strength", "Low", new String[] { "None", "Low", "High" }) {
             @Override
             public boolean isHidden() {
-                return !Interfaces.this.customScoreboard.isEnabled();
+                return !ModernInterfaces.this.customScoreboard.isEnabled();
             }
         };
         this.buttonLine = new ModeSetting("Button line", "None", new String[] { "Wave", "Single", "None" }) {
             @Override
             public boolean isHidden() {
-                return !Interfaces.this.customButtons.isEnabled();
+                return !ModernInterfaces.this.customButtons.isEnabled();
             }
         };
         this.lineLocation = new ModeSetting("Line location", "Top", new String[] { "Top", "Bottom" }) {
             @Override
             public boolean isHidden() {
-                return !Interfaces.this.customButtons.isEnabled() || Interfaces.this.buttonLine.is("None");
+                return !ModernInterfaces.this.customButtons.isEnabled() || ModernInterfaces.this.buttonLine.is("None");
             }
         };
         this.addSettings(this.customChat, this.customChatFont, this.customScoreboard, this.customFont, this.outline, this.hideLobby, this.blurStrength, this.customButtons, roundedButton, this.buttonLine, this.lineLocation);
@@ -88,7 +88,7 @@ public class Interfaces extends Module
     @Override
     public void assign()
     {
-        Kore.interfaces = this;
+        Kore.modernInterfaces = this;
     }
 
     @SubscribeEvent
@@ -150,7 +150,7 @@ public class Interfaces extends Module
         BlurUtils.renderBlurredBackground((float)blur, (float)p_180475_2_.getScaledWidth(), (float)p_180475_2_.getScaledHeight(), l1 - 2.0f, j1 - collection.size() * fontHeight - fontHeight - 3.0f, m - (l1 - 2.0f), (float)(fontHeight * (collection.size() + 1) + 4));
         StencilUtils.uninitStencil();
         if (this.outline.isEnabled()) {
-            this.drawBorderedRoundedRect(l1 - 2.0f, j1 - collection.size() * fontHeight - fontHeight - 3.0f, m - (l1 - 2.0f), (float)(fontHeight * (collection.size() + 1) + 4), 5.0f, 2.0f);
+            this.drawBorderedRoundedRect(l1 - 2.0f, j1 - collection.size() * fontHeight - fontHeight - 3.0f, m - (l1 - 2.0f), (float)(fontHeight * (collection.size() + 1) + 4), 5.0f, 2.5f);
         }
         else {
             RenderUtils.drawRoundedRect2(l1 - 2.0f, j1 - collection.size() * fontHeight - fontHeight - 3.0f, m - (l1 - 2.0f), fontHeight * (collection.size() + 1) + 4, 5.0, new Color(21, 21, 21, 50).getRGB());

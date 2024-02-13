@@ -11,6 +11,9 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
+import net.minecraft.network.play.client.C09PacketHeldItemChange;
+import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -28,7 +31,6 @@ public class FreeCam extends Module
         this.speed = new NumberSetting("Speed", 3.0, 0.1, 5.0, 0.1);
         this.tracer = new BooleanSetting("Show tracer", false);
         this.addSettings(this.speed, this.tracer);
-        this.setFlagType(FlagType.DETECTED);
     }
 
     @Override
@@ -99,7 +101,7 @@ public class FreeCam extends Module
 
     @SubscribeEvent
     public void onPacket(final PacketSentEvent event) {
-        if (this.isToggled() && event.packet instanceof C03PacketPlayer) {
+        if (this.isToggled() && (event.packet instanceof C03PacketPlayer || event.packet instanceof C09PacketHeldItemChange || event.packet instanceof C08PacketPlayerBlockPlacement || event.packet instanceof C0BPacketEntityAction)) {
             event.setCanceled(true);
         }
     }

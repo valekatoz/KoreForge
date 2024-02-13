@@ -4,7 +4,7 @@ import net.kore.Kore;
 import net.kore.modules.Module;
 import net.kore.settings.NumberSetting;
 import net.kore.utils.Multithreading;
-import net.kore.utils.Notification;
+import net.kore.ui.notifications.Notification;
 import net.kore.utils.api.PlanckeScraper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;

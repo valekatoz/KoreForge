@@ -17,6 +17,7 @@ import java.util.UUID;
 public class ServerUtils {
     public static List<String> changelog = new ArrayList<>();
     public static String logo = "https://kore.valekatoz.com/api/getLogo.php";
+    public static String cape = "https://kore.valekatoz.com/api/getCape.php";
     public static void loadChangelog()
     {
         URL url2 = null;

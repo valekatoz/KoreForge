@@ -1,6 +1,7 @@
 package net.kore.mixins.render;
 
 import net.kore.Kore;
+import net.kore.modules.combat.KillAura;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -18,6 +19,8 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(value = { ItemRenderer.class }, priority = 1)
 public abstract class MixinItemRenderer {
@@ -74,12 +77,16 @@ public abstract class MixinItemRenderer {
         this.rotateWithPlayerRotations((EntityPlayerSP)abstractclientplayer, partialTicks);
         GlStateManager.enableRescaleNormal();
         GlStateManager.pushMatrix();
+        final boolean shouldSpoofBlocking = (Kore.killAura.isToggled() && KillAura.target != null && !Kore.killAura.blockMode.getSelected().equals("None"));
         if (this.itemToRender != null) {
             if (this.itemToRender.getItem() instanceof ItemMap) {
                 this.renderItemMap(abstractclientplayer, f3, f, f2);
             }
-            else if (abstractclientplayer.getItemInUseCount() > 0) {
+            else if (abstractclientplayer.getItemInUseCount() > 0 || shouldSpoofBlocking) {
                 EnumAction enumaction = this.itemToRender.getItemUseAction();
+                if (shouldSpoofBlocking) {
+                    enumaction = EnumAction.BLOCK;
+                }
                 switch (enumaction) {
                     case NONE: {
                         this.transformFirstPersonItem(f, 0.0f);
@@ -125,6 +132,11 @@ public abstract class MixinItemRenderer {
                                 }
                                 case "push": {
                                     this.transformFirstPersonItem(f, -f2);
+                                    this.doBlockTransformations();
+                                    break;
+                                }
+                                case "custom": {
+                                    this.transformFirstPersonItem(Kore.animator.blockProgress.isEnabled() ? f : 0.0f, Kore.animator.swingProgress.isEnabled() ? f2 : 0.0f);
                                     this.doBlockTransformations();
                                     break;
                                 }
@@ -204,6 +216,21 @@ public abstract class MixinItemRenderer {
         final String selected = Kore.animations.mode.getSelected();
         if(Kore.animations != null && Kore.animations.isToggled()) {
             switch (selected) {
+                case "custom": {
+                    angle1 = (float)Kore.animator.angle1.getValue();
+                    angle2 = (float)Kore.animator.angle2.getValue();
+                    angle3 = (float)Kore.animator.angle3.getValue();
+                    translateX = (float)Kore.animator.translateX.getValue();
+                    translateY = (float)Kore.animator.translateY.getValue();
+                    translateZ = (float)Kore.animator.translateZ.getValue();
+                    rotation1x = (float)Kore.animator.rotation1x.getValue();
+                    rotation1y = (float)Kore.animator.rotation1y.getValue();
+                    rotation1z = (float)Kore.animator.rotation1z.getValue();
+                    rotation2x = (float)Kore.animator.rotation2x.getValue();
+                    rotation2y = (float)Kore.animator.rotation2y.getValue();
+                    rotation2z = (float)Kore.animator.rotation2z.getValue();
+                    break;
+                }
                 case "vertical spin": {
                     angle1 = (float)(System.currentTimeMillis() % 720L);
                     angle1 /= 2.0f;

@@ -55,7 +55,7 @@ public abstract class MixinGuiButton extends MixinGui
 
     @Inject(method = { "drawButton" }, at = { @At("HEAD") }, cancellable = true)
     public void drawButton(final Minecraft mc, final int mouseX, final int mouseY, final CallbackInfo callbackInfo) {
-        if (this.visible && Kore.interfaces != null && Kore.interfaces.customButtons.isEnabled()) {
+        if (this.visible && Kore.modernInterfaces != null && Kore.modernInterfaces.customButtons.isEnabled()) {
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             this.hovered = (mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height);
             GlStateManager.enableBlend();
@@ -74,12 +74,12 @@ public abstract class MixinGuiButton extends MixinGui
     }
 
     public void drawGradientRect(final float expand, final int opacity) {
-        if (Kore.interfaces != null && Kore.interfaces.buttonLine.is("Wave")) {
+        if (Kore.modernInterfaces != null && Kore.modernInterfaces.buttonLine.is("Wave")) {
             this.start2ColorDraw();
             float prevPos = (float)this.xPosition;
             for (int i = 1; i < 11; ++i) {
                 final float pos = this.xPosition + i * 0.1f * this.width;
-                if (Kore.interfaces.lineLocation.is("Top")) {
+                if (Kore.modernInterfaces.lineLocation.is("Top")) {
                     this.addVertexes(prevPos - expand, this.yPosition - expand, pos + expand, this.yPosition + 1.5f + expand, RenderUtils.applyOpacity(Kore.themeManager.getSecondaryColor(i), opacity).getRGB(), RenderUtils.applyOpacity(Kore.themeManager.getSecondaryColor(i + 1), opacity).getRGB());
                 }
                 else {
@@ -89,8 +89,8 @@ public abstract class MixinGuiButton extends MixinGui
             }
             this.end2ColorDraw();
         }
-        else if (Kore.interfaces != null && Kore.interfaces.buttonLine.is("Single")) {
-            if (Kore.interfaces.lineLocation.is("Top")) {
+        else if (Kore.modernInterfaces != null && Kore.modernInterfaces.buttonLine.is("Single")) {
+            if (Kore.modernInterfaces.lineLocation.is("Top")) {
                 RenderUtils.drawRect(this.xPosition - expand, this.yPosition - expand, this.xPosition + this.width + expand, this.yPosition + 1.5f + expand, RenderUtils.applyOpacity(Kore.themeManager.getSecondaryColor(), opacity).getRGB());
             }
             else {

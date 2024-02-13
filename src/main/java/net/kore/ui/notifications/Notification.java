@@ -1,4 +1,4 @@
-package net.kore.utils;
+package net.kore.ui.notifications;
 
 import net.kore.Kore;
 import net.kore.managers.NotificationManager;

@@ -1,4 +1,4 @@
-package net.kore.utils;
+package net.kore.utils.render;
 
 import net.minecraft.client.renderer.texture.*;
 import java.nio.*;
@@ -6,7 +6,7 @@ import java.awt.*;
 import org.lwjgl.opengl.*;
 import net.minecraft.client.renderer.*;
 
-public class MobRenderUtils
+public class ChamsUtils
 {
     private static final DynamicTexture empty;
     protected static final FloatBuffer brightnessBuffer;
@@ -36,16 +36,16 @@ public class MobRenderUtils
         GL11.glTexEnvi(8960, OpenGlHelper.GL_COMBINE_ALPHA, 7681);
         GL11.glTexEnvi(8960, OpenGlHelper.GL_SOURCE0_ALPHA, OpenGlHelper.GL_PREVIOUS);
         GL11.glTexEnvi(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
-        MobRenderUtils.brightnessBuffer.position(0);
-        MobRenderUtils.brightnessBuffer.put(color.getRed() / 255.0f);
-        MobRenderUtils.brightnessBuffer.put(color.getGreen() / 255.0f);
-        MobRenderUtils.brightnessBuffer.put(color.getBlue() / 255.0f);
-        MobRenderUtils.brightnessBuffer.put(color.getAlpha() / 255.0f);
-        MobRenderUtils.brightnessBuffer.flip();
-        GL11.glTexEnv(8960, 8705, MobRenderUtils.brightnessBuffer);
+        ChamsUtils.brightnessBuffer.position(0);
+        ChamsUtils.brightnessBuffer.put(color.getRed() / 255.0f);
+        ChamsUtils.brightnessBuffer.put(color.getGreen() / 255.0f);
+        ChamsUtils.brightnessBuffer.put(color.getBlue() / 255.0f);
+        ChamsUtils.brightnessBuffer.put(color.getAlpha() / 255.0f);
+        ChamsUtils.brightnessBuffer.flip();
+        GL11.glTexEnv(8960, 8705, ChamsUtils.brightnessBuffer);
         GlStateManager.setActiveTexture(OpenGlHelper.GL_TEXTURE2);
         GlStateManager.enableTexture2D();
-        GlStateManager.bindTexture(MobRenderUtils.empty.getGlTextureId());
+        GlStateManager.bindTexture(ChamsUtils.empty.getGlTextureId());
         GL11.glTexEnvi(8960, 8704, OpenGlHelper.GL_COMBINE);
         GL11.glTexEnvi(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
         GL11.glTexEnvi(8960, OpenGlHelper.GL_SOURCE0_RGB, OpenGlHelper.GL_PREVIOUS);
@@ -101,10 +101,10 @@ public class MobRenderUtils
     static {
         empty = new DynamicTexture(16, 16);
         brightnessBuffer = GLAllocation.createDirectFloatBuffer(4);
-        final int[] aint = MobRenderUtils.empty.getTextureData();
+        final int[] aint = ChamsUtils.empty.getTextureData();
         for (int i = 0; i < 256; ++i) {
             aint[i] = -1;
         }
-        MobRenderUtils.empty.updateDynamicTexture();
+        ChamsUtils.empty.updateDynamicTexture();
     }
 }

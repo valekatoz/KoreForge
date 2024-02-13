@@ -24,6 +24,12 @@ public class Trail extends Module
         this.addSettings(Trail.count);
     }
 
+    @Override
+    public void assign()
+    {
+        Kore.trail = this;
+    }
+
     @SubscribeEvent
     public void onUpdate(final PlayerUpdateEvent event) {
         if (this.isToggled()) {

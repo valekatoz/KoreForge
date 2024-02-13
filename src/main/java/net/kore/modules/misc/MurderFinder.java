@@ -3,7 +3,7 @@ package net.kore.modules.misc;
 import net.kore.Kore;
 import net.kore.modules.Module;
 import net.kore.settings.BooleanSetting;
-import net.kore.utils.Notification;
+import net.kore.ui.notifications.Notification;
 import net.kore.utils.render.RenderUtils;
 
 import net.minecraft.client.Minecraft;

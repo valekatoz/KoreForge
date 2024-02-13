@@ -6,7 +6,7 @@ import net.kore.Kore;
 import net.kore.managers.ConfigManager;
 import net.kore.settings.Setting;
 import net.kore.utils.MilliTimer;
-import net.kore.utils.Notification;
+import net.kore.ui.notifications.Notification;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
@@ -113,7 +113,7 @@ public class Module {
 
     public String getSuffix()
     {
-        return null;
+        return "";
     }
 
     public void addSetting(final Setting setting) {
@@ -160,11 +160,6 @@ public class Module {
         }
     }
 
-    public String suffix()
-    {
-        return "";
-    }
-
     public void onDisable() {
 
     }
@@ -184,7 +179,7 @@ public class Module {
         PLAYER("Player"),
         MOVEMENT("Movement"),
         SKYBLOCK("Skyblock"),
-        MISC("Misc"),
+        MISC("Miscellaneous"),
         PROTECTIONS("Protections"),
         SETTINGS("Settings");
 

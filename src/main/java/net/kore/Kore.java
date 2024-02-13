@@ -6,11 +6,12 @@ import net.kore.modules.Module;
 import net.kore.modules.combat.*;
 import net.kore.modules.misc.*;
 import net.kore.modules.movement.InventoryMove;
+import net.kore.modules.movement.SafeWalk;
 import net.kore.modules.skyblock.*;
 import net.kore.modules.player.*;
 import net.kore.modules.protection.*;
 import net.kore.modules.render.*;
-import net.kore.utils.Notification;
+import net.kore.ui.notifications.Notification;
 import net.kore.utils.api.ServerUtils;
 import net.kore.utils.font.Fonts;
 import net.kore.utils.render.shader.BlurUtils;
@@ -53,28 +54,34 @@ public class Kore {
 
     // Render
     public static Animations animations;
+    public static Animator animator;
     public static ChinaHat chinaHat;
     public static Giants giants;
-    public static Interfaces interfaces;
+    public static ModernInterfaces modernInterfaces;
     public static InventoryDisplay inventoryDisplay;
+    public static TargetDisplay targetDisplay;
     public static Nametags nametags;
-    public static PlayerEsp playerEsp;
+    public static PlayerESP playerESP;
+    public static ChestESP chestESP;
     public static PopupAnimation popupAnimation;
     public static Trail trail;
 
     // Combat
     public static AntiBot antiBot;
     public static AimAssist aimAssist;
+    public static AutoClicker autoClicker;
+    public static KillAura killAura;
 
     // Player
     public static AutoTool autoTool;
     public static FreeCam freeCam;
+    public static ChestStealer chestStealer;
     public static FastPlace fastPlace;
     public static FastBreak fastBreak;
 
     // Movement
     public static InventoryMove inventoryMove;
-
+    public static SafeWalk safeWalk;
 
     // Skyblock
     public static AutoExperiments autoExperiments;

@@ -3,7 +3,6 @@ package net.kore.commands.impl;
 import net.kore.Kore;
 import net.kore.commands.Command;
 import net.kore.managers.CommandManager;
-import net.kore.utils.Notification;
 
 public class KoreCommand extends Command {
     public KoreCommand()

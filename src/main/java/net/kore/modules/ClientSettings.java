@@ -3,7 +3,7 @@ package net.kore.modules;
 import net.kore.Kore;
 import net.kore.settings.BooleanSetting;
 import net.kore.settings.ModeSetting;
-import net.kore.utils.Notification;
+import net.kore.ui.notifications.Notification;
 import net.kore.utils.api.ServerUtils;
 
 import org.json.JSONObject;
@@ -11,10 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import moe.nea.libautoupdate.UpdateContext;
-import moe.nea.libautoupdate.CurrentVersion;
-import moe.nea.libautoupdate.UpdateSource;
-import moe.nea.libautoupdate.UpdateTarget;
 import com.jagrosh.discordipc.entities.DiscordBuild;
 import com.jagrosh.discordipc.IPCClient;
 import com.jagrosh.discordipc.IPCListener;
@@ -25,7 +21,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.time.OffsetDateTime;
-import java.util.Base64;
 
 public class ClientSettings extends Module {
     public ModeSetting hideModules;
