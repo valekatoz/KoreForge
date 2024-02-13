@@ -245,7 +245,7 @@ public class KillAura extends Module
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public void onMovePre(final MotionUpdateEvent.Pre event) {
         KillAura.target = this.getTarget();
-        if (this.attackOnly.isEnabled() && !Kore.mc.gameSettings.keyBindAttack.isKeyDown()) {
+        if (!this.isToggled() || (this.attackOnly.isEnabled() && !Kore.mc.gameSettings.keyBindAttack.isKeyDown())) {
             return;
         }
         if (KillAura.target != null) {
@@ -296,6 +296,9 @@ public class KillAura extends Module
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onMovePost(final MotionUpdateEvent.Post event) {
+        if(!this.isToggled()) {
+            return;
+        }
         if (this.attackOnly.isEnabled() && !Kore.mc.gameSettings.keyBindAttack.isKeyDown()) {
             this.attacks = 0;
             return;

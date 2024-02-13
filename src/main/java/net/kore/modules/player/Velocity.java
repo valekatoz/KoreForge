@@ -15,7 +15,7 @@ public class Velocity extends Module
         super("Velocity", 0, Category.PLAYER);
         this.vModifier = new NumberSetting("Vertical", 0.0, -2.0, 2.0, 0.05);
         this.hModifier = new NumberSetting("Horizontal", 0.0, -2.0, 2.0, 0.05);
-        this.skyblockKB = new BooleanSetting("Skyblock kb", true);
+        this.skyblockKB = new BooleanSetting("Skyblock KnockBack", true);
         this.addSettings(this.hModifier, this.vModifier, this.skyblockKB);
         this.setFlagType(FlagType.DETECTED);
     }
