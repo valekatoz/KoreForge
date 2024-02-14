@@ -93,7 +93,7 @@ public class EndESP extends Module
         for (BlockPosition blockPosition : enderNodes.keySet()) {
             RenderUtils.renderEspBox(blockPosition.toBlockPos(), event.partialTicks, Kore.themeManager.getSecondaryColor().getRGB());
             if(this.nodesTracer.isEnabled()) {
-                RenderUtils.drawLine(Kore.mc.thePlayer.getPositionEyes(event.partialTicks), new Vec3(blockPosition.x + 0.5, blockPosition.y + 0.5, blockPosition.z + 0.5), 1, event.partialTicks);
+                RenderUtils.tracerLine(blockPosition.x + 0.5, blockPosition.y + 0.5, blockPosition.z + 0.5, Kore.themeManager.getSecondaryColor());
             }
         }
     }

@@ -16,7 +16,7 @@ public class StaffAnalyser extends Module
     private int lastBans;
 
     public StaffAnalyser() {
-        super("Staff Analyser", Category.MISC);
+        super("Staff Analyser", Category.PROTECTIONS);
         this.delay = new NumberSetting("Check Delay (Seconds)", 5.0, 5.0, 60.0, 1.0);
         this.timer = new MilliTimer();
         this.lastBans = -1;

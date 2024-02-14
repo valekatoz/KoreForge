@@ -1228,7 +1228,7 @@ public class RenderUtils
         z -= Minecraft.getMinecraft().getRenderManager().viewerPosZ;
         GL11.glBlendFunc(770, 771);
         GL11.glEnable(3042);
-        GL11.glLineWidth(2.5f);
+        GL11.glLineWidth(1.0f);
         GL11.glEnable(2848);
         GL11.glHint(3154, 4354);
         GL11.glDisable(3553);
@@ -1265,42 +1265,6 @@ public class RenderUtils
         GL11.glDepthMask(true);
         GL11.glDisable(3042);
         GL11.glPopMatrix();
-    }
-
-    public static void drawLine(Vec3 from, Vec3 to, final float thickness, final float partialTicks) {
-        final Entity render = Minecraft.getMinecraft().getRenderViewEntity();
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer bufferBuilder = tessellator.getWorldRenderer();
-        final double realX = render.lastTickPosX + (render.posX - render.lastTickPosX) * partialTicks;
-        final double realY = render.lastTickPosY + (render.posY - render.lastTickPosY) * partialTicks;
-        final double realZ = render.lastTickPosZ + (render.posZ - render.lastTickPosZ) * partialTicks;
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(-realX, -realY, -realZ);
-        GlStateManager.disableTexture2D();
-        GlStateManager.disableLighting();
-        GL11.glDisable(3553);
-        GlStateManager.enableBlend();
-        GlStateManager.disableAlpha();
-        GL11.glLineWidth(thickness);
-        GlStateManager.disableDepth();
-        GlStateManager.depthMask(false);
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-        bufferBuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
-
-        final int i = Kore.themeManager.getSecondaryColor().getRGB();
-        bufferBuilder.pos(from.xCoord, from.yCoord, from.zCoord).color((i >> 16 & 0xFF) / 255.0f, (i >> 8 & 0xFF) / 255.0f, (i & 0xFF) / 255.0f, (i >> 24 & 0xFF) / 255.0f).endVertex();
-        bufferBuilder.pos(to.xCoord, to.yCoord, to.zCoord).color((i >> 16 & 0xFF) / 255.0f, (i >> 8 & 0xFF) / 255.0f, (i & 0xFF) / 255.0f, (i >> 24 & 0xFF) / 255.0f).endVertex();
-
-        Tessellator.getInstance().draw();
-        GlStateManager.translate(realX, realY, realZ);
-        GlStateManager.disableBlend();
-        GlStateManager.enableAlpha();
-        GlStateManager.enableTexture2D();
-        GlStateManager.enableDepth();
-        GlStateManager.depthMask(true);
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-        GlStateManager.popMatrix();
     }
 
     public static void setColor(final Color c) {
