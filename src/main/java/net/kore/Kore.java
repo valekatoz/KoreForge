@@ -5,7 +5,7 @@ import net.kore.modules.ClientSettings;
 import net.kore.modules.Module;
 import net.kore.modules.combat.*;
 import net.kore.modules.misc.*;
-import net.kore.modules.movement.InventoryMove;
+import net.kore.modules.movement.GuiMove;
 import net.kore.modules.movement.SafeWalk;
 import net.kore.modules.skyblock.*;
 import net.kore.modules.player.*;
@@ -71,6 +71,7 @@ public class Kore {
     public static AimAssist aimAssist;
     public static AutoClicker autoClicker;
     public static KillAura killAura;
+    public static NoSlow noSlow;
 
     // Player
     public static AutoTool autoTool;
@@ -79,15 +80,15 @@ public class Kore {
     public static FastPlace fastPlace;
     public static FastBreak fastBreak;
     public static Velocity velocity;
-    public static NoSlow noSlow;
 
     // Movement
-    public static InventoryMove inventoryMove;
+    public static GuiMove guiMove;
     public static SafeWalk safeWalk;
 
     // Skyblock
     public static AutoExperiments autoExperiments;
     public static AutoHarp autoHarp;
+    public static EndESP endESP;
     public static GhostBlocks ghostBlock;
     public static PurseSpoofer purseSpoofer;
 

@@ -2,6 +2,8 @@ package net.kore.utils.render;
 
 import net.kore.Kore;
 import net.kore.utils.WorldToScreen;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.FontRenderer;
@@ -1265,6 +1267,42 @@ public class RenderUtils
         GL11.glPopMatrix();
     }
 
+    public static void drawLine(Vec3 from, Vec3 to, final float thickness, final float partialTicks) {
+        final Entity render = Minecraft.getMinecraft().getRenderViewEntity();
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer bufferBuilder = tessellator.getWorldRenderer();
+        final double realX = render.lastTickPosX + (render.posX - render.lastTickPosX) * partialTicks;
+        final double realY = render.lastTickPosY + (render.posY - render.lastTickPosY) * partialTicks;
+        final double realZ = render.lastTickPosZ + (render.posZ - render.lastTickPosZ) * partialTicks;
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(-realX, -realY, -realZ);
+        GlStateManager.disableTexture2D();
+        GlStateManager.disableLighting();
+        GL11.glDisable(3553);
+        GlStateManager.enableBlend();
+        GlStateManager.disableAlpha();
+        GL11.glLineWidth(thickness);
+        GlStateManager.disableDepth();
+        GlStateManager.depthMask(false);
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        bufferBuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
+
+        final int i = Kore.themeManager.getSecondaryColor().getRGB();
+        bufferBuilder.pos(from.xCoord, from.yCoord, from.zCoord).color((i >> 16 & 0xFF) / 255.0f, (i >> 8 & 0xFF) / 255.0f, (i & 0xFF) / 255.0f, (i >> 24 & 0xFF) / 255.0f).endVertex();
+        bufferBuilder.pos(to.xCoord, to.yCoord, to.zCoord).color((i >> 16 & 0xFF) / 255.0f, (i >> 8 & 0xFF) / 255.0f, (i & 0xFF) / 255.0f, (i >> 24 & 0xFF) / 255.0f).endVertex();
+
+        Tessellator.getInstance().draw();
+        GlStateManager.translate(realX, realY, realZ);
+        GlStateManager.disableBlend();
+        GlStateManager.enableAlpha();
+        GlStateManager.enableTexture2D();
+        GlStateManager.enableDepth();
+        GlStateManager.depthMask(true);
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        GlStateManager.popMatrix();
+    }
+
     public static void setColor(final Color c) {
         GL11.glColor4f(c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f, c.getAlpha() / 255.0f);
     }
@@ -1282,6 +1320,86 @@ public class RenderUtils
         GL11.glEnable(2929);
         GL11.glDepthMask(true);
         GL11.glDisable(3042);
+    }
+
+    public static void drawFilledBoundingBox(AxisAlignedBB aabb, int color, float opacity) {
+        GlStateManager.enableBlend();
+        GlStateManager.disableDepth();
+        GlStateManager.disableLighting();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        GlStateManager.disableTexture2D();
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+
+        float a = (color >> 24 & 0xFF) / 255.0F;
+        float r = (color >> 16 & 0xFF) / 255.0F;
+        float g = (color >> 8 & 0xFF) / 255.0F;
+        float b = (color & 0xFF) / 255.0F;
+
+        GlStateManager.color(r, g, b, a * opacity);
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
+        worldrenderer.pos(aabb.minX, aabb.minY, aabb.minZ).endVertex();
+        worldrenderer.pos(aabb.maxX, aabb.minY, aabb.minZ).endVertex();
+        worldrenderer.pos(aabb.maxX, aabb.minY, aabb.maxZ).endVertex();
+        worldrenderer.pos(aabb.minX, aabb.minY, aabb.maxZ).endVertex();
+        tessellator.draw();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
+        worldrenderer.pos(aabb.minX, aabb.maxY, aabb.maxZ).endVertex();
+        worldrenderer.pos(aabb.maxX, aabb.maxY, aabb.maxZ).endVertex();
+        worldrenderer.pos(aabb.maxX, aabb.maxY, aabb.minZ).endVertex();
+        worldrenderer.pos(aabb.minX, aabb.maxY, aabb.minZ).endVertex();
+        tessellator.draw();
+        GlStateManager.color(r, g, b, a * opacity);
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
+        worldrenderer.pos(aabb.minX, aabb.minY, aabb.maxZ).endVertex();
+        worldrenderer.pos(aabb.minX, aabb.maxY, aabb.maxZ).endVertex();
+        worldrenderer.pos(aabb.minX, aabb.maxY, aabb.minZ).endVertex();
+        worldrenderer.pos(aabb.minX, aabb.minY, aabb.minZ).endVertex();
+        tessellator.draw();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
+        worldrenderer.pos(aabb.maxX, aabb.minY, aabb.minZ).endVertex();
+        worldrenderer.pos(aabb.maxX, aabb.maxY, aabb.minZ).endVertex();
+        worldrenderer.pos(aabb.maxX, aabb.maxY, aabb.maxZ).endVertex();
+        worldrenderer.pos(aabb.maxX, aabb.minY, aabb.maxZ).endVertex();
+        tessellator.draw();
+        GlStateManager.color(r, g, b, a * opacity);
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
+        worldrenderer.pos(aabb.minX, aabb.maxY, aabb.minZ).endVertex();
+        worldrenderer.pos(aabb.maxX, aabb.maxY, aabb.minZ).endVertex();
+        worldrenderer.pos(aabb.maxX, aabb.minY, aabb.minZ).endVertex();
+        worldrenderer.pos(aabb.minX, aabb.minY, aabb.minZ).endVertex();
+        tessellator.draw();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
+        worldrenderer.pos(aabb.minX, aabb.minY, aabb.maxZ).endVertex();
+        worldrenderer.pos(aabb.maxX, aabb.minY, aabb.maxZ).endVertex();
+        worldrenderer.pos(aabb.maxX, aabb.maxY, aabb.maxZ).endVertex();
+        worldrenderer.pos(aabb.minX, aabb.maxY, aabb.maxZ).endVertex();
+        tessellator.draw();
+        GlStateManager.color(r, g, b, a);
+        RenderGlobal.drawSelectionBoundingBox(aabb);
+        GlStateManager.enableTexture2D();
+        GlStateManager.enableDepth();
+        GlStateManager.disableBlend();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    public static void renderEspBox(BlockPos blockPos, float partialTicks, int color) {
+        renderEspBox(blockPos, partialTicks, color, 0.5f);
+    }
+
+    public static void renderEspBox(BlockPos blockPos, float partialTicks, int color, float opacity) {
+        if (blockPos != null) {
+            IBlockState blockState = Kore.mc.theWorld.getBlockState(blockPos);
+
+            if (blockState != null) {
+                Block block = blockState.getBlock();
+                block.setBlockBoundsBasedOnState(Kore.mc.theWorld, blockPos);
+                double d0 = Kore.mc.thePlayer.lastTickPosX + (Kore.mc.thePlayer.posX - Kore.mc.thePlayer.lastTickPosX) * (double) partialTicks;
+                double d1 = Kore.mc.thePlayer.lastTickPosY + (Kore.mc.thePlayer.posY - Kore.mc.thePlayer.lastTickPosY) * (double) partialTicks;
+                double d2 = Kore.mc.thePlayer.lastTickPosZ + (Kore.mc.thePlayer.posZ - Kore.mc.thePlayer.lastTickPosZ) * (double) partialTicks;
+                drawFilledBoundingBox(block.getSelectedBoundingBox(Kore.mc.theWorld, blockPos).expand(0.002D, 0.002D, 0.002D).offset(-d0, -d1, -d2), color, opacity);
+            }
+        }
     }
 
     public static void blockBox(final TileEntity block, final Color color) {

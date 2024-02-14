@@ -16,15 +16,15 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
-public class InventoryMove extends Module
+public class GuiMove extends Module
 {
     private BooleanSetting rotate;
     private BooleanSetting drag;
     private NumberSetting sensivity;
     public static KeyBinding[] binds;
 
-    public InventoryMove() {
-        super("Inventory Move", Category.MOVEMENT);
+    public GuiMove() {
+        super("Gui Move", Category.MOVEMENT);
         this.rotate = new BooleanSetting("Rotate", false);
         this.drag = new BooleanSetting("Alt drag", true) {
             @Override
@@ -40,7 +40,7 @@ public class InventoryMove extends Module
     @Override
     public void assign()
     {
-        Kore.inventoryMove = this;
+        Kore.guiMove = this;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class InventoryMove extends Module
     @Override
     public void onDisable() {
         if (Kore.mc.currentScreen != null) {
-            for (final KeyBinding bind : InventoryMove.binds) {
+            for (final KeyBinding bind : GuiMove.binds) {
                 KeyBinding.setKeyBindState(bind.getKeyCode(), false);
             }
         }
@@ -66,7 +66,7 @@ public class InventoryMove extends Module
     public void onGui(final PostGuiOpenEvent event) {
         if (binds == null) updateBinds();
         if (!(event.gui instanceof GuiChat) && this.isToggled()) {
-            for (final KeyBinding bind : InventoryMove.binds) {
+            for (final KeyBinding bind : GuiMove.binds) {
                 KeyBinding.setKeyBindState(bind.getKeyCode(), GameSettings.isKeyDown(bind));
             }
         }
@@ -76,7 +76,7 @@ public class InventoryMove extends Module
     public void onRender(final RenderWorldLastEvent event) {
         if (Kore.mc.currentScreen != null && !(Kore.mc.currentScreen instanceof GuiChat) && this.isToggled()) {
             if (binds == null) updateBinds();
-            for (final KeyBinding bind : InventoryMove.binds) {
+            for (final KeyBinding bind : GuiMove.binds) {
                 KeyBinding.setKeyBindState(bind.getKeyCode(), GameSettings.isKeyDown(bind));
             }
             if ((Kore.mc.currentScreen instanceof GuiContainer || Kore.mc.currentScreen instanceof ICrafting) && this.rotate.isEnabled()) {
