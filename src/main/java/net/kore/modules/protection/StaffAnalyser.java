@@ -36,4 +36,10 @@ public class StaffAnalyser extends Module
             }).start();
         }
     }
+
+    @Override
+    public void assign()
+    {
+        Kore.staffAnalyser = this;
+    }
 }
