@@ -54,7 +54,7 @@ public class AutoExperiments extends Module {
         this.chronomatronSolver = new BooleanSetting("Chronomatron",true);
         this.ultrasequencerSolver = new BooleanSetting("Ultrasequencer",true);
         this.addSettings(autoExperimentsDelay, delayRandomizer, chronomatronSolver, ultrasequencerSolver);
-        this.setVersionType(VersionType.PREMIUM);
+        //this.setVersionType(VersionType.PREMIUM);
         setToggled(false);
     }
 

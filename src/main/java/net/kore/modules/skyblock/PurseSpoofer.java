@@ -21,7 +21,7 @@ public class PurseSpoofer extends Module {
     public PurseSpoofer() {
         super("Purse Spoofer", Category.SKYBLOCK);
         this.addSettings(mode, coins);
-        this.setVersionType(VersionType.PREMIUM);
+        //this.setVersionType(VersionType.PREMIUM);
     }
 
     @Override

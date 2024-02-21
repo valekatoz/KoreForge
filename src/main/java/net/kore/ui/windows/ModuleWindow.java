@@ -49,6 +49,10 @@ public class ModuleWindow extends Window {
         int offset = 30;
         if (!ModernClickGui.settingsOpened) {
             for (Module module : this.modulesInCategory) {
+                if(!ModernClickGui.searchValue.isEmpty() && !module.getName().toLowerCase().contains(ModernClickGui.searchValue.toLowerCase())) {
+                    continue;
+                }
+
                 if (module.getFlagType() == Module.FlagType.DETECTED)
                 {
                     if(Kore.clientSettings.hideModules.getSelected().equals("Detected") || Kore.clientSettings.hideModules.getSelected().equals("Premium + Detected")) {
@@ -213,6 +217,10 @@ public class ModuleWindow extends Window {
         int offset = 30;
         if (selectedModule == null) {
             for (Module module : this.modulesInCategory) {
+                if(!ModernClickGui.searchValue.isEmpty() && !module.getName().toLowerCase().contains(ModernClickGui.searchValue.toLowerCase())) {
+                    continue;
+                }
+                
                 if (this.isHovered(mouseX, mouseY, ModernClickGui.getX() + 95.0, ModernClickGui.getY() + (double) offset + this.scrollAnimation.getValue(), ModernClickGui.getWidth() - 100.0f, 20.0)) {
                     switch (mouseButton) {
                         case 0: {
