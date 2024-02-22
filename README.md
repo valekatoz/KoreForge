@@ -21,6 +21,7 @@ You can access the mod by using the default keybind (right shift).
   - Chest ESP
   - Popup Animations
   - Giant Models
+  - Trajectories
   - Chinese Hat
   - Animations
   - Animator
@@ -33,6 +34,7 @@ You can access the mod by using the default keybind (right shift).
   - Velocity
   - FreeCam
 - Movement
+  - Bunny Hop
   - Safe Walk
   - Gui Move
 - Combat

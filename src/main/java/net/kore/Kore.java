@@ -5,8 +5,7 @@ import net.kore.modules.ClientSettings;
 import net.kore.modules.Module;
 import net.kore.modules.combat.*;
 import net.kore.modules.misc.*;
-import net.kore.modules.movement.GuiMove;
-import net.kore.modules.movement.SafeWalk;
+import net.kore.modules.movement.*;
 import net.kore.modules.skyblock.*;
 import net.kore.modules.player.*;
 import net.kore.modules.protection.*;
@@ -65,6 +64,7 @@ public class Kore {
     public static ChestESP chestESP;
     public static PopupAnimation popupAnimation;
     public static Trail trail;
+    public static Trajectories trajectories;
 
     // Combat
     public static AntiBot antiBot;
@@ -82,6 +82,7 @@ public class Kore {
     public static Velocity velocity;
 
     // Movement
+    public static BunnyHop bunnyHop;
     public static GuiMove guiMove;
     public static SafeWalk safeWalk;
 

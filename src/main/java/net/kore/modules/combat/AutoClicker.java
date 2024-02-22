@@ -6,6 +6,7 @@ import net.kore.settings.ModeSetting;
 import net.kore.settings.NumberSetting;
 import net.kore.utils.MathUtils;
 import net.kore.utils.MilliTimer;
+import net.kore.utils.PlayerUtils;
 import net.kore.utils.SkyblockUtils;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -37,7 +38,7 @@ public class AutoClicker extends Module
         if (this.isToggled() && Kore.mc.thePlayer != null && this.isPressed() && !Kore.mc.thePlayer.isUsingItem() && Kore.mc.currentScreen == null && this.timer.hasTimePassed((long)(1000.0 / this.nextDelay))) {
             this.timer.reset();
             this.nextDelay = MathUtils.getRandomInRange(AutoClicker.maxCps.getValue(), AutoClicker.minCps.getValue());
-            SkyblockUtils.click();
+            PlayerUtils.click();
         }
     }
 

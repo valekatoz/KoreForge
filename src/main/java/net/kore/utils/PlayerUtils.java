@@ -43,30 +43,34 @@ public class PlayerUtils
         return ChatFormatting.stripFormatting(entity.getDisplayName().getUnformattedText()).startsWith("[NPC]") || (entity.getUniqueID().version() == 2 && entityLivingBase.getHealth() == 20.0f && entityLivingBase.getMaxHealth() == 20.0f);
     }
 
-    public static void click()
-    {
-        if (clickMouse != null)
-        {
-            try {
-                clickMouse.invoke(Kore.mc);
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-
-            return;
-        }
+    public static void click() {
         try {
+            Method clickMouse;
             try {
-                clickMouse = Minecraft.class.getDeclaredMethod("clickMouse");
+                clickMouse = Minecraft.class.getDeclaredMethod("clickMouse", (Class<?>[])new Class[0]);
             }
             catch (NoSuchMethodException e2) {
-                e2.printStackTrace();
+                clickMouse = Minecraft.class.getDeclaredMethod("clickMouse", (Class<?>[])new Class[0]);
             }
-            if(clickMouse != null) {
-                clickMouse.setAccessible(true);
-                clickMouse.invoke(Minecraft.getMinecraft(), new Object[0]);
+            clickMouse.setAccessible(true);
+            clickMouse.invoke(Minecraft.getMinecraft(), new Object[0]);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void rightClick() {
+        try {
+            Method rightClickMouse = null;
+            try {
+                rightClickMouse = Minecraft.class.getDeclaredMethod("rightClickMouse", (Class<?>[])new Class[0]);
             }
+            catch (NoSuchMethodException e2) {
+                rightClickMouse = Minecraft.class.getDeclaredMethod("rightClickMouse", (Class<?>[])new Class[0]);
+            }
+            rightClickMouse.setAccessible(true);
+            rightClickMouse.invoke(Minecraft.getMinecraft(), new Object[0]);
         }
         catch (Exception e) {
             e.printStackTrace();

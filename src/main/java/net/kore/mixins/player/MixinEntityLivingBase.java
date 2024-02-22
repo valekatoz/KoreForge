@@ -24,7 +24,6 @@ public abstract class MixinEntityLivingBase extends MixinEntity
     protected abstract void jump();
     @Shadow
     private Map<Integer, PotionEffect> activePotionsMap;
-
     @Shadow
     public abstract ItemStack getHeldItem();
     @Shadow

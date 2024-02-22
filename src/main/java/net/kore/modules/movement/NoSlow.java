@@ -1,4 +1,4 @@
-package net.kore.modules.combat;
+package net.kore.modules.movement;
 
 import net.kore.Kore;
 import net.kore.events.MotionUpdateEvent;
@@ -27,7 +27,7 @@ public class NoSlow extends Module
     private final MilliTimer blockDelay;
 
     public NoSlow() {
-        super("No Slow", 0, Category.COMBAT);
+        super("No Slow", 0, Category.MOVEMENT);
         this.eatingSlowdown = new NumberSetting("Eating slow", 1.0, 0.2, 1.0, 0.1);
         this.swordSlowdown = new NumberSetting("Sword slow", 1.0, 0.2, 1.0, 0.1);
         this.bowSlowdown = new NumberSetting("Bow slow", 1.0, 0.2, 1.0, 0.1);

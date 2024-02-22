@@ -236,39 +236,5 @@ public class SkyblockUtils {
     public static boolean isTerminal(final String name) {
         return name.contains("Correct all the panes!") || name.contains("Navigate the maze!") || name.contains("Click in order!") || name.contains("What starts with:") || name.contains("Select all the") || name.contains("Change all to same color!") || name.contains("Click the button on time!");
     }
-
-    public static void click() {
-        try {
-            Method clickMouse;
-            try {
-                clickMouse = Minecraft.class.getDeclaredMethod("clickMouse", (Class<?>[])new Class[0]);
-            }
-            catch (NoSuchMethodException e2) {
-                clickMouse = Minecraft.class.getDeclaredMethod("clickMouse", (Class<?>[])new Class[0]);
-            }
-            clickMouse.setAccessible(true);
-            clickMouse.invoke(Minecraft.getMinecraft(), new Object[0]);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void rightClick() {
-        try {
-            Method rightClickMouse = null;
-            try {
-                rightClickMouse = Minecraft.class.getDeclaredMethod("rightClickMouse", (Class<?>[])new Class[0]);
-            }
-            catch (NoSuchMethodException e2) {
-                rightClickMouse = Minecraft.class.getDeclaredMethod("rightClickMouse", (Class<?>[])new Class[0]);
-            }
-            rightClickMouse.setAccessible(true);
-            rightClickMouse.invoke(Minecraft.getMinecraft(), new Object[0]);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
 
