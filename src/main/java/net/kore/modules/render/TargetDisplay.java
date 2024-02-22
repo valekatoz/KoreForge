@@ -20,6 +20,7 @@ public class TargetDisplay extends Module
     public BooleanSetting targetESP;
     public NumberSetting x;
     public NumberSetting y;
+    public BooleanSetting outline;
 
     public static TargetDisplay getInstance() {
         return TargetDisplay.instance;
@@ -31,7 +32,8 @@ public class TargetDisplay extends Module
         this.targetESP = new BooleanSetting("Target ESP", true);
         this.x = new NumberSetting("targetX", 0.0, -100000.0, 100000.0, 1.0E-5, a -> true);
         this.y = new NumberSetting("targetY", 0.0, -100000.0, 100000.0, 1.0E-5, a -> true);
-        this.addSettings(this.blurStrength, this.targetESP, this.x, this.y);
+        this.outline = new BooleanSetting("Outline", true);
+        this.addSettings(this.outline, this.blurStrength, this.targetESP, this.x, this.y);
     }
 
     @Override

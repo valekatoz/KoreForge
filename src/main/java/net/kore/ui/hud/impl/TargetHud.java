@@ -88,7 +88,11 @@ public class TargetHud extends DraggableComponent
                 RenderUtils.drawBorderedRoundedRect((float)x, (float)y, 150.0f, 50.0f, 5.0f, 2.0f, new Color(21, 21, 21, 52).getRGB(), Color.white.getRGB());
             }
             else {
-                RenderUtils.drawRoundedRect2(x, y, 150.0, 50.0, 5.0, new Color(21, 21, 21, 52).getRGB());
+                if(Kore.targetDisplay.outline.isEnabled()) {
+                    RenderUtils.drawBorderedRoundedRect((float)x, (float)y, 150.0f, 50.0f, 5.0f, 2.5f, new Color(21, 21, 21, 52).getRGB(), Kore.themeManager.getSecondaryColor().getRGB());
+                } else {
+                    RenderUtils.drawRoundedRect2(x, y, 150.0, 50.0, 5.0, new Color(21, 21, 21, 52).getRGB());
+                }
             }
             Fonts.getPrimary().drawSmoothStringWithShadow(ChatFormatting.stripFormatting(TargetHud.lastEntity.getName()), x + 5.0, y + 6.0, Kore.clickGui.getColor(0).brighter().getRGB());
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
