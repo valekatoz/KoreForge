@@ -50,7 +50,7 @@ public class ClientSettings extends Module {
 
         unlockerToggle = unlockerToggle();
 
-        this.addSettings(hideModules, debug, autoUpdate, richPresence, cosmeticsUnlocker);
+        this.addSettings("Client", hideModules, debug, autoUpdate, richPresence, cosmeticsUnlocker);
     }
 
     @SubscribeEvent

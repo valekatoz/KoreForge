@@ -95,8 +95,8 @@ public class KillAura extends Module
     public KillAura() {
         super("Kill Aura", 0, Category.COMBAT);
         this.syncDisplay = new BooleanSetting("Sync with Target Display", true);
-        this.namesOnly = new BooleanSetting("Names only", false);
-        this.middleClick = new BooleanSetting("Middle click to add", false);
+        this.namesOnly = new BooleanSetting("Names Only", false);
+        this.middleClick = new BooleanSetting("Middle Click to Add", false);
         this.players = new BooleanSetting("Players", false);
         this.mobs = new BooleanSetting("Mobs", true);
         this.walls = new BooleanSetting("Through walls", true);
@@ -104,15 +104,15 @@ public class KillAura extends Module
         this.toggleOnLoad = new BooleanSetting("Disable on join", true);
         this.toggleInGui = new BooleanSetting("No containers", true);
         this.onlySword = new BooleanSetting("Only swords", false);
-        this.movementFix = new BooleanSetting("Movement fix", false);
+        this.movementFix = new BooleanSetting("Movement Fix", false);
         this.rotationSwing = new BooleanSetting("Swing on rotation", false);
         this.shovelSwap = new BooleanSetting("Shovel swap", false);
-        this.attackOnly = new BooleanSetting("Click only", false);
+        this.attackOnly = new BooleanSetting("Attack Held", false);
         this.invisibles = new BooleanSetting("Invisibles", false);
         this.sorting = new ModeSetting("Sorting", "Distance", new String[] { "Distance", "Health", "Hurt", "Hp reverse" });
-        this.rotationMode = new ModeSetting("Rotation mode", "Simple", new String[] { "Simple", "Smooth", "None" });
+        this.rotationMode = new ModeSetting("Rotation Mode", "Simple", new String[] { "Simple", "Smooth", "None" });
         this.blockMode = new ModeSetting("Autoblock", "None", new String[] { "Vanilla", "Hypixel", "Fake", "None" });
-        this.namesonlyMode = new ModeSetting("Names mode", "Friends", new String[] { "Friends", "Enemies" });
+        this.namesonlyMode = new ModeSetting("Names Mode", "Friends", new String[] { "Friends", "Enemies" });
         this.mode = new ModeSetting("Mode", "Single", new String[] { "Single", "Switch" });
         this.range = new NumberSetting("Range", 4.2, 2.0, 6.0, 0.1) {
             @Override
@@ -191,7 +191,11 @@ public class KillAura extends Module
         this.lastAttack = new MilliTimer();
         this.switchDelayTimer = new MilliTimer();
         this.blockDelay = new MilliTimer();
-        this.addSettings(this.syncDisplay, this.mode, this.switchDelay, this.range, this.rotationRange, this.minCps, this.maxCps, this.sorting, this.rotationMode, this.smoothing, this.maxRotation, this.minRotation, this.fov, this.blockMode, this.players, this.mobs, this.invisibles, this.teams, this.rotationSwing, this.movementFix, this.namesOnly, this.namesonlyMode, this.middleClick, this.attackOnly, this.walls, this.toggleInGui, this.toggleOnLoad, this.onlySword, this.shovelSwap);
+
+        this.addSettings("Client", this.syncDisplay);
+        this.addSettings("Rotations", this.rotationMode, this.rotationRange, this.smoothing, this.maxRotation, this.minRotation, this.fov);
+        this.addSettings("Targets", this.players, this.mobs, this.invisibles, this.teams, this.namesonlyMode, this.namesOnly, this.middleClick);
+        this.addSettings("Settings", this.mode, this.switchDelay, this.range, this.minCps, this.maxCps, this.sorting, this.blockMode, this.movementFix, this.attackOnly, this.rotationSwing, this.walls, this.toggleInGui, this.toggleOnLoad, this.onlySword, this.shovelSwap);
         this.setFlagType(FlagType.DETECTED);
     }
 

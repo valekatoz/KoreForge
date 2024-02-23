@@ -37,12 +37,12 @@ You can access the mod by using the default keybind (right shift).
   - Bunny Hop
   - Safe Walk
   - Gui Move
+  - NoSlow
 - Combat
   - Kill Aura
   - Auto Clicker
   - Aim Assist
   - Anti Bot
-  - NoSlow
 - Skyblock
   - Ghost Blocks
   - **Purse Spoofer** (Premium)

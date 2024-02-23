@@ -82,7 +82,10 @@ public class ModernInterfaces extends Module
                 return !ModernInterfaces.this.customButtons.isEnabled() || ModernInterfaces.this.buttonLine.is("None");
             }
         };
-        this.addSettings(this.customChat, this.customChatFont, this.customScoreboard, this.customFont, this.outline, this.hideLobby, this.blurStrength, this.customButtons, roundedButton, this.buttonLine, this.lineLocation);
+
+        this.addSettings("Client", this.customButtons, roundedButton, this.buttonLine, this.lineLocation);
+        this.addSettings("Chat", this.customChat, this.customChatFont);
+        this.addSettings("Scoreboard", this.customScoreboard, this.customFont, this.outline, this.hideLobby, this.blurStrength);
     }
 
     @Override

@@ -41,7 +41,6 @@ public class Gui extends Module {
     public NumberSetting shiftSpeed;
     public NumberSetting rgbSpeed;
     public ModeSetting blur;
-    public BooleanSetting scaleGui;
     public BooleanSetting arrayList;
     public BooleanSetting disableNotifs;
     public BooleanSetting arrayBlur;
@@ -73,16 +72,15 @@ public class Gui extends Module {
         this.shiftSpeed = new NumberSetting("Shift Speed ", 1.0, 0.1, 5.0, 0.1, aBoolean -> !this.colorMode.is("Gradient") && !this.colorMode.is("Katoz") && !this.colorMode.is("Pulse"));
         this.rgbSpeed = new NumberSetting("Rainbow Speed", 2.5, 0.1, 5.0, 0.1, aBoolean -> !this.colorMode.is("Rainbow"));
         this.blur = new ModeSetting("Blur strength", "Low", new String[] { "None", "Low", "High" });
-        this.scaleGui = new BooleanSetting("Scale gui (soon)", false);
         this.arrayList = new BooleanSetting("ArrayList", true);
-        this.disableNotifs = new BooleanSetting("Disable notifications", false);
+        this.disableNotifs = new BooleanSetting("Disable Notifications", false);
         this.arrayBlur = new BooleanSetting("Array background", true);
         this.arrayOutline = new BooleanSetting("Array line", true);
         this.waterMark = new BooleanSetting("Watermark", true);
         this.hsb = new BooleanSetting("HSB ", true, aBoolean -> !this.colorMode.is("Gradient"));
 
         setToggled(false);
-        this.addSettings(this.colorMode, this.hsb, this.rgbSpeed, this.shiftSpeed, this.redCustom, this.greenCustom, this.blueCustom, this.redShift1, this.greenShift1, this.blueShift1, this.redShift2, this.greenShift2, this.blueShift2, this.blur, this.waterMark, this.arrayList, this.arrayOutline, this.arrayBlur, this.disableNotifs, this.scaleGui);
+        this.addSettings(this.colorMode, this.hsb, this.rgbSpeed, this.shiftSpeed, this.redCustom, this.greenCustom, this.blueCustom, this.redShift1, this.greenShift1, this.blueShift1, this.redShift2, this.greenShift2, this.blueShift2, this.blur, this.waterMark, this.arrayList, this.arrayOutline, this.arrayBlur, this.disableNotifs);
     }
 
     @Override

@@ -236,7 +236,7 @@ public class FontRenderer extends CFont
                 if (index < text.length() - 1) {
                     int colorIndex = 21;
                     try {
-                        colorIndex = "0123456789abcdefklmnoqr".indexOf(text.charAt(index + 1));
+                        colorIndex = "0123456789abcdefklmnorq".indexOf(text.charAt(index + 1));
                     }
                     catch (Exception e) {
                         e.printStackTrace();
@@ -299,15 +299,6 @@ public class FontRenderer extends CFont
                         }
                         else if (colorIndex == 21)
                         {
-                            Color newColor = Kore.themeManager.getSecondaryColor(index);
-
-                            if (shadow) {
-                                newColor = calculateShadowColor(newColor);
-                            }
-
-                            GlStateManager.color((float) newColor.getRed() / 255, (float) newColor.getGreen() / 255, (float) newColor.getBlue() / 255, alpha);
-                        }
-                        else {
                             bold = false;
                             italic = false;
                             underline = false;
@@ -315,6 +306,15 @@ public class FontRenderer extends CFont
                             GlStateManager.color((color >> 16 & 0xFF) / 255.0f, (color >> 8 & 0xFF) / 255.0f, (color & 0xFF) / 255.0f, alpha);
                             GlStateManager.bindTexture(this.tex.getGlTextureId());
                             currentData = this.charData;
+                        }
+                        else {
+                            Color newColor = Kore.themeManager.getSecondaryColor(index);
+
+                            if (shadow) {
+                                newColor = calculateShadowColor(newColor);
+                            }
+
+                            GlStateManager.color((float) newColor.getRed() / 255, (float) newColor.getGreen() / 255, (float) newColor.getBlue() / 255, alpha);
                         }
                     }
                 }

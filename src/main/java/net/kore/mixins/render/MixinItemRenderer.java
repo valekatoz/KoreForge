@@ -180,19 +180,31 @@ public abstract class MixinItemRenderer {
      */
     @Overwrite
     private void transformFirstPersonItem(final float equipProgress, final float swingProgress) {
-        final float size = (float) Kore.animations.size.getValue();
-        final float x = (float)Kore.animations.x.getValue();
-        final float y = (float)Kore.animations.y.getValue();
-        final float z = (float)Kore.animations.z.getValue();
-        GlStateManager.translate(0.56f * x, -0.52f * y, -0.71999997f * z);
-        GlStateManager.translate(0.0f, equipProgress * -0.6f, 0.0f);
-        GlStateManager.rotate(45.0f, 0.0f, 1.0f, 0.0f);
-        final float f = MathHelper.sin(swingProgress * swingProgress * 3.1415927f);
-        final float f2 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * 3.1415927f);
-        GlStateManager.rotate(f * -20.0f, 0.0f, 1.0f, 0.0f);
-        GlStateManager.rotate(f2 * -20.0f, 0.0f, 0.0f, 1.0f);
-        GlStateManager.rotate(f2 * -80.0f, 1.0f, 0.0f, 0.0f);
-        GlStateManager.scale(0.4f * size, 0.4f * size, 0.4f * size);
+        if (Kore.animations.isToggled()) {
+            final float size = (float) Kore.animations.size.getValue();
+            final float x = (float)Kore.animations.x.getValue();
+            final float y = (float)Kore.animations.y.getValue();
+            final float z = (float)Kore.animations.z.getValue();
+            GlStateManager.translate(0.56f * x, -0.52f * y, -0.71999997f * z);
+            GlStateManager.translate(0.0f, equipProgress * -0.6f, 0.0f);
+            GlStateManager.rotate(45.0f, 0.0f, 1.0f, 0.0f);
+            final float f = MathHelper.sin(swingProgress * swingProgress * 3.1415927f);
+            final float f2 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * 3.1415927f);
+            GlStateManager.rotate(f * -20.0f, 0.0f, 1.0f, 0.0f);
+            GlStateManager.rotate(f2 * -20.0f, 0.0f, 0.0f, 1.0f);
+            GlStateManager.rotate(f2 * -80.0f, 1.0f, 0.0f, 0.0f);
+            GlStateManager.scale(0.4f * size, 0.4f * size, 0.4f * size);
+        } else {
+            GlStateManager.translate(0.56F, -0.52F, -0.71999997F);
+            GlStateManager.translate(0.0F, equipProgress * -0.6F, 0.0F);
+            GlStateManager.rotate(45.0F, 0.0F, 1.0F, 0.0F);
+            float f = MathHelper.sin(swingProgress * swingProgress * 3.1415927F);
+            float f1 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * 3.1415927F);
+            GlStateManager.rotate(f * -20.0F, 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate(f1 * -20.0F, 0.0F, 0.0F, 1.0F);
+            GlStateManager.rotate(f1 * -80.0F, 1.0F, 0.0F, 0.0F);
+            GlStateManager.scale(0.4F, 0.4F, 0.4F);
+        }
     }
 
     /**

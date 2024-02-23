@@ -125,10 +125,10 @@ public class ModernClickGui extends GuiScreen {
             if(searchValue.isEmpty()) {
                 Fonts.getPrimary().drawString("Search ", Fonts.newIcons.drawString("p", (float)(getX() + 95), (float) (getY() + 6f), Color.WHITE.getRGB()) + 5, (float) (getY() + 6f), Color.WHITE.getRGB());
             } else {
-                Fonts.getPrimary().drawString(searchValue, Fonts.newIcons.drawString("p", (float)(getX() + 95), (float) (getY() + 6f), Color.WHITE.getRGB()) + 5, (float) (getY() + 6f), Color.WHITE.getRGB());
+                Fonts.getPrimary().drawString(searchValue, Fonts.newIcons.drawString(">", (float)(getX() + 95), (float) (getY() + 6f), Color.WHITE.getRGB()) + 5, (float) (getY() + 6f), Color.WHITE.getRGB());
             }
         } else {
-            Fonts.getPrimary().drawString(searchValue, Fonts.newIcons.drawString("r", (float)(getX() + 95), (float) (getY() + 6f), Color.WHITE.getRGB()) + 5, (float) (getY() + 6f), Color.WHITE.getRGB());
+            Fonts.getPrimary().drawString(searchValue, Fonts.newIcons.drawString(">", (float)(getX() + 95), (float) (getY() + 6f), Color.WHITE.getRGB()) + 5, (float) (getY() + 6f), Color.WHITE.getRGB());
         }
     }
 

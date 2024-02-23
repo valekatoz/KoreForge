@@ -126,6 +126,13 @@ public class Module {
         }
     }
 
+    public void addSettings(String category, final Setting... settings) {
+        for (final Setting setting : settings) {
+            setting.category = category;
+            this.addSetting(setting);
+        }
+    }
+
     public boolean isPressed() {
         return this.keycode != 0 && Keyboard.isKeyDown(this.keycode);
     }

@@ -27,6 +27,7 @@ public class ModuleWindow extends Window {
     public static double scrollY;
     public static double scrollYsettings;
     public List<Module> modulesInCategory;
+    public static String lastSettingCategory = "";
     public static Module selectedModule;
     public static StringSetting selectedString = null;
     public static NumberSetting selectedNumber = null;
@@ -166,14 +167,35 @@ public class ModuleWindow extends Window {
         boolean lastBool = false;
         for (Setting s : settings) {
             if (s.isHidden()) continue;
+
             if (!(s instanceof BooleanSetting) && lastBool) {
                 lastBool = false;
                 settingOffset += 15;
             }
+
+            if(!lastSettingCategory.equals(s.category)) {
+                lastSettingCategory = s.category;
+                if(!lastSettingCategory.isEmpty()) {
+                    if (s instanceof BooleanSetting && lastBool)
+                    {
+                        lastBool = false;
+                        settingOffset += 15;
+                        comps.add(new CompSettingSpacer(95.0, settingOffset, s.category));
+                        settingOffset += 15;
+                    } else if(lastBool) {
+                        lastBool = false;
+                        settingOffset += 15;
+                        comps.add(new CompSettingSpacer(95.0, settingOffset, s.category));
+                    } else {
+                        comps.add(new CompSettingSpacer(95.0, settingOffset, s.category));
+                        settingOffset += 15;
+                    }
+                }
+            }
+
             if (s instanceof BooleanSetting && !lastBool) {
                 comps.add(new CompBoolSetting(95.0, settingOffset, (BooleanSetting)s));
                 lastBool = true;
-                continue;
             }
             else if (s instanceof BooleanSetting && lastBool)
             {
@@ -201,8 +223,8 @@ public class ModuleWindow extends Window {
                 comps.add(new CompSliderSetting(95, settingOffset, (NumberSetting) s));
                 settingOffset += 25;
             }
-
         }
+
         settingsHeight = settingOffset - (int) (settingsAnimation.getValue());
         return comps;
     }

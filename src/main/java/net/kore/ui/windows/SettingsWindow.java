@@ -9,9 +9,13 @@ import java.util.List;
 
 public class SettingsWindow extends Window {
     public List<Setting> settingList = new ArrayList<>();
+
     public SettingsWindow() {
         super("Settings");
-        this.settingList.add(Kore.clickGui.colorMode);
+        for(Setting setting : Kore.clickGui.settings) {
+            setting.category = "Gui";
+            this.settingList.add(setting);
+        }
         this.settingList.addAll(Kore.clientSettings.settings);
     }
 
