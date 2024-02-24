@@ -1,9 +1,17 @@
 package net.kore.ui.windows;
 
 import net.kore.Kore;
+import net.kore.modules.Module;
 import net.kore.settings.Setting;
+import net.kore.ui.ModernClickGui;
 import net.kore.ui.components.Comp;
+import net.kore.utils.MouseUtils;
+import net.kore.utils.StencilUtils;
+import net.kore.utils.font.Fonts;
+import net.kore.utils.render.RenderUtils;
+import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +38,32 @@ public class SettingsWindow extends Window {
         {
             comp.drawScreen(mouseX, mouseY, (double)partialTicks);
         }
+
+        MouseUtils.Scroll scroll = MouseUtils.scroll();
+
+         if (scroll != null)
+        {
+            switch (scroll)
+            {
+                case DOWN: {
+                    if ((ModuleWindow.scrollYsettings > (ModernClickGui.getHeight()) - ModuleWindow.settingsHeight))
+                        ModuleWindow.scrollYsettings -= 10;
+                    break;
+                }
+                case UP: {
+                    ModuleWindow.scrollYsettings += 10;
+                    if (ModuleWindow.scrollYsettings >= 0)
+                    {
+                        ModuleWindow.scrollYsettings = 0;
+                    }
+                    if (ModuleWindow.settingsHeight < (ModernClickGui.getHeight() - 25))
+                        ModuleWindow.scrollYsettings = 0.0;
+                }
+            }
+        }
+        ModuleWindow.scrollAnimation.setAnimation(ModuleWindow.scrollY, 16.0);
+        ModuleWindow.settingsAnimation.setAnimation(ModuleWindow.scrollYsettings, 16);
+        StencilUtils.disableStencilBuffer();
     }
 
     @Override

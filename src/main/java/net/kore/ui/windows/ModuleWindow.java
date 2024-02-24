@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 import static net.minecraft.client.gui.GuiScreen.getClipboardString;
 
 public class ModuleWindow extends Window {
-    public AnimationUtils scrollAnimation = new AnimationUtils(0.0);
+    public static AnimationUtils scrollAnimation = new AnimationUtils(0.0);
     public static double scrollY;
     public static double scrollYsettings;
     public List<Module> modulesInCategory;
@@ -141,7 +141,7 @@ public class ModuleWindow extends Window {
             switch (scroll)
             {
                 case DOWN: {
-                    if ((scrollYsettings > (ModernClickGui.getHeight() - 25.0f) - settingsHeight))
+                    if ((scrollYsettings > (ModernClickGui.getHeight()) - settingsHeight))
                         scrollYsettings -= 10;
                     break;
                 }

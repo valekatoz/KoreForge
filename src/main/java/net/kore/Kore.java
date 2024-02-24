@@ -55,6 +55,7 @@ public class Kore {
     public static Animations animations;
     public static Animator animator;
     public static ChinaHat chinaHat;
+    public static Fullbright fullbright;
     public static Giants giants;
     public static ModernInterfaces modernInterfaces;
     public static InventoryDisplay inventoryDisplay;
