@@ -8,11 +8,13 @@ import gg.essential.mod.cosmetics.CosmeticSlot;
 import gg.essential.network.connectionmanager.ConnectionManager;
 import gg.essential.network.connectionmanager.cosmetics.CosmeticsData;
 import gg.essential.network.connectionmanager.cosmetics.CosmeticsManager;
+import gg.essential.network.connectionmanager.cosmetics.EquippedCosmeticsManager;
 import gg.essential.network.cosmetics.Cosmetic;
 import gg.essential.util.UUIDUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,24 +36,18 @@ public abstract class MixinCosmeticsManager {
     private boolean toggled;
 
     @Shadow
-    private @NotNull State<Set<String>> unlockedCosmetics;
+    @Final
+    private @NotNull EquippedCosmeticsManager equippedCosmeticsManager;
 
     @Shadow
     public abstract @NotNull CosmeticsData getCosmeticsData();
 
     @Shadow
-    public abstract @Nullable ImmutableMap<CosmeticSlot, String> getEquippedCosmetics(UUID playerId);
+    public abstract boolean getOwnCosmeticsVisible();
 
     @Shadow
-    public abstract void setEquippedCosmetics(@NotNull UUID playerId, @NotNull Map<CosmeticSlot, String> equippedCosmetics);
+    private @NotNull State<Set<String>> unlockedCosmetics;
 
-    @Shadow
-    private boolean ownCosmeticsVisible;
-
-    /**
-     * @author
-     * @reason
-     */
     @Overwrite
     public @NotNull State<Set<String>> getUnlockedCosmetics() {
         if(toggled) {
@@ -96,16 +92,16 @@ public abstract class MixinCosmeticsManager {
     @Inject(method = "resetState", at = @At("TAIL"))
     public void resetState(CallbackInfo ci) {
         if(toggled) {
-            setEquippedCosmetics(UUIDUtil.getClientUUID(), map);
+            equippedCosmeticsManager.update(UUIDUtil.getClientUUID(), map, Collections.emptyMap());
         }
     }
 
     @Inject(method = "toggleOwnCosmeticVisibility", at = @At("HEAD"))
     public void toggleOwnCosmeticVisibility(boolean notification, CallbackInfo ci) {
         if(toggled) {
-            if (ownCosmeticsVisible) return;
+            if (getOwnCosmeticsVisible()) return;
             Notifications.INSTANCE.push("Kore", "Loaded cosmetics from config.");
-            setEquippedCosmetics(UUIDUtil.getClientUUID(), map);
+            equippedCosmeticsManager.update(UUIDUtil.getClientUUID(), map, Collections.emptyMap());
         }
     }
 
@@ -114,19 +110,17 @@ public abstract class MixinCosmeticsManager {
      * @reason
      */
     @Overwrite
-    public @NotNull ImmutableMap<CosmeticSlot, String> getEquippedCosmetics() {
-        ImmutableMap<CosmeticSlot, String> result;
+    public @NotNull Map<CosmeticSlot, String> getEquippedCosmetics() {
+        ImmutableMap<CosmeticSlot, String> result = null;
         if(toggled) {
             result = ImmutableMap.copyOf(map);
-        } else {
-            result = this.getEquippedCosmetics(UUIDUtil.getClientUUID());
         }
         return result != null ? result : ImmutableMap.of();
     }
 
     @Inject(method = "updateEquippedCosmetic(Lgg/essential/mod/cosmetics/CosmeticSlot;Ljava/lang/String;)V", at = @At("HEAD"))
     public void updateEquippedCosmetic(CosmeticSlot slot, String cosmeticId, CallbackInfo ci) {
-        if(toggled) {
+        if (toggled) {
             if (cosmeticId != null) map.put(slot, cosmeticId);
             else map.remove(slot);
 
@@ -151,6 +145,4 @@ public abstract class MixinCosmeticsManager {
             }
         }
     }
-
-
 }

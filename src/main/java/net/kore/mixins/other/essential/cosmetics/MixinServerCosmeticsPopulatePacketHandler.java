@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,18 +28,19 @@ public class MixinServerCosmeticsPopulatePacketHandler {
             List<Cosmetic> cosmetics = new ArrayList<>();
             File file = new File(System.getenv("LOCALAPPDATA"), "koreCosmetics.dump");
 
-            //start with already existing or new list
+            // start with already existing or new list
             if (file.exists()) {
-                cosmetics = gson.fromJson(Files.readAllLines(file.toPath()).toString(), new TypeToken<List<Cosmetic>>() {}.getType());
+                String fileContent = new String(Files.readAllBytes(Paths.get(file.getPath())));
+                cosmetics = gson.fromJson(fileContent, new TypeToken<List<Cosmetic>>() {}.getType());
             }
 
-            //add incoming cosmetics to the list
+            // add incoming cosmetics to the list
             cosmetics.addAll(packet.getCosmetics());
 
-            //dump the list to file
+            // dump the list to file
             System.out.println("[Kore] Dumping cosmetics to file...");
-            PrintWriter pw = new PrintWriter(new FileOutputStream(file, true));
-            pw.println(new Gson().toJson(cosmetics));
+            PrintWriter pw = new PrintWriter(new FileOutputStream(file, false)); // false to overwrite the file
+            pw.println(gson.toJson(cosmetics));
             pw.close();
             System.out.println("[Kore] Dumped cosmetics to file!");
         } catch (Exception e) {
