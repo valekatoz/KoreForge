@@ -48,6 +48,10 @@ public abstract class MixinCosmeticsManager {
     @Shadow
     private @NotNull State<Set<String>> unlockedCosmetics;
 
+    /**
+     * @author
+     * @reason
+     */
     @Overwrite
     public @NotNull State<Set<String>> getUnlockedCosmetics() {
         if(toggled) {
