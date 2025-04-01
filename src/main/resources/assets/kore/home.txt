@@ -1,15 +1,9 @@
 (Local version of the home)
 
-Message Of The Day:
-- Please star my repo on github
+Message:
+- Please star Kore repository on github!
+- And consider joining the discord
 
-Informations:
-- Github: github.com/valekatoz
-- Discord: valekatoz
-
-Premium:
-- Join the discord server
-- discord.com/invite/H4x6eFp9KR
-
-Developers:
-- valekatoz
+Links:
+- Github: github.com/valekatoz/KoreForge
+- Discord: discord.com/invite/H4x6eFp9KR

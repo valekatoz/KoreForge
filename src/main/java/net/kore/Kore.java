@@ -167,18 +167,18 @@ public class Kore {
 
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-        if(event.entity instanceof net.minecraft.client.entity.EntityPlayerSP) {
+        if(event.entity != null && event.entity instanceof net.minecraft.client.entity.EntityPlayerSP) {
             if (!licenseManager.hasConnected()) {
                 licenseManager.setConnected(true);
 
                 if(Boolean.parseBoolean(Kore.licensed)) {
                     if(licenseManager.isPremium()) {
-                        sendMessageWithPrefix("You successfully authenticated to Kore (Premium)");
+                        sendMessageWithPrefix("Thank you for using Kore!");
                     } else {
-                        sendMessageWithPrefix("Looks like you are not premium. You should consider upgrading to premium for the best features.");
+                        //sendMessageWithPrefix("Looks like you are not premium. You should consider upgrading to premium for the best features.");
                     }
                 } else {
-                    sendMessageWithPrefix("You are in the unlicensed version");
+                    sendMessageWithPrefix("Thank you for using Kore (unlicensed)");
                 }
             }
 

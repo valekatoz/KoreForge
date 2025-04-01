@@ -39,6 +39,10 @@ public class LicenseManager {
     }
 
     public boolean checkLicense(String uuid) {
+
+        /*
+        server no longer being mantained
+
         if(Boolean.parseBoolean(Kore.licensed)) {
             try {
                 URL url = new URL("https://kore.valekatoz.com/api/checkLicense.php?key="+ Base64.getEncoder().encodeToString(uuid.getBytes()));
@@ -66,6 +70,8 @@ public class LicenseManager {
         } else {
             return true;
         }
+        */
+        return true;
     }
 
     private boolean parseJsonResponse(String jsonResponse) {

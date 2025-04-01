@@ -91,18 +91,9 @@ public class ClientSettings extends Module {
                 public void onReady(final IPCClient client) {
                     final RichPresence.Builder builder = new RichPresence.Builder();
 
-                    if(Boolean.parseBoolean(Kore.licensed)) {
-                        if(Kore.licenseManager.isPremium()) {
-                            builder.setDetails("Premium Mode");
-                            builder.setState("Enjoying Premium Features");
-                        } else {
-                            builder.setDetails("Free Mode");
-                            builder.setState("Enjoying Free Features");
-                        }
-                    } else {
-                        builder.setDetails("Unlicensed Mode");
-                        builder.setState("Enjoying Life");
-                    }
+                    builder.setDetails("Escaping the matrix");
+                    builder.setState("Best free mod no cap");
+
                     builder.setLargeImage(ServerUtils.logo);
                     builder.setStartTimestamp(OffsetDateTime.now());
 
