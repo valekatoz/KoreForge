@@ -28,6 +28,7 @@ public class ClientSettings extends Module {
     public BooleanSetting richPresence;
     public BooleanSetting autoUpdate;
     public BooleanSetting cosmeticsUnlocker;
+    public ModeSetting customFontRender;
 
     // Rich Presence
 
@@ -47,10 +48,11 @@ public class ClientSettings extends Module {
         this.richPresence = new BooleanSetting("Rich Presence", true);
         this.autoUpdate = new BooleanSetting("Auto Update", true);
         this.cosmeticsUnlocker = new BooleanSetting("Unlock Cosmetics", true);
+        this.customFontRender = new ModeSetting("Custom Font Render", "Theme", "Theme", "Rainbow");
 
         unlockerToggle = unlockerToggle();
 
-        this.addSettings("Client", hideModules, debug, autoUpdate, richPresence, cosmeticsUnlocker);
+        this.addSettings("Client", hideModules, debug, autoUpdate, richPresence, cosmeticsUnlocker, customFontRender);
     }
 
     @SubscribeEvent

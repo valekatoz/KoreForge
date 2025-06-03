@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class ThemeManager {
     public ArrayList<Theme> themes = new ArrayList<>();
     public Theme activeTheme;
+    public Theme rainbowTheme;
 
     public void setTheme(Theme theme) {
         this.activeTheme = theme;
@@ -46,10 +47,22 @@ public class ThemeManager {
         {
             if (theme.name.equals(nameSelected))
                 activeTheme = theme;
+
+            if (theme.name.equals("Rainbow"))
+                rainbowTheme = theme;
         }
     }
 
     public Theme getTheme() {
+        return this.activeTheme;
+    }
+
+    public Theme getTheme(String name) {
+        for (Theme theme : themes) {
+            if (theme.name.equals(name))
+                return theme;
+        }
+
         return this.activeTheme;
     }
 
@@ -60,7 +73,12 @@ public class ThemeManager {
     public Color getSecondaryColor() {
         return this.activeTheme.getSecondary();
     }
+
     public Color getSecondaryColor(int index) {
         return this.activeTheme.getSecondary(index);
+    }
+
+    public Color getRainbowColor() {
+        return this.rainbowTheme.getSecondary();
     }
 }

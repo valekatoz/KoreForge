@@ -1,4 +1,4 @@
-# Kore (v3.0.1)
+# Kore (v3.0.3)
 
 [![Discord](https://img.shields.io/discord/1196891678284460053?style=for-the-badge&logo=discord&label=discord&color=9089DA)](https://discord.gg/H4x6eFp9KR)
 [![GitHub Repo stars](https://img.shields.io/github/stars/valekatoz/Kore?style=for-the-badge&label=stargazers&logo=esea&logoColor=FFA500&color=FFFF66)](https://github.com/valekatoz/KoreForge)

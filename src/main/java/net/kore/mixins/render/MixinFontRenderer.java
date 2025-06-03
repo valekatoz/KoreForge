@@ -88,7 +88,7 @@ public abstract class MixinFontRenderer {
 
             if (c0 == 167 && i + 1 < text.length())
             {
-                int i1 = "0123456789abcdefklmnorq".indexOf(text.toLowerCase().charAt(i + 1));
+                int i1 = "0123456789abcdefklmnorqz".indexOf(text.toLowerCase().charAt(i + 1));
 
                 if (i1 < 16)
                 {
@@ -152,6 +152,28 @@ public abstract class MixinFontRenderer {
                     }
 
                     GlStateManager.color((float) color.getRed() / 255, (float) color.getGreen() / 255, (float) color.getBlue() / 255, this.alpha);
+                }
+                else if (i1 == 23)
+                {
+                    this.rainbow = true;
+
+                    if(Kore.clientSettings.customFontRender.is("Theme")) {
+                        Color color = Kore.themeManager.getSecondaryColor();
+
+                        if (shadow) {
+                            color = calculateShadowColor(color);
+                        }
+
+                        GlStateManager.color((float) color.getRed() / 255, (float) color.getGreen() / 255, (float) color.getBlue() / 255, this.alpha);
+                    } else {
+                        Color color = Kore.themeManager.getRainbowColor();
+
+                        if (shadow) {
+                            color = calculateShadowColor(color);
+                        }
+
+                        GlStateManager.color((float) color.getRed() / 255, (float) color.getGreen() / 255, (float) color.getBlue() / 255, this.alpha);
+                    }
                 }
 
                 ++i;
