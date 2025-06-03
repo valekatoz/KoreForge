@@ -61,9 +61,11 @@ tasks.withType(JavaCompile::class) {
 
 repositories {
     mavenCentral()
+    maven {
+        name = "essentialMavenPublic"
+        url = uri("https://repo.essential.gg/public")
+    }
     maven("https://repo.spongepowered.org/maven/")
-    maven("https://repo.sk1er.club/repository/maven-public/")
-    maven("https://repo.sk1er.club/repository/maven-releases/")
     maven("https://jitpack.io")
     maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
     maven("https://repo.nea.moe/releases")
