@@ -7,7 +7,7 @@
 Kore is a minecraft forge 1.8.9 mod, kore goal is to automate simple skyblock annoying and repetitive tasks while keeping you entertained with cool features. 
 You can access the mod by using the default keybind (right shift).
 
-> If you can't compile this yourself and wish to have the premium version [join the discord](https://discord.com/invite/H4x6eFp9KR), it's free.
+> This repo has been archived and the project will no longer be mantained, thank you to everyone who starred the repo!
 
 ## Screenshots
 Home:
